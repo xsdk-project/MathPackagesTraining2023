@@ -4,7 +4,7 @@ order: 11
 title: "Multidimensional Rosenbrock with PETSc/TAO"
 subheadline: "Numerical Optimization"
 teaser: "A practical introduction to large-scale gradient-based optimization"
-permalink: "lessons/multidim_rosenbrock_tao/"
+permalink: "lessons_old/multidim_rosenbrock_tao/"
 use_math: true
 lesson: true
 header:

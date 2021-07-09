@@ -4,8 +4,8 @@ order: 2
 title: "Meshing and Discretization with AMReX"
 teaser: "A Block Structured Adaptive Mesh Refinement Framework"
 subheader: "Not your grandmother's AMR...!"
-permalink: "lessons/amrex/"
-years: [2019]
+permalink: "lessons_old/amrex/"
+years: [2020]
 use_math: true
 lesson: true
 header:

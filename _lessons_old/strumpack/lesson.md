@@ -4,7 +4,7 @@ order: 6
 subheadline: "Rank Structured Solvers"
 title: "Rank-Structured Solvers with STRUMPACK"
 teaser: "Using STRUMPACK for dense and sparse linear systems"
-permalink: "lessons/strumpack/"
+permalink: "lessons_old/strumpack/"
 use_math: true
 lesson: true
 header:

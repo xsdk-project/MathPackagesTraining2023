@@ -4,7 +4,7 @@ order: 0
 title: "Lesson Template"
 subheadline: "Outline of lesson"
 teaser: "Set your teaser here..."
-permalink: "lessons/lesson_template/"
+permalink: "lessons_old/lesson_template/"
 use_math: true
 lesson: true
 not_active: true 

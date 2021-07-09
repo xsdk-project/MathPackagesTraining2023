@@ -57,7 +57,7 @@ resoft
   * As a test case, use an example from hypre to confirm you can compile
     and run an example
 ```
-qsub -I -n 1 -t 5 -A ATPESC2020 -q training
+qsub -I -n 1 -t 5 -A ATPESC2021 -q training
 cd HandsOnLessons/hand_coded_heat
 make mpi_test
 mpicc mpi_test.c -o mpi_test
@@ -74,9 +74,9 @@ exit
     the last `echo` command should produce a `0` response.
 1. As soon after 9:30am, Tuesday , August 4th as possible, allocate an interactive node on
    cooley. The following command allocates a single Cooley node (`-n 1`) for 300 minutes
-   (`-t 300`) using the ATPESC2020 allocation (`-A ATPESC2020`) and the queue reservation (`-q training`):
+   (`-t 300`) using the ATPESC2021 allocation (`-A ATPESC2021`) and the queue reservation (`-q training`):
 ```
-qsub -I -n 1 -t 300 -A ATPESC2020 -q training
+qsub -I -n 1 -t 300 -A ATPESC2021 -q training
 ```
 The command blocks until the node is ready.  Until the allocation expires (300 minutes in this example), all commands executed in the returned session will run on the allocated compute node; `mpiexec` can be used directly instead of going through `qsub`.
   * **Note 1:** Please **DO NOT** run MPI jobs on the login nodes. Instead, run them on an allocated compute node.

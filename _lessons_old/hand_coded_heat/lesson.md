@@ -4,7 +4,7 @@ order: 1
 title: "Hand Coded Heat"
 subheadline: "Hello World for Numerical Packages"
 teaser: "Why use numerical packages..."
-permalink: "lessons/hand_coded_heat/"
+permalink: "lessons_old/hand_coded_heat/"
 use_math: true
 lesson: true
 header:
