@@ -77,10 +77,10 @@ header:
    web page, equation, etc. you can simply go to the GitHub repo for the site, and
    find the associated page there. For example, to view the raw markup for the
    [Hand Coded Heat Lesson](../lessons/hand_coded_heat/), you would go
-   [here](https://github.com/xsdk-project/ATPESC2018HandsOnLessons/blob/gh-pages/_lessons/hand_coded_heat/lesson.md)
+   [here](https://github.com/xsdk-project/MathPackagesTraining2021/blob/gh-pages/_lessons/hand_coded_heat/lesson.md)
    and then hit the `Raw` button to view the
-   [raw file contents](https://raw.githubusercontent.com/xsdk-project/ATPESC2018HandsOnLessons/gh-pages/_lessons/hand_coded_heat/lesson.md).
-   To go to the top of the GitHub repo for this site, go [here](https://github.com/xsdk-project/ATPESC2018HandsOnLessons)
+   [raw file contents](https://raw.githubusercontent.com/xsdk-project/MathPackagesTraining2021/gh-pages/_lessons/hand_coded_heat/lesson.md).
+   To go to the top of the GitHub repo for this site, go [here](https://github.com/xsdk-project/MathPackagesTraining2021)
 1. It is not necessary to submit _pull requests_ to update your lessons. You
    may simply push your changes to the `gh-pages` branch and your changes
    go live automatically. If your push fails due to changes on the remote (GitHub),
@@ -88,9 +88,9 @@ header:
 
 ```
 miller86% git push
-To github.com:xsdk-project/ATPESC2018HandsOnLessons.git
+To github.com:xsdk-project/MathPackagesTraining2021.git
  ! [rejected]        gh-pages -> gh-pages (fetch first)
-error: failed to push some refs to 'git@github.com:xsdk-project/ATPESC2018HandsOnLessons.git'
+error: failed to push some refs to 'git@github.com:xsdk-project/MathPackagesTraining2021.git'
 ```
 Oops, the push failed due to changes on the remote. So, do a `git pull` first
 ```
@@ -99,7 +99,7 @@ remote: Counting objects: 24, done.
 remote: Compressing objects: 100% (11/11), done.
 remote: Total 24 (delta 12), reused 24 (delta 12), pack-reused 0
 Unpacking objects: 100% (24/24), done.
-From github.com:xsdk-project/ATPESC2018HandsOnLessons
+From github.com:xsdk-project/MathPackagesTraining2021
    1c958bb..6ad3e3f  gh-pages   -> origin/gh-pages
 Auto-merging _data/navigation.yml
 ```
@@ -112,14 +112,14 @@ Compressing objects: 100% (14/14), done.
 Writing objects: 100% (14/14), 307.40 KiB | 21.96 MiB/s, done.
 Total 14 (delta 9), reused 0 (delta 0)
 remote: Resolving deltas: 100% (9/9), completed with 5 local objects.
-To github.com:xsdk-project/ATPESC2018HandsOnLessons.git
+To github.com:xsdk-project/MathPackagesTraining2021.git
    6ad3e3f..17ee363  gh-pages -> gh-pages
 ```
 
 ### Adding a Answers Google Form To Your Lesson
 
 
-* Go into the Google Docs folder, [Forms Folder](https://drive.google.com/drive/u/0/folders/1j7N5HlmpRg4sKyyNf48iHw2zEXEyfNbn)
+* Go into the Google Docs folder, [Forms Folder](https://drive.google.com/drive/u/0/folders/1LDBsGiw1i2cUnZfAdTu0-Qv61uIvSvxL)
 * Begin creating a new Google Form there (New->More->Google Forms->Blank Form)
 * Select the "Create and Share" button
 * Give the Form a Title
@@ -255,15 +255,6 @@ lesson gets scattered across multiple directories (at least given the **default*
 Jekyll seems to handle `posts`. We need to investigate proper use of Jekyll further **after**
 we've completed ATPESC.
 
-## GitHub Style Primer
-
-This section is just a copy of boilerplate content from GitHub Pages template
-about how to use Markdown, etc. I have kept it here for convenience.
-
-You can use the [editor on GitHub](https://github.com/xsdk-project/HandsOnLessons/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
 ### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
@@ -287,10 +278,6 @@ Syntax highlighted code block
 ```
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/xsdk-project/HandsOnLessons/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
 ### Support or Contact
 
