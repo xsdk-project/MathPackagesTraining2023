@@ -1,0 +1,66 @@
+{% comment %}
+*
+*   This include lets you easily insert an agenda or sub-selection thereof
+*
+*       {% include agenda room_filter='room name' speaker_filter='speaker name' %}
+*
+{% endcomment %}
+
+{% capture newline %}
+{% endcapture %}
+
+|CDT<br>Start|Mins|Topic|Speaker(s)|Virtual<br>Venue|
+|---:|:---:|:---|---:|:---|{{newline}}
+{%- if include.speaker_filter -%}
+  {%- for agitm in site.data.agenda -%}
+    {%- for sp in agitm.speakers -%}
+      {%- if sp == include.speaker_filter -%}
+        {%- assign start = agitm.start -%}
+        {%- assign length = agitm.length -%}
+        {%- if start == nil -%}
+           {%- for itm in site.data.agenda -%}
+             {%- if itm.start -%}
+               {%- assign start = itm.start -%}
+               {%- assign length = itm.length -%}
+             {%- endif -%}
+             {%- if itm == agitm -%}
+               {%- break -%}
+             {%- endif -%}
+           {%- endfor -%}
+        {%- endif -%}
+|{{start|date: "%I:%M"}}|{{length}}|{%- if agitm.has_synopsis -%}[{{agitm.title}}]({{site.url}}{{site.baseurl}}/session_synopses/#{{agitm.title|downcase|replace: " ", "-"|replace: "&", ""|replace: "<br>", "-"|replace: "(", ""|replace: ")", ""|replace: "/", ""}})
+
+{%- else -%}{{agitm.title}}{%- endif -%}|{%- for s in agitm.speakers -%}[{{s}}]{%- if s != agitm.speakers.last -%}<br>{%- endif -%}{%- endfor -%}|{%- if agitm.vname -%}[{{agitm.vname|split: " "|join: "<br>"}}]{%- endif -%}|{{newline}}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endfor -%}
+{%- elsif include.room_filter -%}
+  {%- for agitm in site.data.agenda -%}
+    {%- if agitm.vname == include.room_filter -%}
+      {%- assign start = agitm.start -%}
+      {%- assign length = agitm.length -%}
+      {%- if start == nil -%}
+         {%- for itm in site.data.agenda -%}
+           {%- if itm.start -%}
+             {%- assign start = itm.start -%}
+             {%- assign length = itm.length -%}
+           {%- endif -%}
+           {%- if itm == agitm -%}
+             {%- break -%}
+           {%- endif -%}
+         {%- endfor -%}
+      {%- endif -%}
+|{{start|date: "%I:%M"}}|{{length}}|{%- if agitm.has_synopsis -%}[{{agitm.title}}]({{site.url}}{{site.baseurl}}/session_synopses/#{{agitm.title|downcase|replace: " ", "-"|replace: "&", ""|replace: "<br>", "-"|replace: "(", ""|replace: ")", ""|replace: "/", ""}})
+
+{%- else -%}{{agitm.title}}{%- endif -%}|{%- for s in agitm.speakers -%}[{{s}}]{%- if s != agitm.speakers.last -%}<br>{%- endif -%}{%- endfor -%}|{%- if agitm.vname -%}[{{agitm.vname|split: " "|join: "<br>"}}]{%- endif -%}|{{newline}}
+    {%- endif -%}
+  {%- endfor -%}
+{%- else -%}
+  {%- for agitm in site.data.agenda -%}
+|{{agitm.start|date: "%I:%M"}}|{{agitm.length}}|{%- if agitm.has_synopsis -%}[{{agitm.title}}]({{site.url}}{{site.baseurl}}/session_synopses/#{{agitm.title|downcase|replace: " ", "-"|replace: "&", ""|replace: "<br>", "-"|replace: "(", ""|replace: ")", ""|replace: "/", ""}})
+
+{%- else -%}{{agitm.title}}{%- endif -%}|{%- for s in agitm.speakers -%}[{{s}}]{%- if s != agitm.speakers.last -%}<br>{%- endif -%}{%- endfor -%}|{%- if agitm.vname -%}[{{agitm.vname|split: " "|join: "<br>"}}]{%- endif -%}|{{newline}}
+  {%- endfor -%}
+{%- endif -%}
+{{newline}}

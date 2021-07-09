@@ -1,0 +1,217 @@
+- title: "Introduction to<br>Numerical Software"
+  start: "Tue Aug 4 9:30 AM"
+  length: 55
+  speakers:
+    - "Lois Curfman McInnes"
+    - "Mark Miller"
+  vname: "Main-Room"
+  has_synopsis: true
+  id: 1
+
+- title: "Telecon Transition"
+  start: "Tue Aug 4 10:25 AM"
+  length: 05
+  id: 2
+
+- title: "**Parallel Session One**"
+  start: "Tue Aug 4 10:30 AM"
+  length: 60
+  id: 3
+
+- title: "Structured Discretization<br>(with AMReX)"
+  speakers:
+    - "Ann Almgren"
+    - "Don Willcox"
+  vname: "Frontier"
+  has_synopsis: true
+  id: 4
+
+- title: "Unstructured Discretization<br>(with MFEM/PUMI)"
+  speakers:
+    - "Aaron Fisher"
+    - "Mark Shephard"
+  vname: "Aurora"
+  has_synopsis: true
+  id: 5
+
+- title: "Iterative Solvers & Preconditioners<br>(with MueLu)"
+  speakers:
+    - "Jonathan Hu"
+    - "Christian Glusa"
+  vname: "Perlmutter"
+  has_synopsis: true
+  id: 6
+
+- title: "Direct Solvers<br>(with SuperLU/Strumpack)"
+  speakers:
+    - "Sherry Li"
+    - "Pieter Ghysels"
+  vname: "El-Capitan"
+  has_synopsis: true
+  id: 7
+
+- title: "**Break**<br>*Subject Matter Expert (SME) selections*<br>*Panel Questions*"
+  start: "Tue Aug 4 11:30 AM"
+  length: 15
+  id: 8
+
+- title: "**Parallel Session Two**"
+  start: "Tue Aug 4 11:45 AM"
+  length: 60
+  id: 9
+
+- title: "Structured Discretization<br>(with AMReX)"
+  speakers:
+    - "Ann Almgren"
+    - "Don Willcox"
+  vname: "Frontier"
+  has_synopsis: true
+  id: 10 
+
+- title: "Unstructured Discretization<br>(with MFEM/PUMI)"
+  speakers:
+    - "Aaron Fisher"
+    - "Mark Shephard"
+  vname: "Aurora"
+  has_synopsis: true
+  id: 11 
+
+- title: "Iterative Solvers & Algebraic<br>Multigrid (with hypre)"
+  speakers:
+    - "Ulrike Yang"
+  vname: "Perlmutter"
+  has_synopsis: true
+  id: 12 
+
+- title: "Direct Solvers<br>(with SuperLU/Strumpack)"
+  speakers:
+    - "Sherry Li"
+    - "Pieter Ghysels"
+  vname: "El-Capitan"
+  has_synopsis: true
+  id: 13 
+
+- title: "**Lunch**<br>*SME selections*<br>*Panel Questions Due*"
+  start: "Tue Aug 4 12:45 PM"
+  length: 60
+  id: 14 
+
+- title: "Panel - Contributing to the<br>Numerical Package Community"
+  speakers:
+    - "Jonathan Hu"
+    - "Sherry Li"
+    - "Richard Tran Mills"
+    - "Cameron Smith"
+    - "Ulrike Yang"
+    - "Mark Miller"
+  start: "Tue Aug 4 1:45 PM"
+  length: 45 
+  vname: "Main-Room"
+  has_synopsis: true
+  id: 15 
+
+- title: "Telecon Transition"
+  start: "Tue Aug 4 2:30 PM"
+  length: 05
+  id: 16 
+
+- title: "**Parallel Session Three**"
+  start: "Tue Aug 4 2:35 PM"
+  length: 50
+  id: 17 
+
+- title: "Nonlinear Solvers<br>(with PETSc)"
+  speakers:
+    - "Richard Tran Mills"
+  vname: "Frontier"
+  has_synopsis: true
+  id: 18 
+
+- title: "Optimization<br>(with TAO)"
+  speakers:
+    - "Alp Dener"
+  vname: "Aurora"
+  has_synopsis: true
+  id: 19 
+
+- title: "Time Integration<br>(with SUNDIALS)"
+  speakers:
+    - "Dan Reynolds"
+  vname: "Perlmutter"
+  id: 20 
+  has_synopsis: true
+
+- title: "Iterative Solvers & Preconditioners<br>(with MueLu)"
+  speakers:
+    - "Jonathan Hu"
+    - "Christian Glusa"
+  vname: "El-Capitan"
+  has_synopsis: true
+  id: 21 
+
+- title: "**Break**<br>*SME Selections Due*"
+  start: "Tue Aug 4 3:25 PM"
+  length: 15
+  id: 22 
+
+- title: "**Parallel Session Four**"
+  start: "Tue Aug 4 3:40 PM"
+  length: 50
+  id: 23 
+
+- title: "Nonlinear Solvers<br>(with PETSc)"
+  speakers:
+    - "Richard Tran Mills"
+  vname: "Frontier"
+  has_synopsis: true
+  id: 24 
+
+- title: "Optimization<br>(with TAO)"
+  speakers:
+    - "Alp Dener"
+  vname: "Aurora"
+  has_synopsis: true
+  id: 25 
+
+- title: "Time Integration<br>(with SUNDIALS)"
+  speakers:
+    - "Dan Reynolds"
+  vname: "Perlmutter"
+  has_synopsis: true
+  id: 26 
+
+- title: "Direct Solvers<br>(with SuperLU/Strumpack)"
+  speakers:
+    - "Sherry Li"
+    - "Pieter Ghysels"
+  vname: "El-Capitan"
+  has_synopsis: true
+  id: 27 
+
+- title: "Telecon Transition"
+  start: "Tue Aug 4 4:30 PM"
+  length: 05
+  id: 28 
+
+- title: "Working with Numerical<br>Packages in Practice"
+  start: "Tue Aug 4 4:35 PM"
+  length: 25 
+  speakers:
+    - "Ann Almgren"
+  vname: "Main-Room"
+  has_synopsis: true
+  id: 29 
+
+- title: "**END OF OFFICIAL AGENDA**"
+  id: 30 
+
+- title: "**Break**"
+  start: "Tue Aug 4 5:00 PM"
+  length: 15
+  id: 31 
+
+- title: "SME Speed Dating<br>OPTIONAL ACTIVITY"
+  start: "Tue Aug 4 5:15 PM"
+  length: 80
+  has_synopsis: true
+  id: 32
