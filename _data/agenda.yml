@@ -1,5 +1,5 @@
 - title: "Introduction to<br>Numerical Software"
-  start: "Tue Aug 4 9:30 AM"
+  start: "Tue Aug 10 9:30 AM"
   length: 55
   speakers:
     - "Lois Curfman McInnes"
@@ -9,12 +9,12 @@
   id: 1
 
 - title: "Telecon Transition"
-  start: "Tue Aug 4 10:25 AM"
+  start: "Tue Aug 10 10:25 AM"
   length: 05
   id: 2
 
 - title: "**Parallel Session One**"
-  start: "Tue Aug 4 10:30 AM"
+  start: "Tue Aug 10 10:30 AM"
   length: 60
   id: 3
 
@@ -34,10 +34,9 @@
   has_synopsis: true
   id: 5
 
-- title: "Iterative Solvers & Preconditioners<br>(with MueLu)"
+- title: "Iterative Solvers & Preconditioners<br>(with HYPRE)"
   speakers:
-    - "Jonathan Hu"
-    - "Christian Glusa"
+    - "Ulrike Yang"
   vname: "Perlmutter"
   has_synopsis: true
   id: 6
@@ -51,12 +50,12 @@
   id: 7
 
 - title: "**Break**<br>*Subject Matter Expert (SME) selections*<br>*Panel Questions*"
-  start: "Tue Aug 4 11:30 AM"
+  start: "Tue Aug 10 11:30 AM"
   length: 15
   id: 8
 
 - title: "**Parallel Session Two**"
-  start: "Tue Aug 4 11:45 AM"
+  start: "Tue Aug 10 11:45 AM"
   length: 60
   id: 9
 
@@ -76,9 +75,11 @@
   has_synopsis: true
   id: 11 
 
-- title: "Iterative Solvers & Algebraic<br>Multigrid (with hypre)"
+- title: "Iterative Solvers & Algebraic<br>Multigrid (with MueLu)"
   speakers:
-    - "Ulrike Yang"
+    - "Christian Glusa"
+    - "Peter Ohm"
+    - "Graham Harper"
   vname: "Perlmutter"
   has_synopsis: true
   id: 12 
@@ -92,7 +93,7 @@
   id: 13 
 
 - title: "**Lunch**<br>*SME selections*<br>*Panel Questions Due*"
-  start: "Tue Aug 4 12:45 PM"
+  start: "Tue Aug 10 12:45 PM"
   length: 60
   id: 14 
 
@@ -104,19 +105,19 @@
     - "Cameron Smith"
     - "Ulrike Yang"
     - "Mark Miller"
-  start: "Tue Aug 4 1:45 PM"
+  start: "Tue Aug 10 1:45 PM"
   length: 45 
   vname: "Main-Room"
   has_synopsis: true
   id: 15 
 
 - title: "Telecon Transition"
-  start: "Tue Aug 4 2:30 PM"
+  start: "Tue Aug 10 2:30 PM"
   length: 05
   id: 16 
 
 - title: "**Parallel Session Three**"
-  start: "Tue Aug 4 2:35 PM"
+  start: "Tue Aug 10 2:35 PM"
   length: 50
   id: 17 
 
@@ -141,21 +142,20 @@
   id: 20 
   has_synopsis: true
 
-- title: "Iterative Solvers & Preconditioners<br>(with MueLu)"
+- title: "Iterative Solvers & Preconditioners<br>(with HYPRE)"
   speakers:
-    - "Jonathan Hu"
-    - "Christian Glusa"
+    - "Ulrike Yang"
   vname: "El-Capitan"
   has_synopsis: true
   id: 21 
 
 - title: "**Break**<br>*SME Selections Due*"
-  start: "Tue Aug 4 3:25 PM"
+  start: "Tue Aug 10 3:25 PM"
   length: 15
   id: 22 
 
 - title: "**Parallel Session Four**"
-  start: "Tue Aug 4 3:40 PM"
+  start: "Tue Aug 10 3:40 PM"
   length: 50
   id: 23 
 
@@ -189,12 +189,12 @@
   id: 27 
 
 - title: "Telecon Transition"
-  start: "Tue Aug 4 4:30 PM"
+  start: "Tue Aug 10 4:30 PM"
   length: 05
   id: 28 
 
 - title: "Working with Numerical<br>Packages in Practice"
-  start: "Tue Aug 4 4:35 PM"
+  start: "Tue Aug 10 4:35 PM"
   length: 25 
   speakers:
     - "Ann Almgren"
@@ -206,12 +206,12 @@
   id: 30 
 
 - title: "**Break**"
-  start: "Tue Aug 4 5:00 PM"
+  start: "Tue Aug 10 5:00 PM"
   length: 15
   id: 31 
 
 - title: "SME Speed Dating<br>OPTIONAL ACTIVITY"
-  start: "Tue Aug 4 5:15 PM"
+  start: "Tue Aug 10 5:15 PM"
   length: 80
   has_synopsis: true
   id: 32

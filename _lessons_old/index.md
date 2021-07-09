@@ -1,14 +1,14 @@
 ---
 layout: page
 show_meta: false
-title: "ATPESC 2021 Hands On Lessons"
+title: "ATPESC 2020 Hands On Lessons"
 not_active: true
 header:
    image_fullwidth: "llnl_machine.jpg"
-permalink: /lessons/
+permalink: /lessons_old/
 ---
 
-{% assign ordered_lessons = site.lessons | sort:"order" %}
+{% assign ordered_lessons = site.lessons_old | sort:"order" %}
 <table>
 {% for item in ordered_lessons %}
     {% if item.not_active %}
@@ -27,7 +27,6 @@ permalink: /lessons/
 </table>
 
 # Previous Lessons
-* [Lessons from ATPESC 2020](https://xsdk-project.github.io/MathPackagesTraining2020/)
 * [Lessons from ATEPSC 2019](https://xsdk-project.github.io/MathPackagesTraining/)
 * [Lessons from ATPESC 2018](https://xsdk-project.github.io/ATPESC2018HandsOnLessons/)
 * [Lessons from ATEPSC 2017](https://xsdk-project.github.io/HandsOnLessons/lessons/lessons.html)

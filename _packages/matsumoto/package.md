@@ -3,7 +3,7 @@ layout: package
 subheadline: ATPESC 2020 Package Overviews
 title: "MATSuMoTo"
 teaser: "MATLAB Surrogate Model Toolbox"
-permalink: "packages/magma/"
+permalink: "packages/matsumoto/"
 not_active: true
 use_math: true
 package: true

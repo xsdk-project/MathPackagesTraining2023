@@ -1,3 +1,8 @@
+TODO for ATPESC2021
+  - Update Zoom meeting links
+  - Check setup instructions and update if needed
+  - Update link to ATPESC2021 agenda when available
+
 TODO for ATPESC2020
   - Have people set up new Zoom meetings
   - Remove old Zoom test meetings

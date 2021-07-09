@@ -207,6 +207,24 @@ permalink: "/presenters/"
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
+### Peter Ohm
+### Peter Ohm
+
+|:---:|:---:|
+|![](https://avatars.githubusercontent.com/u/28906776?v=4){:width="200px"}|Key Expertise: [Trilinos][trilinos]/[MueLu][muelu]<br><br>Affiliation: [SNL][snl]<br><br>Contact: [email][po-m]<br><br>GitHub: [Profile][po-g]|
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+### Graham Harper
+### Graham Harper
+
+|:---:|:---:|
+|![](https://cfwebprod.sandia.gov/cfdocs/CompResearch/docs/harper_res.jpg){:width="200px"}|Key Expertise: [Trilinos][trilinos]/[MueLu][muelu]<br><br>Affiliation: [SNL][snl]<br><br>Contact: [email][gbh-m]<br><br>GitHub: [Profile][gbh-g]|
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 [amrex]: https://amrex-codes.github.io
 [xsdk]: https://xsdk.info
 [petsc]: https://www.mcs.anl.gov/petsc/
@@ -274,6 +292,8 @@ permalink: "/presenters/"
 [so-m]: <mailto:osborn9@llnl.gov>
 [rtm-m]: <mailto:rtmills@anl.gov>
 [pg-m]: <mailto:pghysels@lbl.gov>
+[po-m]: <mailto:pohm@sandia.gov>
+[gbh-m]: <mailto:gbharpe@sandia.gov>
 
 [lcm-g]: https://github.com/curfman
 [mcm-g]: https://github.com/markcmiller86
@@ -294,4 +314,6 @@ permalink: "/presenters/"
 [so-g]: https://github.com/osborn9
 [rtm-g]: https://github.com/rtmills
 [pg-g]: https://github.com/pghysels
+[po-m]: https://github.com/pohm01
+[gbh-m]: https://github.com/GrahamBenHarper
 
