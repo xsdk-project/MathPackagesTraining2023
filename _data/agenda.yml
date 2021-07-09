@@ -34,7 +34,7 @@
   has_synopsis: true
   id: 5
 
-- title: "Iterative Solvers & Preconditioners<br>(with HYPRE)"
+- title: "Iterative Solvers & Algebraic Multigrid (with HYPRE)"
   speakers:
     - "Ulrike Yang"
   vname: "Perlmutter"
@@ -75,7 +75,7 @@
   has_synopsis: true
   id: 11 
 
-- title: "Iterative Solvers & Algebraic<br>Multigrid (with MueLu)"
+- title: "Iterative Solvers & Preconditioners (with MueLu)"
   speakers:
     - "Christian Glusa"
     - "Peter Ohm"
@@ -142,7 +142,7 @@
   id: 20 
   has_synopsis: true
 
-- title: "Iterative Solvers & Preconditioners<br>(with HYPRE)"
+- title: "Iterative Solvers & Algebraic Multigrid (with HYPRE)"
   speakers:
     - "Ulrike Yang"
   vname: "El-Capitan"

@@ -115,18 +115,18 @@ model linear problem.
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-### Iterative Solvers & Algebraic Multigrid (with Hypre)
-### Iterative Solvers & Algebraic Multigrid (with Hypre)
+### Iterative Solvers & Algebraic Multigrid (with HYPRE)
+### Iterative Solvers & Algebraic Multigrid (with HYPRE)
 [Slides](../files/ATPESC-2020-Track-5-Talk-6-Yang-IterativeSolversHYPRE.pdf)
 
 This session will present the basic concepts of iterative linear solvers with focus on
 Krylov solvers, including the generalized minimum residual method (GMRES),
 preconditioning and algebraic multigrid (AMG) methods. We will provide a brief
-description of the high performance linear solvers library hypre, its
+description of the high performance linear solvers library HYPRE, its
 interfaces, and its most used multigrid solvers, BoomerAMG and PFMG, including
 a brief discussion of the effect of their data structures on performance.
 The lesson includes hands-on examples with structured and unstructured solvers
-from the hypre library applied to several test problems.
+from the HYPRE library applied to several test problems.
  
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -194,7 +194,7 @@ This will be a 45 minute panel question and answer period for ATPESC learners to
 questions about working with numerical package and the community of numerical package
 developers. If you have question(s) you know you would like to ask, we encourage attendees
 to submit questions *ahead* of time via the
-[submission form](https://docs.google.com/forms/d/e/1FAIpQLScFAHguSG6m7H9lfjfSTSyOm1RZc1Mcc1N9aEAUyx4GTXpDhA/viewform?usp=sf_link).
+[submission form](https://forms.gle/K5v4gQFyKdNjLFhy7).
 However, we expect there will also be ample opportunty to indicate your desire to ask
 questions via the main (Ampitheater) [slack channel](https://join.slack.com/share/zt-g2iz7j9z-DlNMA~iDqAg9Q4AbaU6Lmg),
 and then you may be called upon to un-mute and ask your question.

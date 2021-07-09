@@ -90,6 +90,24 @@ permalink: "/presenters/"
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
+### Peter Ohm
+### Peter Ohm
+
+|:---:|:---:|
+|![](https://avatars.githubusercontent.com/u/28906776?v=4){:width="200px"}|Key Expertise: [Trilinos][trilinos]/[MueLu][muelu]<br><br>Affiliation: [SNL][snl]<br><br>Contact: [email][po-m]<br><br>GitHub: [Profile][po-g]|
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+### Graham Harper
+### Graham Harper
+
+|:---:|:---:|
+|![](https://cfwebprod.sandia.gov/cfdocs/CompResearch/docs/harper_res.jpg){:width="200px"}|Key Expertise: [Trilinos][trilinos]/[MueLu][muelu]<br><br>Affiliation: [SNL][snl]<br><br>Contact: [email][gbh-m]<br><br>GitHub: [Profile][gbh-g]|
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 ### Barry Smith
 ### Barry Smith
 
@@ -207,24 +225,6 @@ permalink: "/presenters/"
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-### Peter Ohm
-### Peter Ohm
-
-|:---:|:---:|
-|![](https://avatars.githubusercontent.com/u/28906776?v=4){:width="200px"}|Key Expertise: [Trilinos][trilinos]/[MueLu][muelu]<br><br>Affiliation: [SNL][snl]<br><br>Contact: [email][po-m]<br><br>GitHub: [Profile][po-g]|
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-### Graham Harper
-### Graham Harper
-
-|:---:|:---:|
-|![](https://cfwebprod.sandia.gov/cfdocs/CompResearch/docs/harper_res.jpg){:width="200px"}|Key Expertise: [Trilinos][trilinos]/[MueLu][muelu]<br><br>Affiliation: [SNL][snl]<br><br>Contact: [email][gbh-m]<br><br>GitHub: [Profile][gbh-g]|
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
 [amrex]: https://amrex-codes.github.io
 [xsdk]: https://xsdk.info
 [petsc]: https://www.mcs.anl.gov/petsc/
@@ -314,6 +314,6 @@ permalink: "/presenters/"
 [so-g]: https://github.com/osborn9
 [rtm-g]: https://github.com/rtmills
 [pg-g]: https://github.com/pghysels
-[po-m]: https://github.com/pohm01
-[gbh-m]: https://github.com/GrahamBenHarper
+[po-g]: https://github.com/pohm01
+[gbh-g]: https://github.com/GrahamBenHarper
 
