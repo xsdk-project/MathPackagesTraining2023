@@ -99,12 +99,13 @@
 
 - title: "Panel - Contributing to the<br>Numerical Package Community"
   speakers:
-    - "Jonathan Hu"
-    - "Sherry Li"
-    - "Richard Tran Mills"
+    - "Don Wilcox/Ann Almgren"
+    - "Christian Glusa"
+    - "Aaron Fisher"
     - "Cameron Smith"
-    - "Ulrike Yang"
-    - "Mark Miller"
+    - "Dan Reynolds"
+    - "Richard Tran Mills"
+    - "Alp Dener"
   start: "Tue Aug 10 1:45 PM"
   length: 45 
   vname: "Main-Room"
