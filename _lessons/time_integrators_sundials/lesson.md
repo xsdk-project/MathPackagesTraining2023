@@ -35,6 +35,8 @@ soft add +anaconda3-4.0.0
 
 (note: you should be able to recompile the hands-on executables with a simple `make`, although this is not necessary)
 
+Alternately, you can download this entire set of hands-on lesson codes at [GitHub](https://github.com/AMReX-Codes/ATPESC-codes), within the `SUNDIALS+AMReX` folder.
+
 ## The problem being solved
 
 In this problem, we model the transport of a pollutant that has been released into a flow in a two dimensional domain.  We want to determine both where the pollutant goes, and when it has diffused sufficiently to be of no further harm.
