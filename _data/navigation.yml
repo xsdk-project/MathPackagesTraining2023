@@ -33,18 +33,20 @@
   dropdown:
   - title: "Hand Coded Heat"
     url: "/lessons/hand_coded_heat/"
+  - title: "Structured Meshing & Discretization with AMReX"
+    url: "/lessons_old/amrex/"
+  - title: "Unstructured Meshing & Discretization with MFEM"
+    url: "/lessons_old/mfem_convergence/"
+  - title: "Time Integration with SUNDIALS"
+    url: "/lessons_old/time_integrators_sundials/"
+  - title: "Numerical Optimization with TAO"
+    url: "/lessons_old/multidim_rosenbrock_tao/"
 
 - title: Lessons (2020)
   audience: "public"
   url: "/lessons_old/"
   side: left
   dropdown:
-  - title: "Hand Coded Heat"
-    url: "/lessons_old/hand_coded_heat/"
-  - title: "Structured Meshing & Discretization with AMReX"
-    url: "/lessons_old/amrex/"
-  - title: "Unstructured Meshing & Discretization with MFEM"
-    url: "/lessons_old/mfem_convergence/"
   - title: "Sparse, Direct Solvers with SuperLU"
     url: "/lessons_old/superlu_mfem/"
   - title: "Rank-Structured Solvers with STRUMPACK"
@@ -55,10 +57,6 @@
     url: "/lessons_old/krylov_amg_hypre/"
   - title: "Nonlinear Solvers with PETSc"
     url: "/lessons_old/nonlinear_solvers_petsc/"
-  - title: "Time Integration with SUNDIALS"
-    url: "/lessons_old/time_integrators_sundials/"
-  - title: "Numerical Optimization with TAO"
-    url: "/lessons_old/multidim_rosenbrock_tao/"
 
 - title: Packages
   audience: "public"
