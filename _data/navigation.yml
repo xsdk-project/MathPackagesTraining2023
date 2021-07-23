@@ -34,13 +34,13 @@
   - title: "Hand Coded Heat"
     url: "/lessons/hand_coded_heat/"
   - title: "Structured Meshing & Discretization with AMReX"
-    url: "/lessons_old/amrex/"
+    url: "/lessons/amrex/"
   - title: "Unstructured Meshing & Discretization with MFEM"
-    url: "/lessons_old/mfem_convergence/"
+    url: "/lessons/mfem_convergence/"
   - title: "Time Integration with SUNDIALS"
-    url: "/lessons_old/time_integrators_sundials/"
+    url: "/lessons/time_integrators_sundials/"
   - title: "Numerical Optimization with TAO"
-    url: "/lessons_old/multidim_rosenbrock_tao/"
+    url: "/lessons/multidim_rosenbrock_tao/"
 
 - title: Lessons (2020)
   audience: "public"
