@@ -37,6 +37,7 @@
 - title: "Iterative Solvers & Algebraic Multigrid (with HYPRE)"
   speakers:
     - "Ulrike Yang"
+    - "Sarah Osborn"
   vname: "Perlmutter"
   has_synopsis: true
   id: 6
@@ -146,6 +147,7 @@
 - title: "Iterative Solvers & Algebraic Multigrid (with HYPRE)"
   speakers:
     - "Ulrike Yang"
+    - "Sarah Osborn"
   vname: "El-Capitan"
   has_synopsis: true
   id: 21 
