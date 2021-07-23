@@ -193,7 +193,7 @@ Run the first hands-on code using its default parameters (note that this uses a 
 and compare the final result against a stored reference solution (again on a $$128^2$$ grid),
 
 ```bash
-fcompare.gnu.ex plt00001/ reference_solution/
+fcompare plt00001/ reference_solution/
 ```
 
 Notice that the computed solution error is rather small (the solution has magnitude $$\mathcal{O}(1)$$, so we hope for errors well below 0.1).
@@ -207,7 +207,7 @@ Now re-run this hands-on code using a larger time step size of 100.0,
 _see how much faster the code ran!_  However, if we check the accuracy of the computed solution,
 
 ```bash
-fcompare.gnu.ex plt00001/ reference_solution/
+fcompare plt00001/ reference_solution/
 ```
 
 we see it has an error of $$10^{98}$$.
@@ -225,7 +225,7 @@ With this executable, we may switch to adaptive time-stepping (with the default 
 
 ```bash
 ./HandsOn1.exe inputs-1 fixed_dt=0
-fcompare.gnu.ex plt00001/ reference_solution/
+fcompare plt00001/ reference_solution/
 ```
 
 _note how rapidly the executable finishes, providing a solution that is both stable and accurate to within the specified tolerances!_
@@ -247,7 +247,7 @@ ARKODE defaults to a fourth-order accurate Runge--Kutta method, but many others 
 
 ```bash
 ./HandsOn1.exe inputs-1 fixed_dt=0 arkode_order=8
-fcompare.gnu.ex plt00001/ reference_solution/
+fcompare plt00001/ reference_solution/
 ```
 
 _note the dramatic decrease in overall time steps (457 vs 258), but the accompanying increase in total RHS evaluations (2865 vs 3773)._ Although higher-order methods may indeed utilize larger step sizes (both for accuracy and frequently stability), those come at the cost of increased work per step.
@@ -290,7 +290,7 @@ Run the second hands-on code using its default parameters (this also uses a mesh
 
 ```bash
 ./HandsOn2.exe inputs-2
-fcompare.gnu.ex plt00001/ reference_solution/
+fcompare plt00001/ reference_solution/
 ```
 
 _note that this takes significantly longer than `HandsOn1.exe` with the same time step size._
@@ -299,7 +299,7 @@ Re-run this problem using the larger time step size of 100.0,
 
 ```bash
 ./HandsOn2.exe inputs-2 fixed_dt=100.0
-fcompare.gnu.ex plt00001/ reference_solution/
+fcompare plt00001/ reference_solution/
 ```
 
 _again this version runs much more quickly, but now the results are usable!_
@@ -322,7 +322,7 @@ As with the previous hands-on exercise, we can switch to adaptive time-stepping 
 Compute the solution error, and determine the adaptive time-stepping statistics as before,
 
 ```bash
-fcompare.gnu.ex plt00001/ reference_solution/
+fcompare plt00001/ reference_solution/
 ./process_ARKStep_diags.py HandsOn2_diagnostics.txt
 display h_vs_iter.png
 ```
@@ -344,14 +344,14 @@ By default, `HandsOn2.exe` uses a fully implicit formulation of the problem.  Ho
 
 ```bash
 ./HandsOn2.exe inputs-2 rhs_adv=2
-fcompare.gnu.ex plt00001/ reference_solution/
+fcompare plt00001/ reference_solution/
 ```
 
 For comparison, re-run an identical test but with fully-implicit treatment,
 
 ```bash
 ./HandsOn2.exe inputs-2
-fcompare.gnu.ex plt00001/ reference_solution/
+fcompare plt00001/ reference_solution/
 ```
 
 Do you notice any efficiency or accuracy differences between fully implicit and IMEX formulations with these fixed time-step tests?
