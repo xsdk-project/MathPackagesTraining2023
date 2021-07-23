@@ -37,6 +37,8 @@
     url: "/lessons/amrex/"
   - title: "Unstructured Meshing & Discretization with MFEM"
     url: "/lessons/mfem_convergence/"
+  - title: "MFEM+PUMI Adaptive Workflow"
+    url: "/lessons/pumi/"
   - title: "Time Integration with SUNDIALS"
     url: "/lessons/time_integrators_sundials/"
   - title: "Numerical Optimization with TAO"
