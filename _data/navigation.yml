@@ -41,6 +41,8 @@
     url: "/lessons/pumi/"
   - title: "Time Integration with SUNDIALS"
     url: "/lessons/time_integrators_sundials/"
+  - title: "Krylov Solvers and Preconditioning with HYPRE"
+    url: "/lessons_old/krylov_amg_hypre/"
   - title: "Numerical Optimization with TAO"
     url: "/lessons/multidim_rosenbrock_tao/"
 
@@ -55,8 +57,6 @@
     url: "/lessons_old/strumpack/"
   - title: "Krylov Solvers and Preconditioning with Trilinos/MueLu"
     url: "/lessons_old/krylov_amg_muelu/"
-  - title: "Krylov Solvers and Preconditioning with HYPRE"
-    url: "/lessons_old/krylov_amg_hypre/"
   - title: "Nonlinear Solvers with PETSc"
     url: "/lessons_old/nonlinear_solvers_petsc/"
 
