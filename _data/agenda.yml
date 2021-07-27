@@ -29,7 +29,7 @@
 - title: "Unstructured Discretization<br>(with MFEM/PUMI)"
   speakers:
     - "Aaron Fisher"
-    - "Mark Shephard"
+    - "Cameron Smith"
   vname: "Aurora"
   has_synopsis: true
   id: 5
@@ -101,12 +101,11 @@
 - title: "Panel - Contributing to the<br>Numerical Package Community"
   speakers:
     - "Ann Almgren"
-    - "Christian Glusa"
     - "Aaron Fisher"
-    - "Cameron Smith"
-    - "Dan Reynolds"
+    - "Christian Glusa"
     - "Richard Tran Mills"
-    - "Alp Dener"
+    - "Dan Reynolds"
+    - "Cameron Smith"
   start: "Tue Aug 10 1:45 PM"
   length: 45 
   vname: "Main-Room"
