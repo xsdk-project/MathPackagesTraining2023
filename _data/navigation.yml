@@ -54,8 +54,6 @@
   - title: "Sparse, Direct Solvers with SuperLU"
     url: "/lessons_old/superlu_mfem/"
   - title: "Rank-Structured Solvers with STRUMPACK"
-    url: "/lessons_old/strumpack/"
-  - title: "Krylov Solvers and Preconditioning with Trilinos/MueLu"
     url: "/lessons_old/krylov_amg_muelu/"
   - title: "Nonlinear Solvers with PETSc"
     url: "/lessons_old/nonlinear_solvers_petsc/"
