@@ -412,7 +412,7 @@ method can solve optimization problems of the form:
 
 $$
 \begin{align}
-  \underset{p, u}{\text{minimize}} &\quad f(p) \\
+  \underset{p}{\text{minimize}} &\quad f(p) \\
   \text{subject to} &\quad c_e(p) = 0 \\
                     &\quad c_i(p) \leq 0 \\
                     &\quad p_l \leq p \leq p_u
