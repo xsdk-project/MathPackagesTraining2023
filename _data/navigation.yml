@@ -13,10 +13,10 @@
     url: "/virtual_rooms/"
   - title: "Getting help"
     url: "/getting-help/"
-  # - title: "Panel Question Submissions"
-  #   url: "https://docs.google.com/forms/d/e/1FAIpQLScFAHguSG6m7H9lfjfSTSyOm1RZc1Mcc1N9aEAUyx4GTXpDhA/viewform?usp=sf_link"
-  # - title: "SME Speed Dating Selections"
-  #   url: "https://docs.google.com/forms/d/e/1FAIpQLSe73POCve2GDFeE5n-07tODaCNsZQlz_v7sS8qUVRvkc2FuaA/viewform?usp=sf_link"
+  - title: "Panel Question Submissions"
+    url: "https://forms.gle/SmVroQBAq145g4F79"
+  - title: "SME Speed Dating Selections"
+    url: "https://forms.gle/eCM39BXjdDt69kTH6"
   # - title: "Computing History Game (opens 11:40AM)"
   #   url: "https://docs.google.com/forms/d/e/1FAIpQLScNmuc4_RstcqAHHNy4FGNmYG0efyTxKaNmhmmMaQ7IjNHVxw/viewform?usp=sf_link"
   # - title: "Women in Computing Game (opens 3:35PM)"
@@ -45,18 +45,6 @@
     url: "/lessons_old/krylov_amg_hypre/"
   - title: "Numerical Optimization with TAO"
     url: "/lessons/multidim_rosenbrock_tao/"
-
-- title: Lessons (2020)
-  audience: "public"
-  url: "/lessons_old/"
-  side: left
-  dropdown:
-  - title: "Sparse, Direct Solvers with SuperLU"
-    url: "/lessons_old/superlu_mfem/"
-  - title: "Rank-Structured Solvers with STRUMPACK"
-    url: "/lessons_old/krylov_amg_muelu/"
-  - title: "Nonlinear Solvers with PETSc"
-    url: "/lessons_old/nonlinear_solvers_petsc/"
 
 - title: Packages
   audience: "public"
