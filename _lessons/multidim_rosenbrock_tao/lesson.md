@@ -518,7 +518,7 @@ time with increasing problem size.
 4. Try running the problem in parallel with `mpiexec -n <# of processes> ./multidim_rosenbrock ...`. Why does running 
 in parallel slow the solution down at small problem sizes? How large should the problem be to observe a speedup in 
 parallel runs?
-  * Repeat Activity 4 with different TAO algorithms. Are the break-even points in size vs. performance the same? 
+  * Repeat Activity 4 with different TAO algorithms. Are the break-even points in size vs. performance the same?  
 <br>
 
 5. ADVANCED: Play with bound and equality constraints! You can change their definitions in the code and restrict the 
