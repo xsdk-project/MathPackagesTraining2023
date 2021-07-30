@@ -17,15 +17,18 @@ typedef struct {
 PetscErrorCode FormFunction(Tao,Vec,PetscReal*,void*);
 PetscErrorCode FormGradient(Tao,Vec,Vec,void*);
 PetscErrorCode FormHessian(Tao,Vec,Mat,Mat,void*);
+PetscErrorCode FormEqualityConstraints(Tao,Vec,Vec,void*);
+PetscErrorCode FormEqualityJacobian(Tao,Vec,Mat,Mat,void*);
 
 /* -------------------------------------------------------------------- */
 int main(int argc,char **argv)
 {
   PetscErrorCode     ierr;                  /* used to check for function return/error codes */
-  Vec                x, diff;                     /* solution vector */
-  Mat                H;                     /* Hessian matrix */
+  Vec                x, xl, xu, c;          /* solution and constraint vectors */
+  Mat                H, A;                  /* Hessian and constraint matrices */
   Tao                tao;                   /* Tao solver context */
   PetscBool          flg, use_fd = PETSC_FALSE;
+  PetscBool          set_eq = PETSC_FALSE, set_bound = PETSC_FALSE;
   PetscReal          error, abs_tol = 1e-05;
   double             start, end;
   AppCtx             user;                  /* user-defined application context */
@@ -41,6 +44,11 @@ int main(int argc,char **argv)
   /* Check for command line arguments to override defaults */
   ierr = PetscOptionsGetInt(NULL, NULL, "-n", &user.n, &flg);CHKERRQ(ierr);
   ierr = PetscOptionsGetBool(NULL, NULL, "-fd", &use_fd, &flg);CHKERRQ(ierr);
+  ierr = PetscOptionsGetBool(NULL, NULL, "-eq", &set_eq, &flg);CHKERRQ(ierr);
+  ierr = PetscOptionsGetBool(NULL, NULL, "-bound", &set_bound, &flg);CHKERRQ(ierr);
+
+  /* Check sizing */
+  if (set_eq && user.n != 2) SETERRQ(PetscObjectComm((PetscObject)tao), PETSC_ERR_ARG_SIZ, "Incorrect problem size, constraint valid only for 2D");
 
   /* Allocate vector for the solution */
   ierr = VecCreate(PETSC_COMM_WORLD, &x);CHKERRQ(ierr);
@@ -55,7 +63,11 @@ int main(int argc,char **argv)
 
   /* Create TAO solver with desired solution method */
   ierr = TaoCreate(PETSC_COMM_WORLD, &tao);CHKERRQ(ierr);
-  ierr = TaoSetType(tao, TAOBQNLS);CHKERRQ(ierr);
+  if (set_eq) {
+    ierr = TaoSetType(tao, TAOALMM);CHKERRQ(ierr);
+  } else {
+    ierr = TaoSetType(tao, TAOBQNLS);CHKERRQ(ierr);
+  }
 
   /* Set solution vec and an initial guess */
   ierr = VecSet(x, -1.0);CHKERRQ(ierr);
@@ -71,6 +83,26 @@ int main(int argc,char **argv)
     ierr = TaoSetHessianRoutine(tao, H, H, FormHessian, &user);CHKERRQ(ierr);
   }
 
+  /* Create data for constraints and set evaluation functions */
+  if (set_bound) {
+    ierr = VecDuplicate(x, &xl);CHKERRQ(ierr);
+    ierr = VecSet(xl, PETSC_NINFINITY);CHKERRQ(ierr);
+    ierr = VecDuplicate(x, &xu);CHKERRQ(ierr);
+    ierr = VecSet(xu, 0.0);CHKERRQ(ierr);
+    ierr = TaoSetVariableBounds(tao, xl, xu);CHKERRQ(ierr);
+  }
+  if (set_eq) {
+    ierr = VecCreate(PETSC_COMM_WORLD, &c);CHKERRQ(ierr);
+    ierr = VecSetSizes(c, PETSC_DECIDE, 1);CHKERRQ(ierr);
+    ierr = VecSetFromOptions(c);CHKERRQ(ierr);
+    ierr = MatCreate(PETSC_COMM_WORLD, &A);CHKERRQ(ierr);
+    ierr = MatSetSizes(A, PETSC_DECIDE, PETSC_DECIDE, 1, 2);CHKERRQ(ierr);
+    ierr = MatSetFromOptions(A);CHKERRQ(ierr);
+    ierr = MatSetUp(A);CHKERRQ(ierr);
+    ierr = TaoSetEqualityConstraintsRoutine(tao, c, FormEqualityConstraints, &user);CHKERRQ(ierr);
+    ierr = TaoSetJacobianEqualityRoutine(tao, A, A, FormEqualityJacobian, &user);CHKERRQ(ierr);
+  }
+
   /* Check for TAO command line options */
   ierr = TaoSetMaximumFunctionEvaluations(tao, 1000000);CHKERRQ(ierr);
   ierr = TaoSetMaximumIterations(tao, 100000);CHKERRQ(ierr);
@@ -82,18 +114,6 @@ int main(int argc,char **argv)
   ierr = TaoSolve(tao);CHKERRQ(ierr);
   end = MPI_Wtime();
   ierr = PetscPrintf(PETSC_COMM_WORLD, "\nTaoSolve() time: %f\n", end-start);CHKERRQ(ierr);
-
-  /* Check solution */
-  ierr = VecDuplicate(x, &diff);CHKERRQ(ierr);
-  ierr = VecSet(diff, 1.0);CHKERRQ(ierr);
-  ierr = VecAXPY(diff, -1.0, x);CHKERRQ(ierr);
-  ierr = VecNorm(diff, NORM_2, &error);CHKERRQ(ierr);
-
-  if (error <= abs_tol) {
-    ierr = PetscPrintf(PETSC_COMM_WORLD, "\nSolution correct!\n");CHKERRQ(ierr);
-  } else {
-    ierr = PetscPrintf(PETSC_COMM_WORLD, "\nSolution wrong! ||error|| = %e\n", error);CHKERRQ(ierr);
-  }
   
   /* Clean up PETSc objects */
   ierr = TaoDestroy(&tao);CHKERRQ(ierr);
@@ -317,6 +337,85 @@ PetscErrorCode FormHessian(Tao tao,Vec X,Mat H, Mat Hpre, void *ptr)
   /* Assemble matrix */
   ierr = MatAssemblyBegin(H, MAT_FINAL_ASSEMBLY);CHKERRQ(ierr);
   ierr = MatAssemblyEnd(H, MAT_FINAL_ASSEMBLY);CHKERRQ(ierr);
+
+  PetscFunctionReturn(0);
+}
+
+/* -------------------------------------------------------------------- */
+/*
+    FormEqualityConstraint - Evaluates the equality constraint vector
+    for the 2D Rosenbrock only
+
+    Input Parameters:
+.   tao  - the Tao context
+.   X    - input vector
+.   ptr  - optional user-defined context, as set by TaoSetFunctionGradient()
+
+    Output Parameters:
+.   C - constraint vector
+*/
+PetscErrorCode FormGradient(Tao tao,Vec X,Vec C,void *ptr)
+{
+  AppCtx            *user = (AppCtx *) ptr;
+  PetscErrorCode    ierr;
+  PetscScalar       *cc;
+  PetscInt          n;
+  const PetscScalar *xx;
+
+  PetscFunctionBeginUser;
+  /* check problem size */
+  ierr = VecSize(X, &n);CHKERRQ(ierr);
+  if (n != 2) SETERRQ(PetscObjectComm((PetscObject)tao), PETSC_ERR_ARG_SIZ, "Incorrect problem size, constraint valid only for 2D");
+
+  /* the constraint is x[1] = (x[0] - 1)^2 */
+  /* reformulated as (x[0]-1)^2 + x[1] = 0 */
+  ierr = VecGetArrayRead(X, &xx);CHKERRQ(ierr);
+  ierr = VecGetArray(C, &cc);CHKERRQ(ierr);
+  cc[0] = PetscPowReal(xx[0]-1.0, 2.0) + xx[1];
+  ierr = VecRestoreArrayRead(X, &xx);CHKERRQ(ierr);
+  ierr = VecRestoreArray(C, &cc);CHKERRQ(ierr);
+
+  PetscFunctionReturn(0);
+}
+
+/* -------------------------------------------------------------------- */
+/*
+    FormEqualityJacobian - Evaluates the equality constraint Jacobian
+    for the 2D Rosenbrock only
+
+    Input Parameters:
+.   tao  - the Tao context
+.   X    - input vector
+.   ptr  - optional user-defined context, as set by TaoSetFunctionGradient()
+
+    Output Parameters:
+.   Amad - constraint Jacobian
+.   Apre - same as Amat (ignored))
+*/
+PetscErrorCode FormEqualityJacobian(Tao tao,Vec X,Mat Amat,Mat Apre,void *ptr)
+{
+  AppCtx            *user = (AppCtx *) ptr;
+  PetscErrorCode    ierr;
+  PetscReal         row[1], col[2];
+  PetscReal         val[2];
+  PetscInt          n;
+  const PetscScalar *xx;
+
+  PetscFunctionBeginUser;
+  /* check problem size */
+  ierr = VecSize(X, &n);CHKERRQ(ierr);
+  if (n != 2) SETERRQ(PetscObjectComm((PetscObject)tao), PETSC_ERR_ARG_SIZ, "Incorrect problem size, constraint valid only for 2D");
+
+  /* the constraint is x[1] = (x[0] - 1)^2 */
+  /* reformulated as (x[0]-1)^2 + x[1] = 0 */
+  /* Jacobian matrix is [2*(x[0]-1)  1.0] */
+  ierr = VecGetArrayRead(X, &xx);CHKERRQ(ierr);
+  val[0] = 2.0*(xx[0] - 1.0);  val[1] = 1.0;
+  ierr = VecRestoreArrayRead(X, &xx);CHKERRQ(ierr);
+  row[0] = 0;  col[0] = 0;  col[1] = 1;
+  ierr = MatSetValues(Amat, 1, row, 2, col, val, INSERT_VALUES);CHKERRQ(ierr);
+  ierr = MatAssemblyBegin(Amat, MAT_FINAL_ASSEMBLY);CHKERRQ(ierr);
+  ierr = MatAssemblyEnd(Amat, MAT_FINAL_ASSEMBLY);CHKERRQ(ierr);
 
   PetscFunctionReturn(0);
 }

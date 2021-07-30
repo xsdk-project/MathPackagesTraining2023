@@ -15,8 +15,8 @@ header:
 
 |**Questions**|**Objectives**|**Key Points**|
 |1. What is optimization?|Understand the basic principles|Optimization seeks the inputs of a function that minimizes it|
-|2. Why use gradient-based methods?|Learn about trade-offs in algorithm choice|Gradient-based methods find local minima with the fewest number of function evaluations|
-|3. How can we compute gradients?|Evaluate different sensitivity analysis methods|Applications should provide analytical gradients whenever they can|
+|3. Why use gradient-based methods?|Learn about trade-offs in algorithm choice|Gradient-based methods find local minima with the fewest number of function evaluations|
+|4. How can we compute gradients?|Evaluate different sensitivity analysis methods|Applications should provide analytical gradients whenever they can|
 
 **Note:** To run the application in this lesson
 ```
@@ -52,7 +52,9 @@ $$
 
 where $$g_k = \nabla_p f(p_k)$$ is the gradient, $$H_k = \nabla_p^2 f(p_k)$$ is the Hessian, $$d \in \mathbb{R}^n$$ is 
 the search direction, and the $$k$$ subscript denotes evaluation at the iterate $$p_k$$. The exact solution to this 
-quadratic subproblem is the inversion of the Hessian onto the negative gradient, $$d = -H_k^{-1} g_k$$. This can also be viewed as the application of the Newton root-finding method to the system of nonlinear equations defined by the optimality condition $$\nabla_p f(p) = 0$$.
+quadratic subproblem is the inversion of the Hessian onto the negative gradient, $$d = -H_k^{-1} g_k$$. This can also 
+be viewed as the application of the Newton root-finding method to the system of nonlinear equations defined by the 
+optimality condition $$\nabla_p f(p) = 0$$.
 
 In order to avoid non-minimum stationary points, we also seek to find a step length $$\alpha$$ that approximately 
 minimizes the objective function along the line defined by the search direction,
@@ -264,10 +266,11 @@ solver names given in the first column below, or changed at runtume with the opt
 string arguments given in the second column.
 
 |**Solver Type**|**Option Flag**|**Description**|
-|`TAOBNLS`|`bnls`|Bound-constrained Newton Line Search|
-|`TAOBNTR`|`bntr`|Bound-constrained Newton Trust Region|
-|`TAOBQNLS`|`bqnls`|Bound-constrained Quasi-Newton Line Search|
-|`TAOBNCG`|`bncg`|Bound-constrained Nonlinear Conjugate Gradient|
+|[``TAOBNLS``][11]|`bnls`|Bound-constrained Newton Line Search|
+|[``TAOBNTR``][12]|`bntr`|Bound-constrained Newton Trust Region|
+|[``TAOBQNLS``][13]|`bqnls`|Bound-constrained Quasi-Newton Line Search|
+|[``TAOBNCG``][14]|`bncg`|Bound-constrained Nonlinear Conjugate Gradient|
+|[``TAOALMM``][15]|`almm`|Generally Constrained Augmented Lagrangian Method of Multipliers|
 
 The TAO solution can also be configured with additional runtime flags and corresponding code interfaces shown below.
 
@@ -384,6 +387,15 @@ The problem can be modified with various option flags:
 |**Option Flag**|**Description**|
 |`-n <integer>`|Change the problem size (default: 2)|
 |`-fd`|Use finite-difference gradients instead of analytical|
+|`-bound`|Activate bound constraints (default: $$p \leq 0$$)|
+|`-eq`|Activate equality constraints -- 2-D only (default: $$(p_1 - 1)^2 - p_2 = 0$$)|
+
+### Introducing Constraints...
+
+TAO offers a variety of algorithms that can solve the problem under different types of constraints. Algorithms with 
+the `B` prefix in their name are bound-constrained methods that use an active-set formulation to restrict the solution 
+to bounds provided by the user. These bounds can be set using [``TaoSetVariableBounds()``][6]. TAO also implements an 
+Augmented Lagrangian Method of Multipliers (TAOALMM)
 
 ### Hands-on Activities
 
@@ -400,13 +412,13 @@ time with increasing problem size.
 4. Try running the problem in parallel with `mpiexec -n <# of processes> ./multidim_rosenbrock ...`. Why does running 
 in parallel slow the solution down at small problem sizes? How large should the problem be to observe a speedup in 
 parallel runs?
-  * Repeat Activity 4 with different TAO algorithms. Are the break-even points in size vs. performance the same?  
+  * Repeat Activity 4 with different TAO algorithms. Are the break-even points in size vs. performance the same? 
 <br>
 
-5. ADVANCED: Add bound constraints to the problem! You must first create two vectors of the same size/distribution as the 
-solution vector using `VecDuplicate()`. You can then set these vectors to be equal to the lower and upper bound values 
-using `VecSet()`. Once defined, these vectors can be given to the TAO solver as bound constraints using the 
-[`TaoSetVariableBounds()`][6] interface.
+5. ADVANCED: Play with bound and equality constraints! You can change their definitions in the code and restrict the 
+solution. Unconstrained Rosenbrock is a globally convex problem with a single unique solution. Different constraint 
+definitions can make it a multi-modal solution with multiple local minima. Which one you converge to depends on the 
+starting point.
 
 {::options parse_block_html="true" /}
 <div style="border: solid #8B8B8B 2px; padding: 10px;">
@@ -420,7 +432,7 @@ rapidly scale up with the size of the problem and lead to ill-conditioning in th
 convergence of second-order methods to a-typically degrade at particularly large problem sizes.
 
 Similar pathologies present themselves often in practical applications. In many cases, simply adding second-order 
-information does not result in improved ``time-to-solution''. Even though second-order algorithms such as truncated 
+information does not result in improved ''time-to-solution''. Even though second-order algorithms such as truncated 
 Newton methods may converge to the specified tolerance in fewer iterations, each iteration may take significantly 
 more time than first-order methods due to the expensive assembly and/or inversion of a Hessian matrix.
 
@@ -440,17 +452,26 @@ algorithm choice, application-specific pathologies, and parallelization.
 
 ## Further Reading
 
-- [PETSc manual](https://www.mcs.anl.gov/petsc/petsc-current/docs/manual.pdf)  
-- [TAO manual](https://www.mcs.anl.gov/petsc/petsc-current/docs/tao_manual.pdf)
-- [PETSc/TAO website](https://www.mcs.anl.gov/petsc)
+- [TAO manual](https://petsc.org/release/documentation/manual/tao/)
+- [PETSc manual](https://petsc.org/release/documentation/manual/)
 
 ## Previous Optimization Lectures
+- [ATPESC 2020](https://xsdk-project.github.io/MathPackagesTraining2020/lessons/multidim_rosenbrock_tao/)
 - [ATPESC 2019](https://xsdk-project.github.io/MathPackagesTraining/lessons/boundary_control_tao/)
 - [ATPESC 2018](https://xsdk-project.github.io/ATPESC2018HandsOnLessons/lessons/obstacle_tao/)
 
 [1]: https://en.wikipedia.org/wiki/Rosenbrock_function
-[2]: https://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/Tao/TaoDefaultComputeGradient.html)
-[3]: https://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/Tao/TaoDefaultComputeHessian.html)
-[4]: https://www.mcs.anl.gov/petsc
-[5]: https://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/Tao/TaoSetObjectiveAndGradientRoutine.html
-[6]: https://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/Tao/TaoSetVariableBounds.html
+[2]: https://petsc.org/release/docs/manualpages/Tao/TaoDefaultComputeGradient.html
+[3]: https://petsc.org/release/docs/manualpages/Tao/TaoDefaultComputeHessian.html
+[4]: https://petsc.org/
+[5]: https://petsc.org/release/docs/manualpages/Tao/TaoSetObjectiveAndGradientRoutine.html
+[6]: https://petsc.org/release/docs/manualpages/Tao/TaoSetVariableBounds.html
+[7]: https://petsc.org/release/docs/manualpages/Tao/TaoSetEqualityConstraintsRoutine.html
+[8]: https://petsc.org/release/docs/manualpages/Tao/TaoSetJacobianEqualityRoutine.html
+[9]: https://petsc.org/release/docs/manualpages/Tao/TaoSetInequalityConstraintsRoutine.html
+[10]: https://petsc.org/release/docs/manualpages/Tao/TaoSetJacobianInequalityRoutine.html
+[11]: https://petsc.org/release/docs/manualpages/Tao/TAOBNLS.html
+[12]: https://petsc.org/release/docs/manualpages/Tao/TAOBNTR.html
+[13]: https://petsc.org/release/docs/manualpages/Tao/TAOBQNLS.html
+[14]: https://petsc.org/release/docs/manualpages/Tao/TAOBNCG.html
+[15]: https://petsc.org/release/docs/manualpages/Tao/TAOALMM.html
