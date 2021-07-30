@@ -42,15 +42,21 @@ this command to update your local copy if we discover changes are necessary.
 1. Setup to use appropriate MPI and GCC
   * The above software is built with gcc-8.2 and corresponding MPI. Please update your `~/.soft.cooley to have
 ```
++gcc-8.2.0
++cuda-10.2
+PATH+=/grand/ATPESC2021/usr/MathPackages/openmpi-4.1.1-gcc82-cuda102/bin
 @visit
 @paraview
-+gcc-8.2.0
-+mvapich2-2.2-gcc820
 @default
 ```
   * And run
 ```
 resoft
+```
+  * Confirm correct mpiexec is in PATH
+```
+$ which mpiexec
+/grand/ATPESC2021/usr/MathPackages/openmpi-4.1.1-gcc82-cuda102/bin/mpiexec
 ```
 
 1. Confirm you can compile and run an example
