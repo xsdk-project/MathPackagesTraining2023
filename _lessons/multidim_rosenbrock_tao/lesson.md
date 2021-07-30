@@ -390,12 +390,118 @@ The problem can be modified with various option flags:
 |`-bound`|Activate bound constraints (default: $$p \leq 0$$)|
 |`-eq`|Activate equality constraints -- 2-D only (default: $$(p_1 - 1)^2 - p_2 = 0$$)|
 
-### Introducing Constraints...
-
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Introducing constraints... (Click to expand!)</h4></summary>
 TAO offers a variety of algorithms that can solve the problem under different types of constraints. Algorithms with 
 the `B` prefix in their name are bound-constrained methods that use an active-set formulation to restrict the solution 
-to bounds provided by the user. These bounds can be set using [``TaoSetVariableBounds()``][6]. TAO also implements an 
-Augmented Lagrangian Method of Multipliers (TAOALMM)
+to bounds provided by the user. These bounds can be set using [``TaoSetVariableBounds()``][6].
+
+```c
+/* Duplicate from solution vector and set bounds */
+ierr = VecDuplicate(X, &XL);CHKERRQ(ierr);
+ierr = VecSet(XL, PETSC_NINFINITY);CHKERRQ(ierr);
+ierr = VecDuplicate(X, &XU);CHKERRQ(ierr);
+ierr = VecSet(XU, 0.0);CHKERRQ(ierr);
+ierr = TaoSetVariableBounds(tao, XL, XU);CHKERRQ(ierr);
+```
+
+TAO also implements an [Augmented Lagrangian Method of Multipliers (``TAOALMM``)][15] for generally constrained problems. This 
+method can solve optimization problems of the form:
+
+$$
+\begin{align}
+  \underset{p, u}{\text{minimize}} &\quad f(p) \\
+  \text{subject to} &\quad c_e(p) = 0 \\
+                    &\quad c_i(p) \leq 0 \\
+                    &\quad p_l \leq p \leq p_u
+\end{align}
+$$
+
+TAO requires equality and inequality constraints to be defined as function callbacks, separately for the constraint 
+vector and its Jacobian (matrix of sensitivities).
+
+```c
+PetscErrorCode FormEqualityConstraints(Tao tao, Vec P, Vec CE, void* ptr)
+{
+  PetscErrorCode ierr;
+  AppCtx *user = (AppCtx*)ptr;
+
+  /* Compute the vector of equality constraints CE at solution P */
+
+  return 0;
+}
+
+PetscErrorCode FormEqualityJacobian(Tao tao, Vec P, Mat AE, Mat AEpre, void* ptr)
+{
+  PetscErrorCode ierr;
+  AppCtx *user = (AppCtx*)ptr;
+
+  /* Compute the equality constraint Jacobian matrix AE at solution P */
+  /* NOTE: AEpre represents a "pseudoinverse" of AE but is ignored in most applications */
+
+  return 0;
+}
+
+PetscErrorCode FormInqualityConstraints(Tao tao, Vec P, Vec CI, void* ptr)
+{
+  PetscErrorCode ierr;
+  AppCtx *user = (AppCtx*)ptr;
+
+  /* Compute the vector of equality constraints CI at solution P */
+
+  return 0;
+}
+
+PetscErrorCode FormEqualityJacobian(Tao tao, Vec P, Mat AI, Mat AIpre, void* ptr)
+{
+  PetscErrorCode ierr;
+  AppCtx *user = (AppCtx*)ptr;
+
+  /* Compute the inequality constraint Jacobian matrix AI at solution P */
+  /* NOTE: AIpre represents a "pseudoinverse" of AI but is ignored in most applications */
+
+  return 0;
+}
+
+int main(int argc, char *argv[])
+{
+  /*
+    problem code
+  */
+
+  /* Equality constraints */
+  ierr = VecCreate(PETSC_COMM_WORLD, &CE);CHKERRQ(ierr);
+  ierr = VecSetSizes(CE, PETSC_DECIDE, user.nce);CHKERRQ(ierr);
+  ierr = TaoSetEqualityConstraintsRoutine(tao, CE, FormEqualityConstraints, &user);CHKERRQ(ierr);
+  ierr = MatCreate(PETSC_COMM_WORLD, &AE);CHKERRQ(ierr);
+  ierr = MatSetSizes(AE, PETSC_DECIDE, PETSC_DECIDE, user.nce, user.n);CHKERRQ(ierr);
+  ierr = MatSetUp(AE);CHKERRQ(ierr);
+  ierr = TaoSetJacobianEqualityRoutine(tao, AE, AE, FormEqualityJacobian, &user);CHKERRQ(ierr);
+
+  /* Inquality constraints */
+  ierr = VecCreate(PETSC_COMM_WORLD, &CI);CHKERRQ(ierr);
+  ierr = VecSetSizes(CI, PETSC_DECIDE, user.nci);CHKERRQ(ierr);
+  ierr = TaoSetEqualityConstraintsRoutine(tao, CI, FormInequalityConstraints, &user);CHKERRQ(ierr);
+  ierr = MatCreate(PETSC_COMM_WORLD, &AI);CHKERRQ(ierr);
+  ierr = MatSetSizes(AI, PETSC_DECIDE, PETSC_DECIDE, user.nci, user.n);CHKERRQ(ierr);
+  ierr = MatSetUp(AI);CHKERRQ(ierr);
+  ierr = TaoSetJacobianEqualityRoutine(tao, AI, AI, FormEqualityJacobian, &user);CHKERRQ(ierr);
+
+  /*
+    more problem code...
+  */
+  return 0;
+}
+```
+
+The Rosenbrock problem can be re-solved with bound and equality constraints by running with `-bound` and `-eq` 
+flags, respectively. Bound constraints can be imposed on problems of any size, but the equality constraint defined 
+in the example code supports 2D Rosenbrock only. `TAOALMM` supports constraints of arbitrary size and the constraint 
+definition in the problem can be changed to accommodate multidimensional Rosenbrock.
+</details>
+</div>
 
 ### Hands-on Activities
 
