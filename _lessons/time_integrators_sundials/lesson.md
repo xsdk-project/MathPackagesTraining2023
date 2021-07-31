@@ -25,12 +25,13 @@ cd {{site.handson_root}}/time_integrators_sundials
 source source_cooley_plotfile_tools.sh
 ```
 
-Also, if you do not already have the `anaconda3-4.0.0`, `gcc v8.2.0` and corresponding MVAPICH SoftEnv modules loaded, please do so now,
+Also, if you do not already have the softenv modules `gcc v8.2.0`, `cuda v10.2`, and `anaconda3-4.0.0` loaded, and the track-5 OpenMPI installation added to your `PATH`, please do so now:
 
 ```bash
 soft add +gcc-8.2.0
-soft add +mvapich2-2.2-gcc820
+soft add +cuda-10.2
 soft add +anaconda3-4.0.0
+export PATH=/grand/ATPESC2021/usr/MathPackages/openmpi-4.1.1-gcc82-cuda102/bin:$PATH
 ```
 
 (note: you should be able to recompile the hands-on executables with a simple `make`, although this is not necessary)
