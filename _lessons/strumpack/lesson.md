@@ -18,7 +18,6 @@ header:
 - Copy the example directory to your home directory
 ```
 rsync -aP {{site.handson_install_root}}/{{site.handson_root}}/rank_structured_strumpack ~/.
-rsync -aP /grand/ATPESC2021/EXAMPLES/track-5-numerical ~/.
 ```
 
 - Enter the lesson directory
