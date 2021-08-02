@@ -1,0 +1,101 @@
+This is the hands on session for 
+The examples are:
+
+- ./build/testHODLR             (sequential or parallel)
+- ./build/testMMdouble          (sequential)
+- ./build/testMMdoubleMPIDist   (parallel)
+- ./build/testPoisson3d         (sequential)
+- ./build/testPoisson3dMPIDist  (parallel)
+
+
+
+First get a compute node:
+$ qsub -I -n 1 -t 30 -A ATPESC2021 -q training
+
+Set the number of OpenMP threads:
+$ export OMP_NUM_THREADS=1
+
+When running on a login node, there is no GPU available. For the
+sparse direct solver (no compression), you will need to disable GPU
+support by adding the `--sp_disable_gpu` command line option.
+
+
+Example runs for build/testHODLR
+---------------------------------
+### construct a 5000 x 5000 Toeplitz matrix
+$ mpiexec -n 1 ./build/testHODLR 5000
+
+### print available command line options
+$ mpiexec -n 1 ./build/testHODLR 5000 --help
+
+### vary leaf size (smallest block size) and tolerance
+$ mpiexec -n 1 ./build/testHODLR 5000 --hodlr_rel_tol 1e-4 --hodlr_leaf_size 16
+$ mpiexec -n 1 ./build/testHODLR 5000 --hodlr_rel_tol 1e-4 --hodlr_leaf_size 128
+# Note how changing the leaf size (smallest diagonal block size)
+# impacts the memory usage.
+
+### vary number of MPI processes, compression tolerance.
+$ mpiexec -n 12 ./build/testHODLR 5000 --hodlr_rel_tol 1e-8 --hodlr_leaf_size 16
+$ mpiexec -n 12 ./build/testHODLR 5000 --hodlr_rel_tol 1e-8 --hodlr_leaf_size 128
+
+
+
+Example runs for build/testMMdouble and build/testMMdoubleMPIDist
+-------------------------------------------------------------
+### solve a linear system with the pde900.mtx matrix, and random rhs
+$ mpiexec -n 1 ./build/testMMdouble pde900.mtx
+
+### vary number of MPI processes
+$ mpiexec -n 1 ./build/testMMdouble pde900.mtx --sp_disable_gpu
+$ mpiexec -n 12 ./build/testMMdoubleMPIDist pde900.mtx --sp_disable_gpu
+
+# other matrices can be found for instance at:
+# NIST Matrix Market: https://math.nist.gov/MatrixMarket
+# SuiteSparse: http://faculty.cse.tamu.edu/davis/suitesparse.html
+
+
+Example runs for build/testPoisson3d and build/testPoisson3dMPIDist
+-------------------------------------------------------------
+### solve a 40^3 Poisson problem (sequentially)
+$ mpiexec -n 1 ./build/testPoisson3d 40 --help --sp_disable_gpu
+
+### enable BLR compression (sequential)
+$ mpiexec -n 1 ./build/testPoisson3d 40 --sp_compression BLR --help --sp_disable_gpu
+$ mpiexec -n 1 ./build/testPoisson3d 40 --sp_compression BLR --blr_rel_tol 1e-2 --sp_disable_gpu
+$ mpiexec -n 1 ./build/testPoisson3d 40 --sp_compression BLR --blr_rel_tol 1e-4 --sp_disable_gpu
+$ mpiexec -n 1 ./build/testPoisson3d 40 --sp_compression BLR --blr_leaf_size 128 --sp_disable_gpu
+$ mpiexec -n 1 ./build/testPoisson3d 40 --sp_compression BLR --blr_leaf_size 256 --sp_disable_gpu
+# Note how enabling compression switches from iterative refinement
+# (which for a direct solver usually only needs a single iteration),
+# to a GMRES iterative solver. Changing the BLR compression tolerance
+# changes the GMRES convergence behavior.
+
+
+### parallel, with HSS/HODLR compression
+$ mpiexec -n 12 ./build/testPoisson3dMPIDist 40 --sp_disable_gpu
+$ mpiexec -n 12 ./build/testPoisson3dMPIDist 40 --sp_compression HSS \
+    --sp_compression_min_sep_size 1000 --hss_rel_tol 1e-2 --sp_disable_gpu
+$ mpiexec -n 12 ./build/testPoisson3dMPIDist 40 --sp_compression HODLR \
+    --sp_compression_min_sep_size 1000 --hodlr_leaf_size 128 --sp_disable_gpu
+
+# Compression is only performed for the larger fronts
+# (separators). The --sp_compression_min_sep_size option tunes this
+# minimum size. If this is too small, there will be too much overhead
+# from low-rank compression. If it is too large, no compression will
+# be performed and the solver behaves as a direct solver.
+
+
+
+
+The corresponding sources are:
+- testHODLR.cpp
+- testMMdouble.cpp
+- testMMdoubleMPIDist.cpp
+- testPoisson3d.cpp
+- testPoisson3dMPIDist.cpp
+
+One can rebuild the examples using the build.sh script. This will
+remove and repopulate the build directory. However, this requires a
+number of spack packages to be loaded. For instructions, see the
+build.sh file.
+
