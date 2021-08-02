@@ -14,22 +14,14 @@ permalink: "/getting-help/"
   {% endif %}
 {% endfor %}
 
-Use the *#numerical* slack channel for general help and it support.
+Use the *#track-5-numerical* slack channel for general help and it support.
 
-<center style="font-size:18px">Launch #numerical Slack in<br><a href="{{vroom.slackweb}}" onclick="window.open(this.href,'newwindow','width=600,height=900'); return false;">new browser window</a> or <a href="{{vroom.slackapp}}">desktop app</a></center>
-
-### IT Support Zoom Rooms
-Also individual tech support is available from specialists in these Zoom rooms...
-
-* [Ampere]
-* [Volta]
-* [Navi] (morning sessions only; viz-tool issues only)
-* [Vega] (morning sessions only; viz-tool issues only)
+<center style="font-size:18px">Launch #track-5-numerical Slack in<br><a href="{{vroom.slackweb}}" onclick="window.open(this.href,'newwindow','width=600,height=900'); return false;">new browser window</a> or <a href="{{vroom.slackapp}}">desktop app</a></center>
 
 As a last resort, you can try emailing...
 
 * [Satish Balay](<mailto:balay@mcs.anl.gov>),
 * [Cameron Smith](<mailto:smithc11@rpi.edu>)
-* [Mark Miller](<mailto:miller86@lnl.gov>)
+* [Alp Dener](<mailto:adener@anl.gov>)
 
 {% include link-shortcuts %}

@@ -23,6 +23,6 @@ where [ATPESC](https://extremecomputingtraining.anl.gov) is ordinarily hosted.
 
 ### Events occuring in this space
 
-{% include agenda room_filter="Main-Room" %}
+{% include agenda room_filter="Main-room" %}
 
 {% include link-shortcuts %}

@@ -2,13 +2,13 @@
 layout: page
 show_meta: false
 title: "Setup Instructions"
-subheadline: "Instructions to complete prior to August 4th."
+subheadline: "Instructions to complete prior to August 10th."
 header:
    image_fullwidth: "atpesc-1024x2746.jpg"
 permalink: "/setup_instructions/"
 ---
 
-In the introductory talk, tomorrow, August 4th, we'll provide additional details
+In the introductory talk on Tuesday, August 10th, we will provide additional details
 about this web site and Zoom rooms and Slack channels for our parallel sessions.
 Here, now, we provide instructions for setting up your Cooley login enviornment,
 reserving one node for the day for hands-on lessons and setting up visualization
@@ -22,7 +22,7 @@ or improving performance of certain operations.
 ## Required Steps
 
 Please complete the following _required_ steps prior to the beginning of the session
-on Tuesday, August 4th.
+on Tuesday, August 10th.
 
 1. Log Into Cooley
   * Use secure shell with compression, and trusted X forwarding enabled
@@ -64,7 +64,7 @@ $ which mpiexec
     and run an example
 ```
 qsub -I -n 1 -t 5 -A ATPESC2021 -q training
-cd HandsOnLessons/hand_coded_heat
+cd track-5-numerical/hand_coded_heat
 make mpi_test
 mpicc mpi_test.c -o mpi_test
 mpiexec -n 4 ./mpi_test
@@ -78,7 +78,7 @@ exit
     You may have to wait a moment for the interactive prompt on the reserved node to return.
   * The above commands produce makefile and execution output. In particular
     the last `echo` command should produce a `0` response.
-1. As soon after 9:30am, Tuesday , August 4th as possible, allocate an interactive node on
+1. As soon after 9:30am, Tuesday , August 10th as possible, allocate an interactive node on
    cooley. The following command allocates a single Cooley node (`-n 1`) for 300 minutes
    (`-t 300`) using the ATPESC2021 allocation (`-A ATPESC2021`) and the queue reservation (`-q training`):
 ```

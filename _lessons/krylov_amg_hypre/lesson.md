@@ -1,6 +1,6 @@
 ---
 layout: page-fullwidth
-order: 8
+order: 7
 subheadline: "Linear Solvers"
 title: "Krylov Solvers and Algebraic Multigrid with hypre"
 teaser: "Demonstrate utility of multigrid"

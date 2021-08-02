@@ -31,8 +31,8 @@ baseurl: '/MathPackagesTraining2021'
 #
 # Paths on ANL file systems where software is installed
 #
-handson_install_root: '/projects/ATPESC2021/MathPackagesTraining2021'
-handson_root: 'HandsOnLessons'
+handson_install_root: '/grand/ATPESC2021/EXAMPLES'
+handson_root: 'track-5-numerical'
 
 #
 # List only 'public' to generate a site that does NOT include all the
