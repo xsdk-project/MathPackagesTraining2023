@@ -13,7 +13,7 @@ header:
 
 ## To begin this lesson
 
-- Setup your environment using the general instructions for `~/.soft.cooley
+- Setup your environment using the general instructions for ~/.soft.cooley
 
 - Copy the example directory to your home directory
 ```
