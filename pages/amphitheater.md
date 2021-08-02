@@ -1,10 +1,10 @@
 ---
 layout: page
 show_meta: false
-title: "Main Room"
+title: "Amphitheater"
 header:
    image_fullwidth: "q_center_main.jpg"
-permalink: "/main-room/"
+permalink: "/amphitheater/"
 ---
 {% assign vroom = nil %}
 {% for vr in site.data.vrooms %}
@@ -23,6 +23,6 @@ where [ATPESC](https://extremecomputingtraining.anl.gov) is ordinarily hosted.
 
 ### Events occuring in this space
 
-{% include agenda room_filter="Main-Room" %}
+{% include agenda room_filter="Amphitheater" %}
 
 {% include link-shortcuts %}

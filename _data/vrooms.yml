@@ -1,27 +1,27 @@
-- name: Main-Room
+- name: Amphitheater
   webinfo: https://qcenter.com/home-guest/
-  slackweb: https://exascaleproject.zoomgov.com/j/1609078667?pwd=RjFMTmljbDdOWUtDdVZkbmgxOFRzQT09
-  slackapp: slack://channel?team=TMW2FLNCQ&id=C017XRBLL4R
+  slackweb: https://app.slack.com/client/TMW2FLNCQ/C029YJ95ULQ
+  slackapp: slack://channel?team=MW2FLNCQ&id=029YJ95ULQ
 
 - name: El-Capitan 
   webinfo: https://www.llnl.gov/news/llnl-and-hpe-partner-amd-el-capitan-projected-worlds-fastest-supercomputer
-  slackweb: https://join.slack.com/share/zt-g8nka345-qOTKRXRQjwcpL0IC~3yiaA
-  slackapp: slack://channel?team=TMW2FLNCQ&id=C018EKEHU49
+  slackweb: https://app.slack.com/client/TMW2FLNCQ/C02A4L4D4HF
+  slackapp: slack://channel?team=MW2FLNCQ&id=02A4L4D4HF
 
 - name: Aurora
   webinfo: https://www.alcf.anl.gov/aurora
-  slackweb: https://join.slack.com/share/zt-gf30ta1t-eU5GmwaFLpdv6YOPRlyt0g
-  slackapp: slack://channel?team=TMW2FLNCQ&id=C01886F33FE
+  slackweb: https://app.slack.com/client/TMW2FLNCQ/C029K8HUU4E
+  slackapp: slack://channel?team=MW2FLNCQ&id=029K8HUU4E
 
 - name: Perlmutter
   webinfo: https://www.nersc.gov/systems/perlmutter/
-  slackweb: https://join.slack.com/share/zt-gc4l10ic-oyu8PBXI8bNmbuNIvDA4gA
-  slackapp: slack://channel?team=TMW2FLNCQ&id=C018EKE2JJD
+  slackweb: https://app.slack.com/client/TMW2FLNCQ/C02AFL4NLAU
+  slackapp: slack://channel?team=MW2FLNCQ&id=029K8T5LP8
 
 - name: Frontier
   webinfo: https://www.olcf.ornl.gov/frontier/
-  slackweb: https://join.slack.com/share/zt-gf32e40x-q85bhwau9fDuSXbsfCGl5w
-  slackapp: slack://channel?team=TMW2FLNCQ&id=C018EKBQ30R
+  slackweb: https://app.slack.com/client/TMW2FLNCQ/C029K8T5LP8
+  slackapp: slack://channel?team=MW2FLNCQ&id=02AFL4NLAU
 
 - name: Volta
   webinfo: https://www.nvidia.com/en-us/data-center/volta-gpu-architecture/

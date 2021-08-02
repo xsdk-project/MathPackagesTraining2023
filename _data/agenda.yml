@@ -4,7 +4,7 @@
   speakers:
     - "Ulrike Yang"
     - "Alp Dener"
-  vname: "Main-Room"
+  vname: "Amphitheater"
   has_synopsis: true
   id: 1
 
@@ -108,7 +108,7 @@
     - "Cameron Smith"
   start: "Tue Aug 10 1:45 PM"
   length: 45 
-  vname: "Main-Room"
+  vname: "Amphitheater"
   has_synopsis: true
   id: 15 
 
@@ -200,7 +200,7 @@
   length: 25 
   speakers:
     - "Ann Almgren"
-  vname: "Main-Room"
+  vname: "Amphitheater"
   has_synopsis: true
   id: 29 
 
