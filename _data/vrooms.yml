@@ -1,25 +1,30 @@
 - name: Amphitheater
   webinfo: https://qcenter.com/home-guest/
+  zoom_link: https://exascaleproject.zoomgov.com/j/1616258437?pwd=OUJ3dGJzK2RONW5keW9WK29CQXNWQT09
   slackweb: https://app.slack.com/client/TMW2FLNCQ/C029YJ95ULQ
   slackapp: slack://channel?team=MW2FLNCQ&id=029YJ95ULQ
 
 - name: El-Capitan 
   webinfo: https://www.llnl.gov/news/llnl-and-hpe-partner-amd-el-capitan-projected-worlds-fastest-supercomputer
+  zoom_link:
   slackweb: https://app.slack.com/client/TMW2FLNCQ/C02A4L4D4HF
   slackapp: slack://channel?team=MW2FLNCQ&id=02A4L4D4HF
 
 - name: Aurora
   webinfo: https://www.alcf.anl.gov/aurora
+  zoom_link:
   slackweb: https://app.slack.com/client/TMW2FLNCQ/C029K8HUU4E
   slackapp: slack://channel?team=MW2FLNCQ&id=029K8HUU4E
 
 - name: Perlmutter
   webinfo: https://www.nersc.gov/systems/perlmutter/
+  zoom_link:
   slackweb: https://app.slack.com/client/TMW2FLNCQ/C02AFL4NLAU
   slackapp: slack://channel?team=MW2FLNCQ&id=029K8T5LP8
 
 - name: Frontier
   webinfo: https://www.olcf.ornl.gov/frontier/
+  zoom_link:
   slackweb: https://app.slack.com/client/TMW2FLNCQ/C029K8T5LP8
   slackapp: slack://channel?team=MW2FLNCQ&id=02AFL4NLAU
 

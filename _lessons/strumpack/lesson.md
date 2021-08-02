@@ -1,6 +1,6 @@
 ---
 layout: page-fullwidth
-order: 6
+order: 8
 subheadline: "Rank Structured Solvers"
 title: "Rank Structured Solvers with STRUMPACK"
 teaser: "Using STRUMPACK for dense and sparse linear systems"

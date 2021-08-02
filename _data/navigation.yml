@@ -39,14 +39,14 @@
     url: "/lessons/mfem_convergence/"
   - title: "MFEM+PUMI Adaptive Workflow"
     url: "/lessons/pumi/"
-  - title: "Time Integration with SUNDIALS"
-    url: "/lessons/time_integrators_sundials/"
   - title: "Krylov Solvers and Preconditioning with HYPRE"
     url: "/lessons_old/krylov_amg_hypre/"
-  - title: "Numerical Optimization with TAO"
-    url: "/lessons/multidim_rosenbrock_tao/"
   - title: "Rank Structured Solvers with STRUMPACK"
     url: "/lessons/strumpack/"
+  - title: "Numerical Optimization with TAO"
+    url: "/lessons/multidim_rosenbrock_tao/"
+  - title: "Time Integration with SUNDIALS"
+    url: "/lessons/time_integrators_sundials/"
 
 - title: Packages
   audience: "public"
