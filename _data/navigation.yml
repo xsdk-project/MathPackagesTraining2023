@@ -45,6 +45,8 @@
     url: "/lessons_old/krylov_amg_hypre/"
   - title: "Numerical Optimization with TAO"
     url: "/lessons/multidim_rosenbrock_tao/"
+  - title: "Rank Structured Solvers with STRUMPACK"
+    url: "/lessons/strumpack/"
 
 - title: Packages
   audience: "public"
