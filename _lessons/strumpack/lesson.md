@@ -13,10 +13,19 @@ header:
 
 ## To begin this lesson
 
-- Get into the correct directory
+- Setup your environment using the general instructions for `~/.soft.cooley
+
+- Copy the example directory to your home directory
 ```
-cd {{site.handson_root}}/rank_structured_strumpack
+rsync -aP {{site.handson_install_root}}/{{site.handson_root}}/rank_structured_strumpack ~/.
+rsync -aP /grand/ATPESC2021/EXAMPLES/track-5-numerical ~/.
 ```
+
+- Enter the lesson directory
+```
+cd ~/rank_structured_strumpack
+```
+
 
 ## The problem being solved: Toeplitz matrix compression
 
