@@ -13,16 +13,9 @@ header:
 
 ## To begin this lesson
 
-- Setup your environment using the general instructions for ~/.soft.cooley
-
-- Copy the example directory to your home directory
-```
-rsync -aP {{site.handson_install_root}}/{{site.handson_root}}/rank_structured_strumpack ~/.
-```
-
 - Enter the lesson directory
 ```
-cd ~/rank_structured_strumpack
+cd {{site.handson_root}}/rank_structured_strumpack
 ```
 
 
