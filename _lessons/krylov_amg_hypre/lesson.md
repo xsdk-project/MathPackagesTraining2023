@@ -378,20 +378,20 @@ To run the structured solver PFMG for this problem type
 ```
 mpiexec -n 8 ./struct -n 50 50 50 -P 2 2 2 -pfmg
 ```
-{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations 35, but the total time is less (0.36)'  %}
+{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations 35, but the total time is less (0.40)'  %}
 
 Now run it as a preconditioner for conjugate gradient.
 ```
 mpiexec -n 8 ./struct -n 50 50 50 -pfmgpcg -P 2 2 2
 ```
-{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations 14, but the total time is less (0.24)'  %}
+{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations 14, but the total time is less (0.20)'  %}
 
 To get even better total time, now run the non-Galerkin version.
 
 ```
 mpiexec -n 8 ./struct -n 50 50 50 -pfmgpcg -P 2 2 2 -rap 1
 ```
-{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations remains 14, but the total time is less (0.21)'  %}
+{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations remains 14, but the total time is less (0.18)'  %}
 
 
 ### Additional Exercises 
