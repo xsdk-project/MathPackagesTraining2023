@@ -358,7 +358,7 @@ lev  rows cols    min max     weight   weight     min       max
                 memory = 1.700654
 ```
 As you can see, the number of levels, the number of nonzeroes per rows and the complexities have decreased.
-{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations increases (17 vs. 11), but total time is less (0.69 vs 0.89)'  %}
+{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations increases (17 vs. 11), but total time is less (0.62 vs 0.89)'  %}
 
 Now let us use aggressive coarsening in the first two levels.
 ```
