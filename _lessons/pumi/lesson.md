@@ -36,15 +36,9 @@ directory.
 
 ## To begin this lesson
 
-
-- Copy the example directory to your home directory
-```
-rsync -aP {{site.handson_install_root}}/HandsOnLessons/mfem-pumi-lesson ~/.
-```
-
 - Enter the lesson directory
 ```
-cd ~/mfem-pumi-lesson
+cd ~/HandsOnLessons/mfem-pumi-lesson
 ```
 
 - Setup your environment (ensures that your environment is using the `@default` + `+mvapich2-2.3rc1` dotkit pacakges)
