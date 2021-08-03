@@ -1,0 +1,23 @@
+- title: "Sample Schedule 1"
+  session1: 4
+  session2: 12
+  session3: 18
+  session4: 26
+
+- title: "Sample Schedule 2"
+  session1: 5
+  session2: 13
+  session3: 19
+  session4: 26
+
+- title: "Sample Schedule 3"
+  session1: 7
+  session2: 12
+  session3: 21
+  session4: 24
+
+- title: "Sample Schedule 4"
+  session1: 5
+  session2: 10
+  session3: 21
+  session4: 25
