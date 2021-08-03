@@ -38,7 +38,7 @@ directory.
 
 - Enter the lesson directory
 ```
-cd ~/HandsOnLessons/mfem-pumi-lesson
+cd {{site.handson_root}}/mfem-pumi-lesson
 ```
 
 - Setup your environment (ensures that your environment is using the `@default` + `+mvapich2-2.3rc1` dotkit pacakges)
