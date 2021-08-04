@@ -22,9 +22,9 @@ header:
 
 #### Table of contents
 
-  - [Set 1 - Krylov solver, no preconditioner]({{page.url}}/#set-1---krylov-solver-no-preconditioner)
-  - [Set 2 - Krylov solver, simple preconditioners]({{page.url}}/#set-2---krylov-solver-simple-preconditioners)
-  - [Set 3 - Krylov solver, multigrid preconditioner]({{page.url}}/#set-3---krylov-solver-multigrid-preconditioner)
+  - [Set 1 - Krylov solver, no preconditioner](#set-1---krylov-solver-no-preconditioner)
+  - [Set 2 - Krylov solver, simple preconditioners](#set-2---krylov-solver-simple-preconditioners)
+  - [Set 3 - Krylov solver, multigrid preconditioner](#set-3---krylov-solver-multigrid-preconditioner)
 
 #### To begin this lesson
 
