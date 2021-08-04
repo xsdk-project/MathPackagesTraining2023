@@ -43,6 +43,8 @@
     url: "/lessons_old/krylov_amg_hypre/"
   - title: "Rank Structured Solvers with STRUMPACK"
     url: "/lessons/strumpack/"
+  - title: "Nonlinear Solvers with PETSc"
+    url: "/lessons/nonlinear_solvers_petsc/"
   - title: "Numerical Optimization with TAO"
     url: "/lessons/multidim_rosenbrock_tao/"
   - title: "Time Integration with SUNDIALS"

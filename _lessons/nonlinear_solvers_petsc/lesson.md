@@ -1,10 +1,10 @@
 ---
 layout: page-fullwidth
-order: 9
+order: 10
 title: "Nonlinear Solvers with PETSc"
 subheadline: "Nonlinear Solvers"
 teaser: "Introduction to Nonlinear Solvers: Newton-Krylov Methods and Nonlinear Preconditioning"
-permalink: "lessons_old/nonlinear_solvers_petsc/"
+permalink: "lessons/nonlinear_solvers_petsc/"
 use_math: true
 lesson: true
 header:
