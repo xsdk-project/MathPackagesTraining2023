@@ -42,7 +42,7 @@
   - title: "Krylov Solvers & Algebraic Multigrid with HYPRE"
     url: "/lessons/krylov_amg_hypre/"
   - title: "Krylov Solvers & Preconditioning with MueLu"
-    url: "/lessons/krylov_precond_muelu/"
+    url: "/lessons/krylov_amg_muelu/"
   - title: "Rank Structured Solvers with STRUMPACK"
     url: "/lessons/strumpack/"
   - title: "Nonlinear Solvers with PETSc"
