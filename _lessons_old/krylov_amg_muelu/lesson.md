@@ -20,6 +20,12 @@ header:
 |How do we choose a preconditioner?|Know common sparse preconditioners.|As the size of the linear system grows, most iterative methods will require increasing number of iterations.|
 |How can we improve efficiency of the solver?|Understand the basic components of multigrid.|For certain common problem classes, multigrid methods require a constant number of iterations and constant work per unknown.|
 
+#### Table of contents
+
+  - [Set 1 - Krylov solver, no preconditioner]({{page.url}}/#set-1---krylov-solver-no-preconditioner)
+  - [Set 2 - Krylov solver, simple preconditioners]({{page.url}}/#set-2---krylov-solver-simple-preconditioners)
+  - [Set 3 - Krylov solver, multigrid preconditioner]({{page.url}}/#set-3---krylov-solver-multigrid-preconditioner)
+
 #### To begin this lesson
 
 <!-- * [Open the Answers Form]({{page.answers_google_form}}) -->
@@ -220,6 +226,10 @@ Now, we will check whether we have created a scalable solver strategy.
 The number of iterations taken by CG scales with the square root of the condition number $$\kappa(PA)$$ of the preconditioned system, where $$P$$ is the preconditioner.
 
 {% include qanda question='Based on the iterations you recorded, how does this condition number roughly scale with respect to the number of unknowns?' answer='In each step, the number of iterations grows by a factor of 2, and the number of unknowns grows by a factor of 4. Hence the condition number is proportional to the number of unknowns.' %}
+
+---
+
+**Stop.** If you are following the lecture slides, please return to the slides before continuing to set 3. 
 
 ---
 
