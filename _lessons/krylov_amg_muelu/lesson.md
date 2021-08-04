@@ -534,22 +534,20 @@ MueLu has specialized kernels that allow it to run on next-generation computing 
 using a [Kokkos](https://github.com/kokkos/kokkos) backend.
 If MueLu has been compiled with OpenMP or CUDA support, this code can be enabled at runtime by setting the parameter `use kokkos refactor` to true.
 
-Add the `openmpi-2.1.5` and `cuda-10.0` modules to your environment.
 ```
-soft add +openmpi-2.1.5
-soft add +cuda-10.0
 export CUDA_LAUNCH_BLOCKING=1
 export CUDA_MANAGED_FORCE_DEVICE_ALLOC=1
+export TPETRA_ASSUME_CUDA_AWARE_MPI=0
 ```
 Try running
 ```
-./MueLu_Stratimikos_gpu.exe --xml=mg-gpu.xml --nx=1000 --ny=1000 --timings | egrep "total solve time|Number of Iterations"
+./MueLu_Stratimikos_gpu.exe --xml=mg-gpu.xml --nx=1000 --ny=1000 --timings --node=cuda --config
 ```
 with the refactor option set.
 
 If you want to use both GPUs, run
 ```
-mpiexec -n 2 ./MueLu_Stratimikos_gpu.exe --xml=mg-gpu.xml --nx=1000 --ny=1000 --kokkos-num-devices=2
+mpiexec -n 2 ./MueLu_Stratimikos_gpu.exe --xml=mg-gpu.xml --nx=1000 --ny=1000 --kokkos-num-devices=2 --node=cuda --config
 ```
 
 ---
