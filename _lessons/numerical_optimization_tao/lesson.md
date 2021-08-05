@@ -87,7 +87,8 @@ second-order information.
 {::options parse_block_html="true" /}
 <div style="border: solid #8B8B8B 2px; padding: 10px;">
 <details>
-<summary><h4 style="margin: 0 0 0 0; display: inline">Notes on PDE-constrained Optimization (Click to expand!)</h4></summary>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Notes on PDE-constrained Optimization (Click to expand!)</h4></summary><br>
+
 Oftentimes we are interested in solving optimization problems where the evaluation of the objective function depends on 
 the solution of a partial-differential-equation (PDE). These problems are represented in the most general case by
 
@@ -286,7 +287,8 @@ The TAO solution can also be configured with additional runtime flags and corres
 {::options parse_block_html="true" /}
 <div style="border: solid #8B8B8B 2px; padding: 10px;">
 <details>
-<summary><h4 style="margin: 0 0 0 0; display: inline">Defining Constraints(Click to expand!)</h4></summary>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Defining Constraints(Click to expand!)</h4></summary><br>
+
 The discussion so far has focused exclusively on unconstrained problems even though the TAO solvers listed above are 
 all capable of solving bound-constrained problems. Bounds, which are also sometimes called "box" constraints, are 
 scalar limits placed on the optimization variables, such that
@@ -448,7 +450,8 @@ with a global minimum at $$p_i = 1$$.
 {::options parse_block_html="true" /}
 <div style="border: solid #8B8B8B 2px; padding: 10px;">
 <details>
-<summary><h4 style="margin: 0 0 0 0; display: inline">Gradient and Hessian Definitions (Click to expand!)</h4></summary>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Gradient and Hessian Definitions (Click to expand!)</h4></summary><br>
+
 The gradient of the multidimensional Rosenbrock problem is given as
 
 $$
@@ -572,7 +575,8 @@ Rosenbrock problem.
 {::options parse_block_html="true" /}
 <div style="border: solid #8B8B8B 2px; padding: 10px;">
 <details>
-<summary><h4 style="margin: 0 0 0 0; display: inline">Notes on Hands-on Activities (Click to expand!)</h4></summary>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Notes on Hands-on Activities (Click to expand!)</h4></summary><br>
+
 The original Rosenbrock function is a challenging optimization problem to solve despite its small size. The minimum 
 lies in a banana shaped valley that is easy to find for most methods but difficult to traverse through.
 
@@ -595,7 +599,8 @@ algorithm choice, application-specific pathologies, and parallelization.
 {::options parse_block_html="true" /}
 <div style="border: solid #8B8B8B 2px; padding: 10px;">
 <details>
-<summary><h4 style="margin: 0 0 0 0; display: inline">Notes on Bound Constraints (Click to expand!)</h4></summary>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Notes on Bound Constraints (Click to expand!)</h4></summary><br>
+
 Introducing the bound constraints $$p_1 \leq 0$$ and $$p_2 \geq 0$$ forces the solution to a new global minimum at 
 $$f(0,0) = 1.0$$. This minimum is a trivial solution where the bounds for both optimization variables.
 are active.
@@ -609,7 +614,8 @@ are active.
 {::options parse_block_html="true" /}
 <div style="border: solid #8B8B8B 2px; padding: 10px;">
 <details>
-<summary><h4 style="margin: 0 0 0 0; display: inline">Notes on Equality Constraints (Click to expand!)</h4></summary>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Notes on Equality Constraints (Click to expand!)</h4></summary><br>
+
 The quadratic equality constraint $$(p_1 - 1)^2 + p_2 - 3 = 0$$ presents two local minima instead 
 of the original global minimum. These two minima lie at $$f(1.62, 2.62)=0.38$$ and $$f(-0.62, 0.38)=2.62$$. On 
 multi-modal problems such as this, gradient-based optimization methods converge to the local minimum closest to the 
