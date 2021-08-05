@@ -116,6 +116,7 @@ PETSc/TAO and AMReX" lecture from ATPESC 2019</a>.
 </details>
 </div>
 {::options parse_block_html="false" /}
+<br>
 
 ### Sensitivity Analysis
 
@@ -414,6 +415,7 @@ int main(int argc, char *argv[])
 </details>
 </div>
 {::options parse_block_html="false" /}
+<br>
 
 ## Example Problem: Multidimensional Rosenbrock
 
@@ -477,6 +479,7 @@ $$
 </details>
 </div>
 {::options parse_block_html="false" /}
+<br>
 
 The hands-on example implements the multidimensional Rosenbrock with an analytical gradient and Hessian. However, 
 TAO also provides [``TaoDefaultComputeGradient()``][2] and [``TaoDefaultComputeHessian()``][3] callbacks that utilize 
