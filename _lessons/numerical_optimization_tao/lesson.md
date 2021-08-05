@@ -560,17 +560,18 @@ parallel runs?
 5. Run the problem with `-bound` flag to enable $$p_1 \leq 0$$ and $$p_2 \geq 0$$ constraints.
   * Change the starting point and evaluate how it affects the convergence. Is there a difference between starting from 
   the feasible versus non-feasible space?
-  * Repeat Activity 5 with different bound-constrained TAO algorithms.
+  * Repeat Activity 5 with different bound-constrained TAO algorithms.  
 <br>
 
 6. Run the problem with `-eq` flag to enable the $$(p_1 - 1)^2 + p_2 = 3$$ constraint.
   * Change the starting point to $$(-1,-1)$$ and evaluate whether you recover the same solution as before. If not, why?
   * Combine equality constraints with bound constraints and try changing the starting point back to $$(10,10)$$. Which 
-  solution did you converge to?
+  solution did you converge to?  
 <br>
 
 7. ADVANCED: Change the constraint definition. Come up with constraints that are valid for the multidimensional 
-Rosenbrock problem.
+Rosenbrock problem.  
+<br>
 
 {::options parse_block_html="true" /}
 <div style="border: solid #8B8B8B 2px; padding: 10px;">
