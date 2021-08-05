@@ -113,7 +113,11 @@ int main(int argc,char **argv)
   start = MPI_Wtime();
   ierr = TaoSolve(tao);CHKERRQ(ierr);
   end = MPI_Wtime();
-  ierr = PetscPrintf(PETSC_COMM_WORLD, "\nTaoSolve() time: %f\n", end-start);CHKERRQ(ierr);
+  ierr = PetscPrintf(PETSC_COMM_WORLD, "\nSolution time: %f\n", end-start);CHKERRQ(ierr);
+  if (user.n == 2) {
+    ierr = PetscPrintf(PETSC_COMM_WORLD, "\nSolution vector:\n");CHKERRQ(ierr);
+    ierr = VecView(x, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
+  }
   
   /* Clean up PETSc objects */
   ierr = TaoDestroy(&tao);CHKERRQ(ierr);

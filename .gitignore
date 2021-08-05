@@ -2,7 +2,7 @@
 _site
 .jekyll-metadata
 *-cache/
-
+*.dSYM/*
 
 ### NPM ###
 /node_modules/

@@ -1,10 +1,10 @@
 ---
 layout: page-fullwidth
 order: 11
-title: "Multidimensional Rosenbrock with PETSc/TAO"
-subheadline: "Numerical Optimization"
+title: "Numerical Optimization with PETSc/TAO"
+subheadline: "The Multidimensional Rosenbrock Problem"
 teaser: "A practical introduction to large-scale gradient-based optimization"
-permalink: "lessons/multidim_rosenbrock_tao/"
+permalink: "lessons/numerical_optimization_tao/"
 use_math: true
 lesson: true
 header:
@@ -20,7 +20,7 @@ header:
 
 **Note:** To run the application in this lesson
 ```
-cd {{site.handson_root}}/multidim_rosenbrock_tao
+cd {{site.handson_root}}/numerical_optimization_tao
 make multidim_rosenbrock
 ./multidim_rosenbrock -tao_monitor
 ```
@@ -374,9 +374,11 @@ $ ./multidim_rosenbrock -tao_monitor
  26 TAO,  Function value: 6.57342e-13,  Residual: 1.75767e-05 
  27 TAO,  Function value: 6.67913e-20,  Residual: 4.6819e-09 
 
-TaoSolve() time: 0.001774
+Solution time: 0.001774
 
-Solution correct!
+Solution vector:
+
+
 ```
 
 In this output, the `Residual` indicates the L2-norm of the gradient, $$\|g_k\|_2$$, at every iteration. The problem 
