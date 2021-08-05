@@ -23,15 +23,15 @@ PetscErrorCode FormEqualityJacobian(Tao,Vec,Mat,Mat,void*);
 /* -------------------------------------------------------------------- */
 int main(int argc,char **argv)
 {
+  AppCtx             user;                  /* user-defined application context */
   PetscErrorCode     ierr;                  /* used to check for function return/error codes */
   Vec                x, xl, xu, c;          /* solution and constraint vectors */
   Mat                H, A;                  /* Hessian and constraint matrices */
   Tao                tao;                   /* Tao solver context */
+  PetscReal          final_obj;
   PetscBool          flg, use_fd = PETSC_FALSE;
   PetscBool          set_eq = PETSC_FALSE, set_bound = PETSC_FALSE;
-  PetscReal          error, abs_tol = 1e-05;
   double             start, end;
-  AppCtx             user;                  /* user-defined application context */
 
   /* Initialize TAO and PETSc */
   ierr = PetscInitialize(&argc, &argv, (char*)0, (char*)0); if (ierr) return ierr;
@@ -48,7 +48,10 @@ int main(int argc,char **argv)
   ierr = PetscOptionsGetBool(NULL, NULL, "-bound", &set_bound, &flg);CHKERRQ(ierr);
 
   /* Check sizing */
-  if (set_eq && user.n != 2) SETERRQ(PetscObjectComm((PetscObject)tao), PETSC_ERR_ARG_SIZ, "Incorrect problem size, constraint valid only for 2D");
+  if ((set_bound || set_eq) && user.n != 2) {
+    SETERRQ(PetscObjectComm((PetscObject)tao), PETSC_ERR_ARG_SIZ, 
+            "Incorrect problem size, constraint valid only for 2D");
+  }
 
   /* Allocate vector for the solution */
   ierr = VecCreate(PETSC_COMM_WORLD, &x);CHKERRQ(ierr);
@@ -85,10 +88,18 @@ int main(int argc,char **argv)
 
   /* Create data for constraints and set evaluation functions */
   if (set_bound) {
+    /* we want x[0] to be unbound at the bottom but x[1] > 0.0 */
     ierr = VecDuplicate(x, &xl);CHKERRQ(ierr);
-    ierr = VecSet(xl, PETSC_NINFINITY);CHKERRQ(ierr);
+    ierr = VecSetValue(xl, 0, PETSC_NINFINITY, INSERT_VALUES);CHKERRQ(ierr);
+    ierr = VecSetValue(xl, 1, 0.0, INSERT_VALUES);CHKERRQ(ierr);
+    ierr = VecAssemblyBegin(xl);CHKERRQ(ierr);
+    ierr = VecAssemblyEnd(xl);CHKERRQ(ierr);
+    /* we want x[0] < 0.0 but x[1] to be unbound at the top */
     ierr = VecDuplicate(x, &xu);CHKERRQ(ierr);
-    ierr = VecSet(xu, 0.0);CHKERRQ(ierr);
+    ierr = VecSetValue(xu, 0, 0.0, INSERT_VALUES);CHKERRQ(ierr);
+    ierr = VecSetValue(xu, 1, PETSC_INFINITY, INSERT_VALUES);CHKERRQ(ierr);
+    ierr = VecAssemblyBegin(xu);CHKERRQ(ierr);
+    ierr = VecAssemblyEnd(xu);CHKERRQ(ierr);
     ierr = TaoSetVariableBounds(tao, xl, xu);CHKERRQ(ierr);
   }
   if (set_eq) {
@@ -106,7 +117,7 @@ int main(int argc,char **argv)
   /* Check for TAO command line options */
   ierr = TaoSetMaximumFunctionEvaluations(tao, 1000000);CHKERRQ(ierr);
   ierr = TaoSetMaximumIterations(tao, 100000);CHKERRQ(ierr);
-  ierr = TaoSetTolerances(tao, abs_tol, 0.0, 0.0);CHKERRQ(ierr);
+  ierr = TaoSetTolerances(tao, 1.e-5, 0.0, 0.0);CHKERRQ(ierr);
   ierr = TaoSetFromOptions(tao);CHKERRQ(ierr);
 
   /* Solve the problem */
@@ -117,6 +128,8 @@ int main(int argc,char **argv)
   if (user.n == 2) {
     ierr = PetscPrintf(PETSC_COMM_WORLD, "\nSolution vector:\n");CHKERRQ(ierr);
     ierr = VecView(x, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
+    ierr = FormFunction(tao, x, &final_obj, (void*)&user);CHKERRQ(ierr);
+    ierr = PetscPrintf(PETSC_COMM_WORLD, "\nObjective at solution: %f\n", final_obj);CHKERRQ(ierr);
   }
   
   /* Clean up PETSc objects */
@@ -140,7 +153,7 @@ int main(int argc,char **argv)
     Output Parameters:
 .   f - function value
 */
-PetscErrorCode FormFunction(Tao tao,Vec X,PetscReal *f,void *ptr)
+PetscErrorCode FormFunction(Tao tao,Vec X,PetscReal* f,void* ptr)
 {
   AppCtx            *user = (AppCtx *) ptr;
   PetscInt          i;
@@ -197,7 +210,7 @@ PetscErrorCode FormFunction(Tao tao,Vec X,PetscReal *f,void *ptr)
     Output Parameters:
 .   G - vector containing the newly evaluated gradient
 */
-PetscErrorCode FormGradient(Tao tao,Vec X,Vec G,void *ptr)
+PetscErrorCode FormGradient(Tao tao,Vec X,Vec G,void* ptr)
 {
   AppCtx            *user = (AppCtx *) ptr;
   PetscInt          j;
@@ -264,7 +277,7 @@ PetscErrorCode FormGradient(Tao tao,Vec X,Vec G,void *ptr)
    Note:  Providing the Hessian may not be necessary.  Only some solvers
    require this matrix.
 */
-PetscErrorCode FormHessian(Tao tao,Vec X,Mat H, Mat Hpre, void *ptr)
+PetscErrorCode FormHessian(Tao tao,Vec X,Mat H, Mat Hpre, void* ptr)
 {
   AppCtx            *user = (AppCtx *) ptr;
   PetscInt          i;
@@ -358,24 +371,24 @@ PetscErrorCode FormHessian(Tao tao,Vec X,Mat H, Mat Hpre, void *ptr)
     Output Parameters:
 .   C - constraint vector
 */
-PetscErrorCode FormGradient(Tao tao,Vec X,Vec C,void *ptr)
+PetscErrorCode FormEqualityConstraints(Tao tao,Vec X,Vec C,void* ptr)
 {
-  AppCtx            *user = (AppCtx *) ptr;
+  AppCtx            *user = (AppCtx*) ptr;
   PetscErrorCode    ierr;
   PetscScalar       *cc;
-  PetscInt          n;
   const PetscScalar *xx;
 
   PetscFunctionBeginUser;
   /* check problem size */
-  ierr = VecSize(X, &n);CHKERRQ(ierr);
-  if (n != 2) SETERRQ(PetscObjectComm((PetscObject)tao), PETSC_ERR_ARG_SIZ, "Incorrect problem size, constraint valid only for 2D");
-
-  /* the constraint is x[1] = (x[0] - 1)^2 */
-  /* reformulated as (x[0]-1)^2 + x[1] = 0 */
+  if (user->n != 2) {
+    SETERRQ(PetscObjectComm((PetscObject)tao), PETSC_ERR_ARG_SIZ, 
+            "Incorrect problem size, constraint valid only for 2D");
+  }
+  /* the constraint is x[1] = -(x[0] - 1)^2 + 3 */
+  /* reformulated as (x[0]-1)^2 + x[1] - 3 = 0 */
   ierr = VecGetArrayRead(X, &xx);CHKERRQ(ierr);
   ierr = VecGetArray(C, &cc);CHKERRQ(ierr);
-  cc[0] = PetscPowReal(xx[0]-1.0, 2.0) + xx[1];
+  cc[0] = PetscPowReal(xx[0]-1.0, 2.0) + xx[1] - 3;
   ierr = VecRestoreArrayRead(X, &xx);CHKERRQ(ierr);
   ierr = VecRestoreArray(C, &cc);CHKERRQ(ierr);
 
@@ -400,18 +413,18 @@ PetscErrorCode FormEqualityJacobian(Tao tao,Vec X,Mat Amat,Mat Apre,void *ptr)
 {
   AppCtx            *user = (AppCtx *) ptr;
   PetscErrorCode    ierr;
-  PetscReal         row[1], col[2];
+  PetscInt          row[1], col[2];
   PetscReal         val[2];
-  PetscInt          n;
   const PetscScalar *xx;
 
   PetscFunctionBeginUser;
   /* check problem size */
-  ierr = VecSize(X, &n);CHKERRQ(ierr);
-  if (n != 2) SETERRQ(PetscObjectComm((PetscObject)tao), PETSC_ERR_ARG_SIZ, "Incorrect problem size, constraint valid only for 2D");
-
-  /* the constraint is x[1] = (x[0] - 1)^2 */
-  /* reformulated as (x[0]-1)^2 + x[1] = 0 */
+  if (user->n != 2) {
+    SETERRQ(PetscObjectComm((PetscObject)tao), PETSC_ERR_ARG_SIZ, 
+            "Incorrect problem size, constraint valid only for 2D");
+  }
+  /* the constraint is x[1] = -(x[0] - 1)^2 + 3 */
+  /* reformulated as (x[0]-1)^2 + x[1] - 3 = 0 */
   /* Jacobian matrix is [2*(x[0]-1)  1.0] */
   ierr = VecGetArrayRead(X, &xx);CHKERRQ(ierr);
   val[0] = 2.0*(xx[0] - 1.0);  val[1] = 1.0;

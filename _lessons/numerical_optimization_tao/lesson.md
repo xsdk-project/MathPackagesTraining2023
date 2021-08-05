@@ -15,8 +15,9 @@ header:
 
 |**Questions**|**Objectives**|**Key Points**|
 |1. What is optimization?|Understand the basic principles|Optimization seeks the inputs of a function that minimizes it|
-|3. Why use gradient-based methods?|Learn about trade-offs in algorithm choice|Gradient-based methods find local minima with the fewest number of function evaluations|
-|4. How can we compute gradients?|Evaluate different sensitivity analysis methods|Applications should provide analytical gradients whenever they can|
+|2. Why use gradient-based methods?|Learn about trade-offs in algorithm choice|Gradient-based methods find local minima with the fewest number of function evaluations|
+|3. How can we compute gradients?|Evaluate different sensitivity analysis methods|Applications should provide analytical gradients whenever they can|
+|4. How to solve constrained problems?|Introduce constraints to the optimization problem|Constraints can change the solution or introduce new local minima|
 
 **Note:** To run the application in this lesson
 ```
@@ -260,7 +261,7 @@ Applications where it is more efficient to evaluate the objective function toget
 an alternative [``TaoSetObjectiveAndGradientRoutine()``][5] interface to provide TAO a single ``FormFunctionGradient()`` 
 callback that evaluates both at the same time.
 
-TAO implements several bound-constrained algorithm types that can also solve unconstrained problems when there are no 
+TAO implements several bound-constrained algorithm types that also solve unconstrained problems when there are no 
 bounds defined in the problem setup. Algorithm types can be changed either via the `TaoSetType()` interface using the 
 solver names given in the first column below, or changed at runtume with the option flag `-tao_type <solver>` using the 
 string arguments given in the second column.
@@ -270,7 +271,6 @@ string arguments given in the second column.
 |[``TAOBNTR``][12]|`bntr`|Bound-constrained Newton Trust Region|
 |[``TAOBQNLS``][13]|`bqnls`|Bound-constrained Quasi-Newton Line Search|
 |[``TAOBNCG``][14]|`bncg`|Bound-constrained Nonlinear Conjugate Gradient|
-|[``TAOALMM``][15]|`almm`|Generally Constrained Augmented Lagrangian Method of Multipliers|
 
 The TAO solution can also be configured with additional runtime flags and corresponding code interfaces shown below.
 
@@ -283,9 +283,149 @@ The TAO solution can also be configured with additional runtime flags and corres
 |`-tao_test_gradient`|`TaoTestGradient()`|Validate the analytical gradient with finite differences at every iteration|
 |`-tao_test_hessian`|`TaoTestHessian()`|Validate the analytical Hessian with finite differences at every iteration|
 
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Defining Constraints(Click to expand!)</h4></summary>
+The discussion so far has focused exclusively on unconstrained problems even though the TAO solvers listed above are 
+all capable of solving bound-constrained problems. Bounds, which are also sometimes called "box" constraints, are 
+scalar limits placed on the optimization variables, such that
+
+$$
+\begin{align}
+  \underset{p}{\text{minimize}} &\quad f(p) \\
+  \text{subject to} &\quad p_l \leq p \leq p_u
+\end{align}
+$$
+
+where $$p_l$$ and $$p_u$$ are the lower and upper bound vectors, respectively. In optimization problems solved with 
+TAO, users can set the bounds with the following workflow:
+
+```c
+/* Duplicate from solution vector and set bounds */
+ierr = VecDuplicate(X, &XL);CHKERRQ(ierr);
+ierr = VecSet(XL, PETSC_NINFINITY);CHKERRQ(ierr);
+ierr = VecDuplicate(X, &XU);CHKERRQ(ierr);
+ierr = VecSet(XU, 0.0);CHKERRQ(ierr);
+ierr = TaoSetVariableBounds(tao, XL, XU);CHKERRQ(ierr);
+```
+
+In this particular example, the lower bound is set to negative-infinity which designates it as "unbounded", and the 
+upper bound is zero, thus forcing the solver to produce zero or negative solutions only. For positive solutions, the 
+lower bound would be set to 0 while the upper bound would be set to `PETSC_INFINITY`. Furthermore, the bounds can also 
+be adjusted differently for individual optimization variables using `VecSetValue(xl, i, val, INSERT_VALUES)` where `i` 
+is the index of the variable and `val` is the boundary value.
+
+In addition to bound-constrained methods, TAO also implements an [Augmented Lagrangian Method of Multipliers (``TAOALMM``)][15] 
+for generally constrained optimization problems of the form:
+
+$$
+\begin{align}
+  \underset{p}{\text{minimize}} &\quad f(p) \\
+  \text{subject to} &\quad c_e(p) = 0 \\
+                    &\quad c_i(p) \leq 0 \\
+                    &\quad p_l \leq p \leq p_u
+\end{align}
+$$
+
+`TAOALMM` converts this inequality constraints to equality constraints using an [interior-point formulation][16], and then 
+converts the equality constrained problem into a sequence of unconstrained or bound-constrained problems using the 
+[augmented Lagrangian method][17]. The unconstrained/bound-constrained subproblems are solved by one of the existing 
+bound-constrained TAO solvers.
+
+TAO requires equality and inequality constraints to be defined as function callbacks, separately for the constraint 
+vector and its Jacobian (matrix of sensitivities).
+
+```c
+PetscErrorCode FormEqualityConstraints(Tao tao, Vec P, Vec CE, void* ptr)
+{
+  PetscErrorCode ierr;
+  AppCtx *user = (AppCtx*)ptr;
+
+  /* Compute the vector of equality constraints CE at solution P */
+
+  return 0;
+}
+
+PetscErrorCode FormEqualityJacobian(Tao tao, Vec P, Mat AE, Mat AEpre, void* ptr)
+{
+  PetscErrorCode ierr;
+  AppCtx *user = (AppCtx*)ptr;
+
+  /* Compute the equality constraint Jacobian matrix AE at solution P */
+  /* NOTE: AEpre represents a "pseudoinverse" of AE but is ignored in most applications */
+
+  return 0;
+}
+
+PetscErrorCode FormInqualityConstraints(Tao tao, Vec P, Vec CI, void* ptr)
+{
+  PetscErrorCode ierr;
+  AppCtx *user = (AppCtx*)ptr;
+
+  /* Compute the vector of equality constraints CI at solution P */
+
+  return 0;
+}
+
+PetscErrorCode FormEqualityJacobian(Tao tao, Vec P, Mat AI, Mat AIpre, void* ptr)
+{
+  PetscErrorCode ierr;
+  AppCtx *user = (AppCtx*)ptr;
+
+  /* Compute the inequality constraint Jacobian matrix AI at solution P */
+  /* NOTE: AIpre represents a "pseudoinverse" of AI but is ignored in most applications */
+
+  return 0;
+}
+
+int main(int argc, char *argv[])
+{
+  /*
+    problem code
+  */
+
+  /* Equality constraints */
+  ierr = VecCreate(PETSC_COMM_WORLD, &CE);CHKERRQ(ierr);
+  ierr = VecSetSizes(CE, PETSC_DECIDE, user.nce);CHKERRQ(ierr);
+  ierr = TaoSetEqualityConstraintsRoutine(tao, CE, FormEqualityConstraints, &user);CHKERRQ(ierr);
+  ierr = MatCreate(PETSC_COMM_WORLD, &AE);CHKERRQ(ierr);
+  ierr = MatSetSizes(AE, PETSC_DECIDE, PETSC_DECIDE, user.nce, user.n);CHKERRQ(ierr);
+  ierr = MatSetUp(AE);CHKERRQ(ierr);
+  ierr = TaoSetJacobianEqualityRoutine(tao, AE, AE, FormEqualityJacobian, &user);CHKERRQ(ierr);
+
+  /* Inquality constraints */
+  ierr = VecCreate(PETSC_COMM_WORLD, &CI);CHKERRQ(ierr);
+  ierr = VecSetSizes(CI, PETSC_DECIDE, user.nci);CHKERRQ(ierr);
+  ierr = TaoSetEqualityConstraintsRoutine(tao, CI, FormInequalityConstraints, &user);CHKERRQ(ierr);
+  ierr = MatCreate(PETSC_COMM_WORLD, &AI);CHKERRQ(ierr);
+  ierr = MatSetSizes(AI, PETSC_DECIDE, PETSC_DECIDE, user.nci, user.n);CHKERRQ(ierr);
+  ierr = MatSetUp(AI);CHKERRQ(ierr);
+  ierr = TaoSetJacobianEqualityRoutine(tao, AI, AI, FormEqualityJacobian, &user);CHKERRQ(ierr);
+
+  /*
+    more problem code...
+  */
+  return 0;
+}
+```
+</details>
+</div>
+{::options parse_block_html="false" /}
+
 ## Example Problem: Multidimensional Rosenbrock
 
-<img src="2d_rosenbrock.png" alt="2D Rosenbrock Function" width="50%" style="display: block; margin-left: auto; margin-right: auto;">
+<style> table.images, .images td {   border: 0px;   } </style>
+<table class="images">
+  <tr>
+    <td>
+      <img src="2d_rosenbrock.png" alt="2D Rosenbrock Function" width="100%" style="display: block; margin-left: auto; margin-right: auto;">
+    </td>
+    <td>
+      <img src="2d_rosenbrock_contour.png" alt="Contour plot of 2D Rosenbrock" width="100%" style="display: block; margin-left: auto; margin-right: auto;">
+    </td>
+  </tr>
+</table>
 
 [The Rosenbrock function][1], also called a "banana function", is a canonical nonconvex test problem created by 
 Howard H. Rosenbrock in 1960 and used extensively to evaluate the performance of optimization algorithms. The 
@@ -377,135 +517,26 @@ $ ./multidim_rosenbrock -tao_monitor
 Solution time: 0.001774
 
 Solution vector:
+Vec Object: 1 MPI processes
+  type: seq
+1.
+1.
 
-
+Objective at solution: 0.000000
 ```
 
 In this output, the `Residual` indicates the L2-norm of the gradient, $$\|g_k\|_2$$, at every iteration. The problem 
-file is configured to terminate the solution when this gradient norm drops below the absolute tolerance of $$10^{-5}$$.
+file is configured to terminate the solution when this gradient norm drops below the absolute tolerance of $$10^{-5}$$. 
 
-The problem can be modified with various option flags:
+The hands-on example can be modified using the following command-line options:
 
 |**Option Flag**|**Description**|
 |`-n <integer>`|Change the problem size (default: 2)|
 |`-fd`|Use finite-difference gradients instead of analytical|
-|`-bound`|Activate bound constraints (default: $$p \leq 0$$)|
-|`-eq`|Activate equality constraints -- 2-D only (default: $$(p_1 - 1)^2 - p_2 = 0$$)|
+|`-bound`|Activate bound constraints -- 2-D only (default: $$p_1 \leq 0, \; p_2 \geq 0$$)|
+|`-eq`|Activate equality constraints -- 2-D only (default: $$(p_1 - 1)^2 + p_2 - 3 = 0$$)|
 
-{::options parse_block_html="true" /}
-<div style="border: solid #8B8B8B 2px; padding: 10px;">
-<details>
-<summary><h4 style="margin: 0 0 0 0; display: inline">Introducing constraints... (Click to expand!)</h4></summary>
-TAO offers a variety of algorithms that can solve the problem under different types of constraints. Algorithms with 
-the `B` prefix in their name are bound-constrained methods that use an active-set formulation to restrict the solution 
-to bounds provided by the user. These bounds can be set using [``TaoSetVariableBounds()``][6].
-
-```c
-/* Duplicate from solution vector and set bounds */
-ierr = VecDuplicate(X, &XL);CHKERRQ(ierr);
-ierr = VecSet(XL, PETSC_NINFINITY);CHKERRQ(ierr);
-ierr = VecDuplicate(X, &XU);CHKERRQ(ierr);
-ierr = VecSet(XU, 0.0);CHKERRQ(ierr);
-ierr = TaoSetVariableBounds(tao, XL, XU);CHKERRQ(ierr);
-```
-
-TAO also implements an [Augmented Lagrangian Method of Multipliers (``TAOALMM``)][15] for generally constrained problems. This 
-method can solve optimization problems of the form:
-
-$$
-\begin{align}
-  \underset{p}{\text{minimize}} &\quad f(p) \\
-  \text{subject to} &\quad c_e(p) = 0 \\
-                    &\quad c_i(p) \leq 0 \\
-                    &\quad p_l \leq p \leq p_u
-\end{align}
-$$
-
-TAO requires equality and inequality constraints to be defined as function callbacks, separately for the constraint 
-vector and its Jacobian (matrix of sensitivities).
-
-```c
-PetscErrorCode FormEqualityConstraints(Tao tao, Vec P, Vec CE, void* ptr)
-{
-  PetscErrorCode ierr;
-  AppCtx *user = (AppCtx*)ptr;
-
-  /* Compute the vector of equality constraints CE at solution P */
-
-  return 0;
-}
-
-PetscErrorCode FormEqualityJacobian(Tao tao, Vec P, Mat AE, Mat AEpre, void* ptr)
-{
-  PetscErrorCode ierr;
-  AppCtx *user = (AppCtx*)ptr;
-
-  /* Compute the equality constraint Jacobian matrix AE at solution P */
-  /* NOTE: AEpre represents a "pseudoinverse" of AE but is ignored in most applications */
-
-  return 0;
-}
-
-PetscErrorCode FormInqualityConstraints(Tao tao, Vec P, Vec CI, void* ptr)
-{
-  PetscErrorCode ierr;
-  AppCtx *user = (AppCtx*)ptr;
-
-  /* Compute the vector of equality constraints CI at solution P */
-
-  return 0;
-}
-
-PetscErrorCode FormEqualityJacobian(Tao tao, Vec P, Mat AI, Mat AIpre, void* ptr)
-{
-  PetscErrorCode ierr;
-  AppCtx *user = (AppCtx*)ptr;
-
-  /* Compute the inequality constraint Jacobian matrix AI at solution P */
-  /* NOTE: AIpre represents a "pseudoinverse" of AI but is ignored in most applications */
-
-  return 0;
-}
-
-int main(int argc, char *argv[])
-{
-  /*
-    problem code
-  */
-
-  /* Equality constraints */
-  ierr = VecCreate(PETSC_COMM_WORLD, &CE);CHKERRQ(ierr);
-  ierr = VecSetSizes(CE, PETSC_DECIDE, user.nce);CHKERRQ(ierr);
-  ierr = TaoSetEqualityConstraintsRoutine(tao, CE, FormEqualityConstraints, &user);CHKERRQ(ierr);
-  ierr = MatCreate(PETSC_COMM_WORLD, &AE);CHKERRQ(ierr);
-  ierr = MatSetSizes(AE, PETSC_DECIDE, PETSC_DECIDE, user.nce, user.n);CHKERRQ(ierr);
-  ierr = MatSetUp(AE);CHKERRQ(ierr);
-  ierr = TaoSetJacobianEqualityRoutine(tao, AE, AE, FormEqualityJacobian, &user);CHKERRQ(ierr);
-
-  /* Inquality constraints */
-  ierr = VecCreate(PETSC_COMM_WORLD, &CI);CHKERRQ(ierr);
-  ierr = VecSetSizes(CI, PETSC_DECIDE, user.nci);CHKERRQ(ierr);
-  ierr = TaoSetEqualityConstraintsRoutine(tao, CI, FormInequalityConstraints, &user);CHKERRQ(ierr);
-  ierr = MatCreate(PETSC_COMM_WORLD, &AI);CHKERRQ(ierr);
-  ierr = MatSetSizes(AI, PETSC_DECIDE, PETSC_DECIDE, user.nci, user.n);CHKERRQ(ierr);
-  ierr = MatSetUp(AI);CHKERRQ(ierr);
-  ierr = TaoSetJacobianEqualityRoutine(tao, AI, AI, FormEqualityJacobian, &user);CHKERRQ(ierr);
-
-  /*
-    more problem code...
-  */
-  return 0;
-}
-```
-
-The Rosenbrock problem can be re-solved with bound and equality constraints by running with `-bound` and `-eq` 
-flags, respectively. Bound constraints can be imposed on problems of any size, but the equality constraint defined 
-in the example code supports 2D Rosenbrock only. `TAOALMM` supports constraints of arbitrary size and the constraint 
-definition in the problem can be changed to accommodate multidimensional Rosenbrock.
-</details>
-</div>
-
-### Hands-on Activities
+## Hands-on Activities
 
 1. Change the TAO algorithm to nonlinear conjugate gradient method using `-tao_type bncg` and to truncated Newton 
 using `-tao_type bnls`. Compare convergence against the default quasi-Newton method (`-tao_type bqnls`).
@@ -523,10 +554,20 @@ parallel runs?
   * Repeat Activity 4 with different TAO algorithms. Are the break-even points in size vs. performance the same?  
 <br>
 
-5. ADVANCED: Play with bound and equality constraints! You can change their definitions in the code and restrict the 
-solution. Unconstrained Rosenbrock is a globally convex problem with a single unique solution. Different constraint 
-definitions can make it a multi-modal solution with multiple local minima. Which one you converge to depends on the 
-starting point.
+5. Run the problem with `-bound` flag to enable $$p_1 \leq 0$$ and $$p_2 \geq 0$$ constraints.
+  * Change the starting point and evaluate how it affects the convergence. Is there a difference between starting from 
+  the feasible versus non-feasible space?
+  * Repeat Activity 5 with different bound-constrained TAO algorithms.
+<br>
+
+6. Run the problem with `-eq` flag to enable the $$(p_1 - 1)^2 + p_2 = 3$$ constraint.
+  * Change the starting point to $$(-1,-1)$$ and evaluate whether you recover the same solution as before. If not, why?
+  * Combine equality constraints with bound constraints and try changing the starting point back to $$(10,10)$$. Which 
+  solution did you converge to?
+<br>
+
+7. ADVANCED: Change the constraint definition. Come up with constraints that are valid for the multidimensional 
+Rosenbrock problem.
 
 {::options parse_block_html="true" /}
 <div style="border: solid #8B8B8B 2px; padding: 10px;">
@@ -550,6 +591,39 @@ algorithm choice, application-specific pathologies, and parallelization.
 </div>
 {::options parse_block_html="false" /}
 
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Notes on Bound Constraints (Click to expand!)</h4></summary>
+Introducing the bound constraints $$p_1 \leq 0$$ and $$p_2 \geq 0$$ forces the solution to a new global minimum at 
+$$f(0,0) = 1.0$$. This minimum is a trivial solution where the bounds for both optimization variables.
+are active.
+
+<img src="2d_rosenbrock_bound.png" alt="Bound constraints" width="50%" style="display: block; margin-left: auto; margin-right: auto;">
+</details>
+</div>
+{::options parse_block_html="false" /}
+
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Notes on Equality Constraints (Click to expand!)</h4></summary>
+The quadratic equality constraint $$(p_1 - 1)^2 + p_2 - 3 = 0$$ presents two local minima instead 
+of the original global minimum. These two minima lie at $$f(1.62, 2.62)=0.38$$ and $$f(-0.62, 0.38)=2.62$$. On 
+multi-modal problems such as this, gradient-based optimization methods converge to the local minimum closest to the 
+starting point. In this hands-on example, we start our solution with an initial guess of $$(10,10)$$ and converge to 
+$$f(1.62, 2.62)=0.38$$. A solution that starts at $$(-1,-1)$$ converges to $$f(-0.62, 0.38)=2.62$$ instead.
+
+<img src="2d_rosenbrock_eq.png" alt="Bound constraints" width="50%" style="display: block; margin-left: auto; margin-right: auto;">
+
+Combining the equality and bound constraints eliminates one of the two local minima and forces the solution to always 
+converge to the now-global minimum at $$f(-0.62, 0.38)=2.62$$ regardless of the starting point.
+
+<img src="2d_rosenbrock_bound_eq.png" alt="Bound constraints" width="50%" style="display: block; margin-left: auto; margin-right: auto;">
+</details>
+</div>
+{::options parse_block_html="false" /}
+
 ## Take-Away Messages
 
 * PETSc/TAO offers parallel optimization algorithms for large-scale problems.
@@ -557,6 +631,8 @@ algorithm choice, application-specific pathologies, and parallelization.
 * Second-order optimization methods don't always achieve faster/better solutions. Sometimes "less is more".
 * When applications provide only function evaluations, PETSc/TAO can automatically compute gradients with finite differencing.
 * PETSc/TAO can also use finite differencing to validate application-provided gradients and Hessians.
+* Different types of constraints imposed on the problem can change the solution, introduce new local minima, or eliminate existing local minima.
+* PETSc/TAO implements methods that can solve problems with both bound, equality and inequality constraints.
 
 ## Further Reading
 
@@ -583,3 +659,5 @@ algorithm choice, application-specific pathologies, and parallelization.
 [13]: https://petsc.org/release/docs/manualpages/Tao/TAOBQNLS.html
 [14]: https://petsc.org/release/docs/manualpages/Tao/TAOBNCG.html
 [15]: https://petsc.org/release/docs/manualpages/Tao/TAOALMM.html
+[16]: https://en.wikipedia.org/wiki/Interior-point_method
+[17]: https://en.wikipedia.org/wiki/Augmented_Lagrangian_method
