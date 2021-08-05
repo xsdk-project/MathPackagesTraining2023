@@ -8,7 +8,7 @@ permalink: "lessons/multidim_rosenbrock_tao/"
 use_math: true
 lesson: true
 header:
- image_fullwidth: "xsdk_logo_wide-fs8.png"
+ image_fullwidth: "PETSc-TAO_RGB.png"
 ---
 
 ## At a Glance

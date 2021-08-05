@@ -6,7 +6,7 @@
 
 - name: El-Capitan 
   webinfo: https://www.llnl.gov/news/llnl-and-hpe-partner-amd-el-capitan-projected-worlds-fastest-supercomputer
-  zoom_link:
+  zoom_link: https://exascaleproject.zoomgov.com/j/1614293491?pwd=TldUL0tBZDYrVzhGcC94bFdPY3BHZz09
   slackweb: https://app.slack.com/client/TMW2FLNCQ/C02A4L4D4HF
   slackapp: slack://channel?team=MW2FLNCQ&id=02A4L4D4HF
 
@@ -18,13 +18,13 @@
 
 - name: Perlmutter
   webinfo: https://www.nersc.gov/systems/perlmutter/
-  zoom_link:
+  zoom_link: https://exascaleproject.zoomgov.com/j/1600801204?pwd=YjZ5U0pwdVVPaVE3MkIzUS9MYU0rUT09
   slackweb: https://app.slack.com/client/TMW2FLNCQ/C02AFL4NLAU
   slackapp: slack://channel?team=MW2FLNCQ&id=029K8T5LP8
 
 - name: Frontier
   webinfo: https://www.olcf.ornl.gov/frontier/
-  zoom_link:
+  zoom_link: https://exascaleproject.zoomgov.com/j/1616238240?pwd=akN2ZTlFY3ZINmdBOXE2LytoSFQ3dz09
   slackweb: https://app.slack.com/client/TMW2FLNCQ/C029K8T5LP8
   slackapp: slack://channel?team=MW2FLNCQ&id=02AFL4NLAU
 
