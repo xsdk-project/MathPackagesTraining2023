@@ -590,6 +590,7 @@ algorithm choice, application-specific pathologies, and parallelization.
 </details>
 </div>
 {::options parse_block_html="false" /}
+<br>
 
 {::options parse_block_html="true" /}
 <div style="border: solid #8B8B8B 2px; padding: 10px;">
@@ -603,6 +604,7 @@ are active.
 </details>
 </div>
 {::options parse_block_html="false" /}
+<br>
 
 {::options parse_block_html="true" /}
 <div style="border: solid #8B8B8B 2px; padding: 10px;">
