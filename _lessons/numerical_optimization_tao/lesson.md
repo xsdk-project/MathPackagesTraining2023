@@ -163,13 +163,13 @@ elementary operations performed by the function. This is typically done with an 
 to generate a new subroutine for the derivative before compile time, or an AD library that overloads the elementary 
 operations in the source code at compile time to generate compiled code for the derivative. Below is an incomplete list 
 of AD tools that may be useful to your application:
-  * [ADIC][https://www.mcs.anl.gov/research/projects/adic/] (ANSI C) -- Argonne National Laboratory
-  * [ADIFOR][https://www.mcs.anl.gov/research/projects/adifor/index.html] (Fortran77) -- Argonne National Laboratory
-  * [OpenAD][https://www.mcs.anl.gov/OpenAD/] (Fortran77/Fortran95/C/C++) -- Argonne National Laboratory
-  * [Sacado][https://trilinos.github.io/sacado.html] (C/C++) -- Sandia National Laboratory
-  * [ForwardDiff.jl][https://github.com/JuliaDiff/ForwardDiff.jl] (Julia)
+  * [ADIC](https://www.mcs.anl.gov/research/projects/adic/) (ANSI C) -- Argonne National Laboratory
+  * [ADIFOR](https://www.mcs.anl.gov/research/projects/adifor/index.html) (Fortran77) -- Argonne National Laboratory
+  * [OpenAD](https://www.mcs.anl.gov/OpenAD/) (Fortran77/Fortran95/C/C++) -- Argonne National Laboratory
+  * [Sacado](https://trilinos.github.io/sacado.html) (C/C++) -- Sandia National Laboratory
+  * [ForwardDiff.jl](https://github.com/JuliaDiff/ForwardDiff.jl) (Julia)
   * [JAX](https://github.com/google/jax) (Python)
-  * [TOMLAB/MAD][https://tomopt.com/tomlab/products/mad/] (MATLAB)
+  * [TOMLAB/MAD](https://tomopt.com/tomlab/products/mad/) (MATLAB)
 
 This approach produces accurate gradients at a computational cost that is largely insensitive to the size of the 
 optimization problem. However, the FD methods remain an easy alternative for rapid prototyping and testing, especially 
