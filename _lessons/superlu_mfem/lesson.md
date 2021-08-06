@@ -1,6 +1,6 @@
 ---
 layout: page-fullwidth
-order: 5
+order: 7
 subheadline: "Linear Solvers"
 title: "Sparse, Direct Solvers with SuperLU"
 teaser: "Role and Use of Direct Solvers in Ill-Conditioned Problems"

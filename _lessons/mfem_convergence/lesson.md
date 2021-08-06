@@ -1,6 +1,6 @@
 ---
 layout: page-fullwidth
-order: 5
+order: 3
 subheader: "Discretization"
 title: "Unstructured Meshing & Discretization with MFEM"
 teaser: "Finite Elements and Convergence"

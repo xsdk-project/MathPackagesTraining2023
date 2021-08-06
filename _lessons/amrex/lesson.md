@@ -1,6 +1,6 @@
 ---
 layout: page-fullwidth
-order: 4
+order: 2
 title: "Meshing and Discretization with AMReX"
 teaser: "A Block Structured Adaptive Mesh Refinement Framework"
 subheader: "Not your grandmother's AMR...!"
