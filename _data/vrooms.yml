@@ -12,7 +12,7 @@
 
 - name: Aurora
   webinfo: https://www.alcf.anl.gov/aurora
-  zoom_link:
+  zoom_link: https://exascaleproject.zoomgov.com/j/1616269585?pwd=THo3b1ZmM0swT3R5NnFxdlJPdnREUT09
   slackweb: https://app.slack.com/client/TMW2FLNCQ/C029K8HUU4E
   slackapp: slack://channel?team=MW2FLNCQ&id=029K8HUU4E
 
