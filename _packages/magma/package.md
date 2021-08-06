@@ -1,6 +1,6 @@
 ---
 layout: package
-subheadline: ATPESC 2020 Package Overviews
+subheadline: ATPESC 2021 Package Overviews
 title: "MAGMA"
 teaser: "Linear algebra solvers and spectral decompositions for hardware accelerators"
 permalink: "packages/magma/"
