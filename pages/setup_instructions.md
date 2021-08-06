@@ -85,6 +85,7 @@ qsub -I -n 1 -t 300 -A ATPESC2021 -q training
 The command blocks until the node is ready.  Until the allocation expires (300 minutes in this example), all commands executed in the returned session will run on the allocated compute node; `mpiexec` can be used directly instead of going through `qsub`.
   * **Note 1:** Please **DO NOT** run MPI jobs on the login nodes. Instead, run them on an allocated compute node.
   * **Note 2:** Be aware, however, that any running job will be terminated when your allocation expires.
+  * **Note 3:** Cooley job scheduling policies [document](https://www.alcf.anl.gov/support-center/cooley/job-scheduling-policies-cooley)
   * **Note 4:** To enable X windows for visualization on the compute node, you can open a new terminal and login to the allocated compute node by doing `ssh -Y cc0xx` (`cc0xx` is your compute node id)
 
 ## Visualization Tool Setup
