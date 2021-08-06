@@ -16,11 +16,5 @@ permalink: "/virtual_rooms/"
 * [Frontier]
 * [Perlmutter]
 
-### IT Support Rooms
-
-* [Ampere]
-* [Volta]
-* [Navi] (morning sessions only; viz-tool issues only)
-
 {% include link-shortcuts %}
 
