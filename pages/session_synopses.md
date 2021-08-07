@@ -11,12 +11,12 @@ permalink: "/session_synopses/"
 
 ### Introduction to Numerical Software
 ### Introduction to Numerical Software
-[Slides](../files/ATPESC-2020-Track-5-Talk-1-McInnesAndMiller-IntroToNumericalSoftware.pdf)
+[Slides](../files/ATPESC-2021-Track-5-Talk-0-YangAndDener-IntroToNumericalSoftware.pdf)
 
 In the first hour of our day with you we will give a brief introduction
 to our agenda and logistics and an overview of the various numerical packages
 you will learn about. In addition, we will do a hands-on exercise that amounts
-to the `Hello World` of numerical software, the one-dimensional heat equation,
+to the `Hello, World!` of numerical software, the one-dimensional heat equation,
 and use it to help answer a very simple science question.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -24,7 +24,7 @@ and use it to help answer a very simple science question.
 
 ### Structured Discretization (with AMReX)
 ### Structured Discretization (with AMReX)
-[Slides](../files/ATPESC-2020-Track-5-Talk-2-AlmgrenAndWilcox-StructuredDiscretizationAMReX.pdf)
+[Slides](../files/ATPESC-2021-Track-5-Talk-1-AnnAlmgren-StructuredMesh.pdf)
 
 Block-structured adaptive mesh refinement (AMR) provides a natural framework
 in which to focus computing power on the most critical parts of the problem in
@@ -44,7 +44,7 @@ solvers to impose incompressibility on a flow around obstacles, and
 
 ### Unstructured Discretization (with MFEM/PUMI)
 ### Unstructured Discretization (with MFEM/PUMI)
-[Slides](../files/ATPESC-2020-Track-5-Talk-3-FisherAndShepherd-MFEM+PUMI.pdf)
+[Slides](../files/ATPESC-2021-Track-5-Talk-2-AaronFisher-MarkShephard-UnstructuredDiscretization.pdf)
 
 Unstructured meshes can yield required levels of accuracy using fewer degrees of
 freedom at the cost of more complex parallel data structures and algorithms. To
@@ -75,7 +75,7 @@ handle particularly difficult nonlinearities.
 
 ### Time Integration (with SUNDIALS)
 ### Time Integration (with SUNDIALS)
-[Slides](../files/ATPESC-2020-Track-5-Talk-8-Reynolds-TimeIntegrationSUNDIALS.pdf)
+[Slides](../files/ATPESC-2021-Track-5-Talk-7-DanielReynolds-TimeIntegrationSUNDIALS.pdf)
 
 In this lecture we will discuss the role and impact of high order, adaptive, and
 flexible time integration libraries in solution accuracy and computational
@@ -101,7 +101,7 @@ semi-discretization.
 
 ### Iterative Solvers & Preconditioners (with MueLu)
 ### Iterative Solvers & Preconditioners (with MueLu)
-[Slides](../files/ATPESC-2020-Track-5-Talk-5-HuAndGlusa-IterativeSolversPreconditioners.pdf)
+[Slides](../files/ATPESC-2021-Track-5-Talk-4-GlusaHarperOhm-KrylovSolversAndPreconditioningWithMueLu.pdf)
 
 In this session, attendees will learn about linear solvers and preconditioners
 available in the Trilinos project.  We will focus on Krylov solvers such
@@ -117,7 +117,7 @@ model linear problem.
 
 ### Iterative Solvers & Algebraic Multigrid (with HYPRE)
 ### Iterative Solvers & Algebraic Multigrid (with HYPRE)
-[Slides](../files/ATPESC-2020-Track-5-Talk-6-Yang-IterativeSolversHYPRE.pdf)
+[Slides](../files/ATPESC-2021-Track-5-Talk-3-OsbornYang-Iterative-Solvers-hypre.pdf)
 
 This session will present the basic concepts of iterative linear solvers with focus on
 Krylov solvers, including the generalized minimum residual method (GMRES),
@@ -134,22 +134,23 @@ from the HYPRE library applied to several test problems.
 
 ### Optimization (with TAO)
 ### Optimization (with TAO)
-[Slides](../files/ATPESC-2020-Track-5-Talk-9-Dener-OptimizationTAO.pdf)
+[Slides](../files/ATPESC-2021-Track-5-Talk-8-AlpDener-OptimizationTAO.pdf)
 
 This lecture will provide an introduction to numerical optimization with a
 theoretical focus on simulation-based problems. We will introduce the user
 interfaces for the Toolkit for Advanced Optimization (TAO) package within
-the PETSc library and exercise several gradient-based algorithms on scalable
-synthetic test problems. We will observe and discuss the relative convergence
+the PETSc library and exercise several gradient-based algorithms on a scalable
+synthetic test problem. We will observe and discuss the relative convergence
 of different classes of algorithms and sensitivity analysis methods in a
-parallel environment.
+parallel environment. Finally, we will also introduce constraints and study 
+their effect on the problem solution.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 ### Direct Solvers (with SuperLU/Strumpack)
 ### Direct Solvers (with SuperLU/Strumpack)
-[Slides](../files/ATPESC-2020-Track-5-Talk-4-LiAndGhysels-DirectSolvers.pdf)
+[Slides](../files/ATPESC-2021-Track-5-Talk-5-Li-Ghysels-DirectSolvers.pdf)
 
 In this lecture we discuss several aspects of direct solvers for large
 sparse linear systems. Sparse direct solvers, based on Gaussian
@@ -201,9 +202,9 @@ This will be a 45 minute panel question and answer period for ATPESC learners to
 questions about working with numerical package and the community of numerical package
 developers. If you have question(s) you know you would like to ask, we encourage attendees
 to submit questions *ahead* of time via the
-[submission form](https://forms.gle/K5v4gQFyKdNjLFhy7).
+[submission form](https://forms.gle/SmVroQBAq145g4F79).
 However, we expect there will also be ample opportunty to indicate your desire to ask
-questions via the main (Ampitheater) [slack channel](https://join.slack.com/share/zt-g2iz7j9z-DlNMA~iDqAg9Q4AbaU6Lmg),
+questions via the main (Ampitheater) [slack channel](https://app.slack.com/client/TMW2FLNCQ/C029YJ95ULQ),
 and then you may be called upon to un-mute and ask your question.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -216,7 +217,7 @@ This is an opportunity for you to meet and talk (1-on-1 or sometimes 2-on-1) wit
 (SMEs) about their work and numerical packages they support. Each *speed date* will be a 20 minute Zoom
 meeting where you will be un-muted and able to have a conversation with an SME. Attendees may select up to
 3 SMEs they would like to meet using
-[this form](https://docs.google.com/forms/d/e/1FAIpQLSe73POCve2GDFeE5n-07tODaCNsZQlz_v7sS8qUVRvkc2FuaA/viewform?usp=sf_link)
+[this form](https://forms.gle/eCM39BXjdDt69kTH6)
 Requests will be accomodated on a first-come, first-served basis until all available slots are taken.
 So, be sure to make your selections early in the day and no later than the end of the afternoon break,
 3:40 PM CDT.
