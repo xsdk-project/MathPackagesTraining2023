@@ -151,23 +151,30 @@ parallel environment.
 ### Direct Solvers (with SuperLU/Strumpack)
 [Slides](../files/ATPESC-2020-Track-5-Talk-4-LiAndGhysels-DirectSolvers.pdf)
 
-Direct Solvers are presented in three different time slots, each with a slightly
-different emphasis...
+In this lecture we discuss several aspects of direct solvers for large
+sparse linear systems. Sparse direct solvers, based on Gaussian
+elimination, are popular for a variety of applications mainly because
+of their numerical robustness and ease of use. Two software packages
+are introduced: SuperLU(_Dist) and STRUMPACK. We give a brief
+introduction to the underlying algorithms used in these solvers and
+illustrate their use.
 
-* Session 1 (10:30am-11:30am):
-  * Sparse direct solvers (both SuperLU and Strumpack), 30 minutes  (Sherry)
-  * Low rank approximation techniques in Strumpack, 15 minutes (Pieter)
-  * SuperLU hands-on demo, 15 minutes (Sherry)
+In the second part of the lecture we introduce the concept of
+data-sparse matrix approximation, where a matrix is hierarchically
+partitioned in sub-blocks, which are compressed using low-rank
+approximations. Such a hierarchical matrix approximation allows for
+linear algebra operation that are much more efficient than the
+traditional O(n^3) dense linear algebra operations, such as LU
+decomposition or matrix-matrix multiplication, while also reducing
+memory usage. We then show how STRUMPACK uses such hierarchical matrix
+approximation to construct efficient preconditioners based on
+approximate sparse LU factorization.
 
-* Session 2 (11:45am-12:45pm):
-  * Sparse direct solvers (both SuperLU and Strumpack), 30 minutes  (Sherry)
-  * Low rank approximation techniques in Strumpack, 15 minutes (Pieter)
-  * Strumpack hands-on demo, 15 minutes (Pieter)
+* Session 1 (10:30am-11:30am) includes a hands-on demo session with
+SuperLU.
+* Session 2 (11:45am-12:45pm) has a hands-on demo session with STRUMPACK.
+* Session 4 (3:40pm-4:30pm) includes a Q&A session (no hands-on).
 
-* Session 4 (3:40pm - 4:30pm):
-  * Sparse direct solvers (both SuperLU and Strumpack), 30 minutes  (Sherry)
-  * Low rank approximation techniques in Strumpack, 15 minutes (Pieter)
-  * Q&A.  (Sherry, Pieter)
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
