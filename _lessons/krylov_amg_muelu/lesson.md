@@ -235,7 +235,7 @@ The number of iterations taken by CG scales with the square root of the conditio
 
 ### Set 3 - Krylov solver, multigrid preconditioner
 
-<video controls="controls">
+<video controls="controls" width="100%">
 <source src="test-compressed.mp4" type="video/mp4">
 </video>
 
