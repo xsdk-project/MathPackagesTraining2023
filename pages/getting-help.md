@@ -14,14 +14,17 @@ permalink: "/getting-help/"
   {% endif %}
 {% endfor %}
 
-Use the *#track-5-numerical* slack channel for general help and it support.
+Use the *#help-desk* slack channel for general help and it support.
+
+<center style="font-size:18px">Launch #help-desk Slack in<br><a href="https://app.slack.com/client/TMW2FLNCQ/C029TG2QCM8" onclick="window.open(this.href,'newwindow','width=600,height=900'); return false;">new browser window</a> or <a href="slack://channel?team=MW2FLNCQ&id=029TG2QCM8">desktop app</a></center>
+
+Use the *#track-5-numerical* slack channel for help with Track 5 sessions.
 
 <center style="font-size:18px">Launch #track-5-numerical Slack in<br><a href="{{vroom.slackweb}}" onclick="window.open(this.href,'newwindow','width=600,height=900'); return false;">new browser window</a> or <a href="{{vroom.slackapp}}">desktop app</a></center>
 
 As a last resort, you can try emailing...
 
 * [Satish Balay](<mailto:balay@mcs.anl.gov>),
-* [Cameron Smith](<mailto:smithc11@rpi.edu>)
 * [Alp Dener](<mailto:adener@anl.gov>)
 
 {% include link-shortcuts %}
