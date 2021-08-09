@@ -59,8 +59,6 @@ $ which mpiexec
 ```
 
 1. Confirm you can compile and run an example
-  * As a test case, use an example from hypre to confirm you can compile
-    and run an example
 ```
 qsub -I -n 1 -t 5 -A ATPESC2021 -q training
 cd track-5-numerical/hand_coded_heat
