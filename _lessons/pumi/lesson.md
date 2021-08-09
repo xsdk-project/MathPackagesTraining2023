@@ -166,14 +166,6 @@ Download the `.*vtu` files from
 use a file transfer utility (e.g., `scp`, `rsync`, `putty`, etc.)
 to copy the ones you generated to your local machine.
 
----
-
-This concludes the day time hands-on.
-In the evening you'll have an opportunity to repeat these steps and follow two
-additional steps before running the adaptive analysis.
-
----
-
 ## Partitioning
 
 Efficient parallel execution requires equally distributing the units of work among the
@@ -190,16 +182,13 @@ the max element count on any part divided by the average element count across
 all parts.
 
 ```
-qsub -I -n 1 -t 30 -A ATPESC2018 -q training
-cd ~/mfem-pumi-lesson/partition
-runParma=0
+cd {{site.handson_root}}/mfem-pumi-lesson/partition
 isLocal=0
-render=1
-mdl=upright_defeatured_geomsim.smd
-mesh=5kg1_defeatured/
-mpiexec -np 4 ./ptnParma $mdl $mesh 5kg1_p4_parmetis/ 4 pmetis kway $isLocal $runParma $render &> graph.out
-mpiexec -np 4 ./ptnParma $mdl $mesh 5kg1_p4_rcb/ 4 rcb ptn $isLocal $runParma $render &> rcb.out
-mpiexec -np 4 ./ptnParma $mdl $mesh 5kg1_p4_rib/ 4 rib ptn $isLocal $runParma $render &> rib.out
+mdl=upright_defeatured.smd
+mesh=case1/
+mpiexec -np 4 ./ptnParma $mdl $mesh parmetis/ 4 pmetis kway $isLocal &> graph.out
+mpiexec -np 4 ./ptnParma $mdl $mesh rcb/ 4 rcb ptn $isLocal &> rcb.out
+mpiexec -np 4 ./ptnParma $mdl $mesh rib/ 4 rib ptn $isLocal &> rib.out
 ```
 
 The entity imbalance information is listed on the lines containing `entity
