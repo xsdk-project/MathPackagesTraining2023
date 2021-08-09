@@ -45,7 +45,7 @@ $$-\Delta u = f$$
 
 on a square mesh of size $$n_x \times n_y$$ with Dirichlet boundary conditions $$u = 0$$.
 
-It is discretized using central finite differences, leading to a symmetric positive (spd) matrix.
+It is discretized using central finite differences, leading to a symmetric positive definite (spd) matrix.
 
 ## The Example Source Code
 
@@ -234,6 +234,10 @@ The number of iterations taken by CG scales with the square root of the conditio
 ---
 
 ### Set 3 - Krylov solver, multigrid preconditioner
+
+<video controls="controls" width="100%">
+<source src="test-compressed.mp4" type="video/mp4">
+</video>
 
 The reason that the Gauss-Seidel preconditioner did not work well is that it effectively only reduces error locally, but not globally.
 We hence need a global mechanism of error correction, which can be provided by adding one or more coarser grids.
