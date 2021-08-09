@@ -87,9 +87,11 @@ $$u_i^{k+1} = ru_{i+1}^k+(1-2r)u_i^k+ru_{i-1}^k$$
 
 where \\( r=\alpha\frac{\Delta t}{\Delta x^2} \\)
 
-{% include qanda
-    question='Is there anything in this numerical treatment that feels like a _mesh_?'
-    answer='
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Is there anything in this numerical treatment that feels like a mesh? (Click to expand!)</h4></summary><br>
+
 In the process of discretizing the PDE, we have defined a fixed spacing in x
 and a fixed spacing in t as shown in the figure here
 
@@ -98,12 +100,11 @@ and a fixed spacing in t as shown in the figure here
 This is essentially a uniform mesh. Later lessons
 here address more sophisticated discretizations in space and in time which
 depart from these often inflexible fixed spacings.
-                                                                          
-                                                                          
-                                                                          
-                                                                          
-                                                                          
-' %}
+
+</details>
+</div>
+{::options parse_block_html="false" /}
+<br>
 
 ---
 
@@ -131,9 +132,11 @@ solution_update_ftcs(
 )
 {
 ```
-{% include qanda
-    question='Using eq. 5, implement the body of this function'
-    answer='
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Using eq. 5, implement the body of this function (Click to expand!)</h4></summary><br>
+
 ```
     Number const r = alpha * dt / (dx * dx);
 
@@ -150,13 +153,11 @@ solution_update_ftcs(
 
     return true;
 ```
-                                                                      
-                                                                      
-                                                                      
-                                                                      
-                                                                      
-                                                                      
-' %}
+
+</details>
+</div>
+{::options parse_block_html="false" /}
+<br>
 
 ```
 }
@@ -178,9 +179,12 @@ make heat
 % make
 ```
 without any target specified will display a set of convenient make targets.
-{% include qanda
-    question='Show make output'
-    answer='
+
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Show make output (Click to expand!)</h4></summary><br>
+
 ```
 Targets:
     heat: makes the default heat application (double precision)
@@ -191,15 +195,21 @@ Targets:
     PTOOL=[gnuplot,matplotlib,visit] RUNAME=<run-dir-name> plot: plots results
     check: runs various tests confirming steady-state is linear
 ```
-' %}
+
+</details>
+</div>
+{::options parse_block_html="false" /}
+<br>
 
 
 ```
 % ./heat --help
 ```
-{% include qanda
-    question='Show help output'
-    answer='
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Show help output (Click to expand!)</h4></summary><br>
+
 ```
 Usage: ./heat <arg>=<value> <arg>=<value>...
     runame="heat_results"               name to give run and results dir (char*)
@@ -221,11 +231,17 @@ Examples...
     ./heat dx=0.01 dt=0.0002 alg=ftcs
     ./heat dx=0.1 bc0=273 bc1=273 ic="spikes(273,5,373)"
 ```
-' %}
 
-{% include qanda
-    question='About the initial condition (ic) argument...'
-    answer='
+</details>
+</div>
+{::options parse_block_html="false" /}
+<br>
+
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">About the initial condition (ic) argument... (Click to expand!)</h4></summary><br>
+
 The initial condition argument, `ic`, handles a few interesting cases
 
 Constant, `ic="const(V)"`
@@ -251,24 +267,19 @@ Sin, `ic="sin(Pi*x)"`
 Spikes, `ic="spikes(C,A0,X0,A1,X1,...)"`
 
 : Set initial condition to a constant value, `C` with any number of _spikes_ where each spike is the pair, `Ai` specifying the spike amplitude and `Xi` specifying its position in, x.
-                                                                               
-                                                                               
-                                                                               
-                                                                               
-                                                                               
-                                                                               
-                                                                               
-                                                                               
-
-' %}
-
+</details>
+</div>
+{::options parse_block_html="false" /}
+<br>
 
 #### Default Run
 Run the application with default arguments (e.g. don't specify any) and see what happens...
 
-{% include qanda
-    question='Default run output'
-    answer='
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Default run output (Click to expand!)</h4></summary><br>
+
 ```
 % ./heat
     runame="heat_results"
@@ -299,15 +310,10 @@ Before running, the application dumps its command-line arguments so the user can
 see what parameters it was run with. In this case, you are seeing the default
 values. It then runs the problem as defined by the command-line arguments and
 saves result files, as needed, to the directory specified by the `runame=` argument.
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-
-' %}
+</details>
+</div>
+{::options parse_block_html="false" /}
+<br>
 
 #### Understanding the output and results
 
@@ -356,15 +362,20 @@ _time_ of the solution data stored therein.
 Before we use our new application to solve our simple science question, how can we assure
 ourselves that the code we have written is not somehow seriously broken?
 
-{% include qanda
-    question='Can you think ways to sanity check the our code?'
-    answer='
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Can you think ways to sanity check the our code? (Click to expand!)</h4></summary><br>
+
 * Compare it to known, validated numerical solutions.
 * Compare it to known analytical solutions.
 * Confirm its behavior at steady state.
 
 In any case, think about how you would measure _error_.
-' %}
+</details>
+</div>
+{::options parse_block_html="false" /}
+<br>
 
 We know, maybe even intuitively, that if we maintain constant temperatures at
 $$A @ x=0$$ and $$B @ x=L_x$$, then after a long time (e.g. when the solution
@@ -375,20 +386,32 @@ below.
 
 ![Evolution Towards Steady State ::](Heat_Transfer.gif)
 
-{% include qanda
-    question='Construct a suitable command-line to easily confirm a linear steady state'
-    answer='Since the default length is 1 and the default boundary conditions are 0 and 1,
-            we just need to run the problem for a long time. But, to be a little more
-            thorough, it is even better to start with a random initial condition too.
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Construct a suitable command-line to easily confirm a linear steady state (Click to expand!)</h4></summary><br>
+
+Since the default length is 1 and the default boundary conditions are 0 and 1,
+we just need to run the problem for a long time. But, to be a little more
+thorough, it is even better to start with a random initial condition too.
+
 ```
 % ./heat dx=0.25 maxt=100 ic="rand(125489,100,50)" runame=test
 ```
-' %}
 
-{% include qanda
-    question='How do you confirm results after a long time are a linear steady state?'
-    answer='Examine the initial and final results file and confirm even a random input
-            still yields a final result where $$u=x_{i}$$ for all rows of the results file
+</details>
+</div>
+{::options parse_block_html="false" /}
+<br>
+
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">How do you confirm results after a long time are a linear steady state? (Click to expand!)</h4></summary><br>
+
+Examine the initial and final results file and confirm even a random input
+still yields a final result where $$u=x_{i}$$ for all rows of the results file
+
 ```
 % cat test/test_soln_00000.curve
 # Temperature
@@ -405,13 +428,11 @@ below.
     0.75     0.75
        1        1
 ```
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-' %}
+
+</details>
+</div>
+{::options parse_block_html="false" /}
+<br>
 
 
 ## Exercise #3: Use Applicaton to Do Some Science 
@@ -433,9 +454,19 @@ Back to our original problem...will our water pipes freeze?
 **Note:** An all too common issue in simulation applications is being sure data is
 input in the correct units. Take care!
 
-{% include qanda
-   question='Determine the command-line to run for our simple science problem?'
-   answer='./heat runame=wall alpha=8.2e-8 lenx=0.25 dx=0.01 dt=100 outi=100 savi=1000 maxt=55800 bc0=233.15 bc1=294.261 ic="const(294.261)"' %}
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Determine the command-line to run for our simple science problem? (Click to expand!)</h4></summary><br>
+
+```
+./heat runame=wall alpha=8.2e-8 lenx=0.25 dx=0.01 dt=100 outi=100 savi=1000 maxt=55800 bc0=233.15 bc1=294.261 ic="const(294.261)"
+```
+
+</details>
+</div>
+{::options parse_block_html="false" /}
+<br>
 
 ## Exercise #4: Analyze Results and Do Some Science
 
@@ -450,9 +481,17 @@ Depending on your situation, the above command may or may not produce a plot loo
 
 ![Pipe Solution ::](pipe_solution.png){:width="400"}
 
-{% include qanda
-   question='Will the pipes freeze?'
-   answer='No' %}
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Will the pipes freeze? (Click to expand!)</h4></summary><br>
+
+No.
+
+</details>
+</div>
+{::options parse_block_html="false" /}
+<br>
 
 ## Challenges with Custom Coding
 
@@ -513,13 +552,29 @@ days to respond but we would be happy to follow up.
 
 ### Short / Quick Follow-on Questions
 
-{% include qanda
-   question='Will the pipes freeze in a common brick wall of same thickness?'
-   answer='Yes' %}
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Will the pipes freeze in a common brick wall of same thickness? (Click to expand!)</h4></summary><br>
 
-{% include qanda
-   question='What is the Optimum thickness of an Adobe Brick Wall?'
-   answer='0.3-0.4 meters' %}
+Yes.
+
+</details>
+</div>
+{::options parse_block_html="false" /}
+<br>
+
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">What is the Optimum thickness of an Adobe Brick Wall? (Click to expand!)</h4></summary><br>
+
+0.3-0.4 meters.
+
+</details>
+</div>
+{::options parse_block_html="false" /}
+<br>
 
 ### Are the assumptions correct?
 
@@ -533,9 +588,17 @@ composed more of water (in the pipe) than it is of wall
 
 and our numerical model would fail.
 
-{% include qanda
-   question='Did this in fact happen in our example, above?'
-   answer='Maybe. Certainly the pipe is wider than the original picture suggests.' %}
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Did this in fact happen in our example, above? (Click to expand!)</h4></summary><br>
+
+Maybe. Certainly the pipe is wider than the original picture suggests.
+
+</details>
+</div>
+{::options parse_block_html="false" /}
+<br>
 
 ### Determine Optimum Wall Thicknesses
 
