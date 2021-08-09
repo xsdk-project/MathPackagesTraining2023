@@ -143,10 +143,8 @@ SimModSuite APIs), to a PUMI mesh and then write the PUMI mesh to file.
 %}
 
 ```
-cd ~/mfem-pumi-lesson/meshGeneration
-# generate the mesh on the initial geometric model and create paraview vtu files
-./generate --native-model=upright.x_t upright.smd case1
-./render upright.x_t 5kg1/ 5kg1_initial_vtu
+cd {{site.handson_root}}/mfem-pumi-lesson/meshGeneration
+export SIM_LICENSE_FILE=.
 # generate the mesh on the defeatured model and create paraview vtu files
 ./generate upright_defeatured_geomsim.smd 5kg1
 ./render upright_defeatured_geomsim.smd 5kg1/ 5kg1_defeatured_vtu
