@@ -45,6 +45,7 @@ this command to update your local copy if we discover changes are necessary.
 +gcc-8.2.0
 +cuda-10.2
 PATH+=/grand/ATPESC2021/usr/MathPackages/openmpi-4.1.1-gcc82-cuda102/bin
++ffmpeg
 @default
 ```
   * And run
