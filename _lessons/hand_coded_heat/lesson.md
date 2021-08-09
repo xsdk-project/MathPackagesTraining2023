@@ -113,7 +113,7 @@ depart from these often inflexible fixed spacings.
 ```
 % ls
 args.C    crankn.C  ftcs.C  heat.C  makefile  tools       utils.C
-check.sh  exact.C   Half.H  heat.H  Number.H  upwind15.C
+check.sh  exact.C   Half.H  heat.H  Double.H  upwind15.C
 ```
 
 The function, `solution_update_ftcs`, is defined in `ftcs.C` without its body.
@@ -122,13 +122,13 @@ The function, `solution_update_ftcs`, is defined in `ftcs.C` without its body.
 static bool             // false if unstable, true otherwise
 solution_update_ftcs(
     int n,              // # of temperature samples in space
-    Number *uk1,        // new temperatures @ t = k+1
-    Number const *uk0,  // old/last temperatures @ t = k
-    Number alpha,       // thermal diffusivity
-    Number dx,          // spacing in space, x
-    Number dt,          // spacing in time, t
-    Number bc_0,        // boundary condition @ x=0
-    Number bc_1         // boundary condition @ x=Lx
+    Double *uk1,        // new temperatures @ t = k+1
+    Double const *uk0,  // old/last temperatures @ t = k
+    Double alpha,       // thermal diffusivity
+    Double dx,          // spacing in space, x
+    Double dt,          // spacing in time, t
+    Double bc_0,        // boundary condition @ x=0
+    Double bc_1         // boundary condition @ x=Lx
 )
 {
 ```
@@ -137,8 +137,8 @@ solution_update_ftcs(
 <details>
 <summary><h4 style="margin: 0 0 0 0; display: inline">Using eq. 5, implement the body of this function (Click to expand!)</h4></summary><br>
 
-```
-    Number const r = alpha * dt / (dx * dx);
+```c
+    Double const r = alpha * dt / (dx * dx);
 
     // Sanity check for stability
     if (r > 0.5) return false;
@@ -511,7 +511,7 @@ Examine the lines of code of the _complete application_ here
     12 ftcs.C      # FTCS (explicit) solver
    222 heat.C      # Main application
     22 heat.H      # Modularization
-   115 Number.H    # Performance tracking
+   115 Double.H    # Performance tracking
     27 upwind15.C  # Alternative (explicit) solver
    157 utils.C     # Utilities, I/O, Data formats
    817 total
