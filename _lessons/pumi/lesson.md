@@ -41,11 +41,6 @@ directory.
 cd {{site.handson_root}}/mfem-pumi-lesson
 ```
 
-- Setup your environment (ensures that your environment is using the `@default` + `+mvapich2-2.3rc1` dotkit pacakges)
-```
-source setup.sh
-```
-
 ## Geometric Model Defeaturing
 
 Geometric models are often provided by design engineers and include many
@@ -86,13 +81,9 @@ and defeatured geometric models.
 ### Optional - Run SimModeler to defeature the upright.
 [Launch the VNC](https://www.alcf.anl.gov/user-guides/remote-visualization-cooley-using-vnc)
 
-The [Setup page](https://xsdk-project.github.io/ATPESC2018HandsOnLessons/setup_instructions/)
-has more detailed, and scripted, instructions to launch the VNC.
-
-Run SimModeler:
+Run SimModeler within a terminal inside the VNC remote desktop session:
 
 ```
-cd ~/mfem-pumi-lesson/SimModeler6.0-180525/
 ./simmodeler
 ```
 
@@ -100,7 +91,7 @@ Remove a small face
 - click 'File->Import Geometry' and select the `upright.x_t` model
 - click the 'Modeling' tab
 - click a small geometric model face
-- click 'Delete Faces and Heal' then click 'Apply' to remove the face
+- click 'Delete Features' then click 'Apply' to remove the face
 
 Try removing the ring inside the hub by selecting all three of its faces, clicking the
 '+' symbol to add them to the list, then clicking 'Apply'.
@@ -152,11 +143,8 @@ SimModSuite APIs), to a PUMI mesh and then write the PUMI mesh to file.
 %}
 
 ```
-qsub -I -n 1 -t 30 -A ATPESC2018 -q training
-cd ~/mfem-pumi-lesson/meshGeneration
-# generate the mesh on the initial geometric model and create paraview vtu files
-./generate --native-model=upright.x_t upright.smd 5kg1
-./render upright.x_t 5kg1/ 5kg1_initial_vtu
+cd {{site.handson_root}}/mfem-pumi-lesson/meshGeneration
+export SIM_LICENSE_FILE=.
 # generate the mesh on the defeatured model and create paraview vtu files
 ./generate upright_defeatured_geomsim.smd 5kg1
 ./render upright_defeatured_geomsim.smd 5kg1/ 5kg1_defeatured_vtu
