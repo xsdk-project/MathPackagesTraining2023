@@ -70,10 +70,11 @@ int main(int argc,char **argv)
     ierr = TaoSetType(tao, TAOALMM);CHKERRQ(ierr);
   } else {
     ierr = TaoSetType(tao, TAOBQNLS);CHKERRQ(ierr);
+    ierr = PetscOptionsSetValue(NULL,"-tao_bqnls_mat_lmvm_scale_type","scalar");CHKERRQ(ierr);
   }
 
   /* Set solution vec and an initial guess */
-  ierr = VecSet(x, -1.0);CHKERRQ(ierr);
+  ierr = VecSet(x, 10.0);CHKERRQ(ierr);
   ierr = TaoSetInitialVector(tao, x);CHKERRQ(ierr);
 
   /* Set routines for function, gradient, hessian evaluation */
@@ -117,7 +118,7 @@ int main(int argc,char **argv)
   /* Check for TAO command line options */
   ierr = TaoSetMaximumFunctionEvaluations(tao, 1000000);CHKERRQ(ierr);
   ierr = TaoSetMaximumIterations(tao, 100000);CHKERRQ(ierr);
-  ierr = TaoSetTolerances(tao, 1.e-5, 0.0, 0.0);CHKERRQ(ierr);
+  ierr = TaoSetTolerances(tao, 1.e-8, 0.0, 0.0);CHKERRQ(ierr);
   ierr = TaoSetFromOptions(tao);CHKERRQ(ierr);
 
   /* Solve the problem */

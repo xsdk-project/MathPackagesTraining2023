@@ -497,39 +497,67 @@ finite-differencing to generate the required sensitivities.
 Compile and run the [source code](multidim_rosenbrock.c) as below to solve the default two-dimensional case. If running 
 on a different machine than ALCF Cooley, the `PETSC_DIR` variable in the [makefile](makefile) must be changed to 
 reflect the local PETSc/TAO installation.
+
 ```
 $ make multidim_rosenbrock
 $ ./multidim_rosenbrock -tao_monitor
-  0 TAO,  Function value: 404.,  Residual: 898.007 
-  1 TAO,  Function value: 42.0053,  Residual: 137.579 
-  2 TAO,  Function value: 21.4395,  Residual: 93.4591 
-  3 TAO,  Function value: 1.29526,  Residual: 8.84583 
-  4 TAO,  Function value: 1.10483,  Residual: 2.10624 
-  5 TAO,  Function value: 1.09413,  Residual: 2.09722 
-  6 TAO,  Function value: 0.679131,  Residual: 1.61169 
-  7 TAO,  Function value: 0.619293,  Residual: 5.66362 
-  8 TAO,  Function value: 0.544341,  Residual: 3.59878 
-  9 TAO,  Function value: 0.40599,  Residual: 7.09875 
- 10 TAO,  Function value: 0.28305,  Residual: 1.78344 
- 11 TAO,  Function value: 0.207769,  Residual: 6.58653 
- 12 TAO,  Function value: 0.171403,  Residual: 1.03714 
- 13 TAO,  Function value: 0.120615,  Residual: 1.16209 
- 14 TAO,  Function value: 0.0900102,  Residual: 3.77324 
- 15 TAO,  Function value: 0.0570418,  Residual: 3.63326 
- 16 TAO,  Function value: 0.0314325,  Residual: 1.75564 
- 17 TAO,  Function value: 0.0147773,  Residual: 1.4513 
- 18 TAO,  Function value: 0.0113421,  Residual: 3.18789 
- 19 TAO,  Function value: 0.00505631,  Residual: 1.1248 
- 20 TAO,  Function value: 0.00128326,  Residual: 0.471036 
- 21 TAO,  Function value: 0.000277795,  Residual: 0.461864 
- 22 TAO,  Function value: 0.000125482,  Residual: 0.0790872 
- 23 TAO,  Function value: 3.07726e-06,  Residual: 0.0430425 
- 24 TAO,  Function value: 5.0341e-08,  Residual: 0.00861699 
- 25 TAO,  Function value: 1.45626e-10,  Residual: 0.000355917 
- 26 TAO,  Function value: 6.57342e-13,  Residual: 1.75767e-05 
- 27 TAO,  Function value: 6.67913e-20,  Residual: 4.6819e-09 
+```
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+<details>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Output of run (Click to expand!)</h4></summary><br>
 
-Solution time: 0.001774
+```
+  0 TAO,  Function value: 810081.,  Residual: 360468. 
+  1 TAO,  Function value: 40609.1,  Residual: 44602.6 
+  2 TAO,  Function value: 18292.1,  Residual: 26530.2 
+  3 TAO,  Function value: 2740.19,  Residual: 8336.03 
+  4 TAO,  Function value: 403.632,  Residual: 2847.47 
+  5 TAO,  Function value: 26.0168,  Residual: 613.641 
+  6 TAO,  Function value: 5.30456,  Residual: 68.5064 
+  7 TAO,  Function value: 5.03392,  Residual: 2.16505 
+  8 TAO,  Function value: 5.03363,  Residual: 0.684219 
+  9 TAO,  Function value: 5.03338,  Residual: 1.33861 
+ 10 TAO,  Function value: 5.03266,  Residual: 2.50008 
+ 11 TAO,  Function value: 5.02887,  Residual: 6.6995 
+ 12 TAO,  Function value: 5.02077,  Residual: 12.1942 
+ 13 TAO,  Function value: 4.9971,  Residual: 21.9372 
+ 14 TAO,  Function value: 4.92945,  Residual: 37.3688 
+ 15 TAO,  Function value: 3.26493,  Residual: 42.1352 
+ 16 TAO,  Function value: 3.2562,  Residual: 32.3228 
+ 17 TAO,  Function value: 3.10607,  Residual: 28.7837 
+ 18 TAO,  Function value: 2.7978,  Residual: 33.9724 
+ 19 TAO,  Function value: 2.51192,  Residual: 72.1079 
+ 20 TAO,  Function value: 2.05028,  Residual: 2.87221 
+ 21 TAO,  Function value: 1.72363,  Residual: 17.2465 
+ 22 TAO,  Function value: 1.6214,  Residual: 31.1365 
+ 23 TAO,  Function value: 1.46398,  Residual: 34.627 
+ 24 TAO,  Function value: 1.14514,  Residual: 21.2909 
+ 25 TAO,  Function value: 0.912949,  Residual: 15.3829 
+ 26 TAO,  Function value: 0.66683,  Residual: 9.01563 
+ 27 TAO,  Function value: 0.583865,  Residual: 18.3828 
+ 28 TAO,  Function value: 0.372904,  Residual: 15.1225 
+ 29 TAO,  Function value: 0.360527,  Residual: 16.3198 
+ 30 TAO,  Function value: 0.204402,  Residual: 14.3335 
+ 31 TAO,  Function value: 0.191564,  Residual: 0.750976 
+ 32 TAO,  Function value: 0.150045,  Residual: 3.79711 
+ 33 TAO,  Function value: 0.127328,  Residual: 8.00461 
+ 34 TAO,  Function value: 0.106561,  Residual: 8.3052 
+ 35 TAO,  Function value: 0.075763,  Residual: 9.01468 
+ 36 TAO,  Function value: 0.0181941,  Residual: 0.47139 
+ 37 TAO,  Function value: 0.0135709,  Residual: 1.84761 
+ 38 TAO,  Function value: 0.0115372,  Residual: 2.40889 
+ 39 TAO,  Function value: 0.00713039,  Residual: 2.63071 
+ 40 TAO,  Function value: 0.00277352,  Residual: 1.47662 
+ 41 TAO,  Function value: 0.000626325,  Residual: 0.318311 
+ 42 TAO,  Function value: 0.000151588,  Residual: 0.531674 
+ 43 TAO,  Function value: 1.83371e-06,  Residual: 0.0102533 
+ 44 TAO,  Function value: 1.02401e-08,  Residual: 0.00271617 
+ 45 TAO,  Function value: 8.88669e-12,  Residual: 0.000127435 
+ 46 TAO,  Function value: 5.40216e-17,  Residual: 1.70011e-07 
+ 47 TAO,  Function value: 2.17778e-22,  Residual: 1.98976e-10 
+
+Solution time: 0.005766
 
 Solution vector:
 Vec Object: 1 MPI processes
@@ -539,6 +567,11 @@ Vec Object: 1 MPI processes
 
 Objective at solution: 0.000000
 ```
+
+</details>
+</div>
+{::options parse_block_html="false" /}
+<br>
 
 In this output, the `Residual` indicates the L2-norm of the gradient, $$\|g_k\|_2$$, at every iteration. The problem 
 file is configured to terminate the solution when this gradient norm drops below the absolute tolerance of $$10^{-5}$$. 
