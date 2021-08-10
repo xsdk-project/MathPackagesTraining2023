@@ -130,7 +130,7 @@ AmrCoreAdv::timeStepNoSubcycling (Real time, int iteration)
 ### Running the Code
 
 ```
-cd HandsOnLessons/amrex/AMReX_Amr101/Exec
+cd {{site.handson_root}}/amrex/AMReX_Amr101/Exec
 ```
 Note that you can choose to work entirely in 2D or in 3D ... whichever you prefer.
 The instructions below will be written for 3D but you can substitute the 2D executable.
@@ -368,7 +368,7 @@ advection.
 ### Running the code
 
 ```
-cd HandsOnLessons/amrex/Amr102/Exec
+cd {{site.handson_root}}/amrex/AMReX_Amr102/Exec
 ```
 
 In this directory you'll see
@@ -539,7 +539,7 @@ Your goal here is to see if you can cover the floor of the pachinko machine.
 ### Running the Code
 
 ```
-cd HandsOnLessons/amrex/AMReX_EB_Pachinko
+cd {{site.handson_root}}/amrex/AMReX_EB_Pachinko
 ```
 
 In this directory you'll see
