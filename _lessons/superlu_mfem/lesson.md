@@ -334,7 +334,7 @@ Final L2 norm of residual: 3.49602e-21
     answer='We have increased the mesh size by 8x here. The matrix dimension
             goes up as the SQUARE of the mesh size and this accounts for 64x factor
 	    of DOFs. We have
-            also added 16x processors. The parallel runtime is 9.10544 seconds.' %}
+            also added 12x processors. The parallel runtime is 9.14984 seconds.' %}
 
 ### Run 7: Now use SuperLU_DIST, solve the systems with same A, but different right-hand side b.
 Here, we solve a different linear system but with the same coefficient matrix A. We tell  SuperLU to re-use the exisiting LU factors, but only give a different right-hand side.
