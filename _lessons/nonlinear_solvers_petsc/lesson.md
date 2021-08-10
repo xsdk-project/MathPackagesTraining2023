@@ -278,8 +278,8 @@ For this exercise, we will run in parallel because experiments may take too long
 We will use a fixed number of MPI ranks, even though this number is really too large for
 the smaller grids, to eliminate effects due to varying the size of the domains used by the
 default parallel preconditioner (block Jacobi with ILU(0) applied on each block).
-We also use BiCGStab (`-ksp_type bcgs`) instead of the default linear solver, GMRES(30), will
-fail for some cases.
+We also use BiCGStab (`-ksp_type bcgs`) instead of the default linear solver, GMRES(30), which
+will fail for some cases.
 
 Using the linear solver defaults, increase the size of the grid (that is, decrease the
 grid spacing) and observe what happens to iteration counts and execution times:
