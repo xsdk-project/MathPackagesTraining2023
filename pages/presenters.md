@@ -231,6 +231,8 @@ permalink: "/presenters/"
 |:---:|:---:|
 |![](https://press3.mcs.anl.gov/atpesc/files/2015/03/SmithC1.png){:width="200px"}|Key Expertise: [PUMI][pumi], [FASTMath][fastmath]<br><br>Affiliation: [RPI][rpi]/[SCOREC][rpi-scorec]<br><br>Contact: [email][cs-m]<br><br>GitHub: [Profile][cs-g]|
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 [amrex]: https://amrex-codes.github.io
 [xsdk]: https://xsdk.info
