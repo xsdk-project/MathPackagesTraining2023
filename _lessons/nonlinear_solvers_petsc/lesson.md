@@ -687,10 +687,11 @@ Otherwise, you may get unexpected behavior from executables that link against PE
 
 ## Further Reading
 
-- [PETSc manual](https://www.mcs.anl.gov/petsc/petsc-current/docs/manual.pdf)
-- [PETSc/TAO website](https://www.mcs.anl.gov/petsc)
+- [PETSc manual](https://petsc.org/release/documentation/manual/)
+- [PETSc/TAO website](https://petsc.org/release/)
 - [*Composing Scalable Nonlinear Algebraic Solvers*](https://arxiv.org/abs/1607.04254)
 
 ## Previous Nonlinear Solvers Lectures
+- [ATPESC 2020](https://xsdk-project.github.io/MathPackagesTraining2020/lessons/nonlinear_solvers_petsc/)
 - [ATPESC 2019](https://xsdk-project.github.io/MathPackagesTraining/lessons/time_integrators/sundials)
 - [ATPESC 2018](https://xsdk-project.github.io/ATPESC2018HandsOnLessons/lessons/time_integrators/)
