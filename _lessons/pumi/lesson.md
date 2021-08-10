@@ -18,7 +18,7 @@ header:
 |                                                             | Demonstrate the power of geometric model classification                | Automated simulation tools designed for scientists and engineers working with real CAD models problem definition information must be specified on the geometric model - not the mesh. |
 | How can I reliably and efficiently execute simulations?     | Demonstrate an adaptive MFEM+PUMI elastic analysis                     | Adaptation is critical to automated, robust, and efficient simulation of simulations with transient behavior in which a static mesh defined a-priori will fail.                       |
 
-Before you begin, first [Open the Answers Form](https://goo.gl/forms/HmuX6HrT0Yfoz7ny2){:target="\_blank"}
+Before you begin, first [Open the Answers Form](https://forms.gle/Jc9cMw9XMkdikNxr8){:target="\_blank"}
 in a separate browser tab/window.
 We will be entering responses to questions here that are placed throughout the
 lesson.
@@ -26,20 +26,11 @@ lesson.
 The MFEM+PUMI examples are prepared for execution on Cooley at ALCF.
 Except where noted, all commands shown below should be executed in a terminal
 logged into Cooley.
-In each new terminal first prepare your environment by running the commands
-listed in the following section.
 
-Note, each step can be performed independently; we encourage you to go
-through them in order though.  If there are issues running the examples, or you
-wish to skip ahead you will find the execution output in the `expectedOutput`
+Each step can be performed independently, but we encourage you to go
+through them in order.  If there are issues running the examples, or you
+wish to skip ahead, you will find the execution output in the `expectedResults`
 directory.
-
-## To begin this lesson
-
-- Enter the lesson directory
-```
-cd {{site.handson_root}}/mfem-pumi-lesson
-```
 
 ## Geometric Model Defeaturing
 
@@ -84,14 +75,22 @@ and defeatured geometric models.
 Run SimModeler within a terminal inside the VNC remote desktop session:
 
 ```
+cd ~/{{site.handson_root}}/mfem-pumi-lesson/defeaturing
 ./simmodeler
 ```
 
-Remove a small face
+Remove a small face as shown in Figure 4.
 - click 'File->Import Geometry' and select the `upright.x_t` model
 - click the 'Modeling' tab
-- click a small geometric model face
-- click 'Delete Features' then click 'Apply' to remove the face
+- click 'Delete Features' (0)
+- click a small geometric model face (1)
+- click the '+' button below 'Max Num. Faces' (2)
+- click 'Apply' (3)
+
+[<img src="figs/upright/selectFace.png" width="400">](figs/upright/selectFace.png)
+[<img src="figs/upright/faceRemoved.png" width="400">](figs/upright/faceRemoved.png)
+
+*Figure 4. Face removal example.*
 
 Try removing the ring inside the hub by selecting all three of its faces, clicking the
 '+' symbol to add them to the list, then clicking 'Apply'.
@@ -143,7 +142,7 @@ SimModSuite APIs), to a PUMI mesh and then write the PUMI mesh to file.
 %}
 
 ```
-cd {{site.handson_root}}/mfem-pumi-lesson/meshGeneration
+cd ~/{{site.handson_root}}/mfem-pumi-lesson/meshGeneration
 export SIM_LICENSE_FILE=.
 # generate the mesh on the defeatured model and create paraview vtu files
 ./generate upright_defeatured.smd --native-model=upright_defeatured_nat.x_t case1
@@ -153,12 +152,12 @@ export SIM_LICENSE_FILE=.
 [<img src="figs/upright/5kg1_all_zmax.png" width="400">](figs/upright/5kg1_all_zmax.png)
 [<img src="figs/upright/5kg1_all_zmin.png" width="400">](figs/upright/5kg1_all_zmin.png)
 
-*Figure 4. Mesh of initial upright model*
+*Figure 5. Mesh of initial upright model*
 
 [<img src="figs/upright_defeatured/5kg1_all_zmax.png" width="400">](figs/upright_defeatured/5kg1_all_zmax.png)
 [<img src="figs/upright_defeatured/5kg1_all_zmin.png" width="400">](figs/upright_defeatured/5kg1_all_zmin.png)
 
-*Figure 5. Mesh of defeatured upright model*
+*Figure 6. Mesh of defeatured upright model*
 
 ### Optional - Visualize the Initial Meshes
 Download the `.*vtu` files from
@@ -182,13 +181,16 @@ the max element count on any part divided by the average element count across
 all parts.
 
 ```
-cd {{site.handson_root}}/mfem-pumi-lesson/partition
+cd ~/{{site.handson_root}}/mfem-pumi-lesson/partition
+export SIM_LICENSE_FILE=.
 isLocal=0
+render=1
+runParma=0
 mdl=upright_defeatured.smd
 mesh=case1/
-mpiexec -np 4 ./ptnParma $mdl $mesh parmetis/ 4 pmetis kway $isLocal &> graph.out
-mpiexec -np 4 ./ptnParma $mdl $mesh rcb/ 4 rcb ptn $isLocal &> rcb.out
-mpiexec -np 4 ./ptnParma $mdl $mesh rib/ 4 rib ptn $isLocal &> rib.out
+mpiexec -np 4 ./ptnParma $mdl $mesh parmetis/ 4 pmetis kway $isLocal $runParma $render &> graph.out
+mpiexec -np 4 ./ptnParma $mdl $mesh rcb/ 4 rcb ptn $isLocal $runParma $render &> rcb.out
+mpiexec -np 4 ./ptnParma $mdl $mesh rib/ 4 rib ptn $isLocal $runParma $render &> rib.out
 ```
 
 The entity imbalance information is listed on the lines containing `entity
@@ -267,7 +269,7 @@ two mesh elements).
 
 [<img src="figs/pmetis-rcb-rib.png" width="400">](figs/pmetis-rcb-rib.png)
 
-*Figure 6. Partitions created with multi-level graph (left), RCB (middle), and RIB (right)*
+*Figure 7. Partitions created with multi-level graph (left), RCB (middle), and RIB (right)*
 
 ### Optional - Visualize the Partitioned Meshes
 Download the `.*vtu` files from
@@ -279,13 +281,13 @@ to copy the ones you generated to your local machine.
 
 We will define a tensile loading on the upright by applying a uniform force on
 one end (min Y face) and fixing the displacements on the other end (max Y face);
-as depicted in Figure 7.
+as depicted in Figure 8.
 All other geometric model faces will be unconstrained.  No body forces are
 applied.
 
 [<img src="figs/upright_defeatured/boundaryConditions.png" width="400">](figs/upright_defeatured/boundaryConditions.png)
 
-*Figure 7. Boundary conditions*
+*Figure 8. Boundary conditions*
 
 Using geometric classification of the mesh we can define the boundary conditions
 on the geometric model without having any knowledge/consideration of the mesh.
@@ -315,8 +317,9 @@ feature-rich interfaces (command line, file, GUI).
 ```
 $ cat upright.def
 Dirichlet
-1
+2
 43
+838
 
 Load
 1
@@ -347,8 +350,10 @@ $$\sigma(u)=\lambda*div(u)*I+\mu*(\nabla*u+u*\nabla)$$
 is the stress tensor corresponding to displacement field $$u$$,
 and $$\lambda=1$$ and $$\mu=1$$ are the material Lame constants.
 
-[Figure 7](#probdef) depicts the applied boundary conditions; a fixed displacement
-$$u=0$$ on the max Y face and pull force $$f=1.0e-2$$ on the min Z face.
+[Figure 8](#probdef) depicts the applied boundary conditions; a fixed displacement
+$$u=0$$ on the max Y face (#43), and the small circular hole in the mounting bracket
+marked with the red arrow (#838),
+and pull force $$f=1.0e-1$$ on the min Z face.
 The specification of these boundary conditions using geometric model entity
 ids is described in the [Problem Definition](#probdef) section.
 
@@ -374,13 +379,14 @@ mesh is expected as the result of the meshAdapt.
 Run the adaptive simulation:
 
 ```
-cd ~/mfem-pumi-lesson/analysis
-mpiexec -np 2 ./pumi_upright_ex2p -p upright_defeatured_geomsim.smd -bf upright.def -m 2p5kg1/
+cd ~/{{site.handson_root}}/mfem-pumi-lesson/analysis
+source setup.sh #set shared library paths
+mpiexec -np 2 ./pumi_upright_ex2p -p upright_defeatured_nat.x_t -bf upright.def -m 2p_10k/
 ```
 
 [<img src="figs/analysis/initialAndFinalMesh.png" width="400">](figs/analysis/initialAndFinalMesh.png)
 
-*Figure 8. Initial mesh (left) and final mesh with displacement field (right).
+*Figure 9. Initial mesh (left) and final adapted mesh with stress field (right).
 
 The requested isotropic (same in all directions) edge length is specified
 with a scalar value at each mesh vertex.  In
@@ -399,11 +405,6 @@ Download the `.*vtu` files from
 [Here](https://github.com/xsdk-project/ATPESC2018HandsOnLessons/raw/gh-pages/_lessons/pumi/paraview.tar.gz), or
 use a file transfer utility (e.g., `scp`, `rsync`, `putty`, etc.)
 to copy the ones you generated to your local machine.
-
-#### Get Credit / Points
-
-Be sure to submit a [Show Your Work](https://goo.gl/forms/B7UFpBvEOJbC58oJ2) using the hands-on
-activity name, `PUMI_Partitioning` or `PUMI_Adaptive_Simulation`.
 
 ## Out-Brief
 
@@ -434,6 +435,7 @@ of functionalities that support the needs of multiple applications.
   * Beall, M.W. and Shephard, M.S., **A general topology-based mesh data structure**, Int. J. Numer. Meth. Engng., 40(9):1573-1596, 1997, DOI: 10.1002(SICI)1097-0207(19970515)40:9<1573::AID-NME128>3.0.CO;2-9.
 
 * Adaptivity
+  * Morteza H. Siboni, and  Mark S. Shephard, **Adaptive Workflow for Simulation of RF Heaters**, 2021. Submitted to Computer Physics Communications.
   * "Aleksandr Ovcharenko, **Parallel Anisotropic Mesh Adaptation with Boundary Layers**, Ph.D. Dissertation, RPI, 2012":http://www.scorec.rpi.edu/REPORTS/2012-20.pdf
   * Q. Lu, M.S. Shephard, S. Tendulkar and M.W. Beall, **Parallel Curved Mesh Adaptation for Large Scale High-Order Finite Element Simulations**, Proc. 21 Roundtable, Springer, NY, pp. 419-436, 2012, DOI 10.1007978-3-642-33573-0.
   * A. Ovcharenko, K. Chitale, O. Sahni, K.E. Jansen and M.S. Shephard, S. Tendulkar and M.W. Beall, **Parallel Adaptive Boundary Layer Meshing for CFD Analysis**, Proc. 21st International Meshing Roundtable, Springer, NY, pp. 437-455, 2012, DOI 10.1007978-3-642-33573-0
