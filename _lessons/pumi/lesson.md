@@ -161,7 +161,7 @@ export SIM_LICENSE_FILE=.
 
 ### Optional - Visualize the Initial Meshes
 Download the `.*vtu` files from
-[Here](https://github.com/xsdk-project/ATPESC2018HandsOnLessons/raw/gh-pages/_lessons/pumi/paraview.tar.gz), or
+[Here](https://raw.githubusercontent.com/xsdk-project/MathPackagesTraining2021/gh-pages/_lessons/pumi/paraview/initialMesh.tar.gz), or
 use a file transfer utility (e.g., `scp`, `rsync`, `putty`, etc.)
 to copy the ones you generated to your local machine.
 
@@ -273,7 +273,7 @@ two mesh elements).
 
 ### Optional - Visualize the Partitioned Meshes
 Download the `.*vtu` files from
-[Here](https://github.com/xsdk-project/ATPESC2018HandsOnLessons/raw/gh-pages/_lessons/pumi/paraview.tar.gz), or
+[Here](https://raw.githubusercontent.com/xsdk-project/MathPackagesTraining2021/gh-pages/_lessons/pumi/paraview/partitioning.tar.gz), or
 use a file transfer utility (e.g., `scp`, `rsync`, `putty`, etc.)
 to copy the ones you generated to your local machine.
 
@@ -402,7 +402,7 @@ edge lengths that vary with direction, anisotropic, are specified.
 
 ### Optional - Visualize the analysis results
 Download the `.*vtu` files from
-[Here](https://github.com/xsdk-project/ATPESC2018HandsOnLessons/raw/gh-pages/_lessons/pumi/paraview.tar.gz), or
+[Here](https://raw.githubusercontent.com/xsdk-project/MathPackagesTraining2021/gh-pages/_lessons/pumi/paraview/analysis.tar.gz), or
 use a file transfer utility (e.g., `scp`, `rsync`, `putty`, etc.)
 to copy the ones you generated to your local machine.
 
