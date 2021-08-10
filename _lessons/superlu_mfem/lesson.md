@@ -21,7 +21,7 @@ header:
 
 - Get into the correct directory
 ```
-cd {{site.handson_root}}/superlu_mfem
+cd {{site.handson_root}}/superlu_mem_dist
 ```
 ## The problem being solved
 
