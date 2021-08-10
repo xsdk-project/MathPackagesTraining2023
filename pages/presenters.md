@@ -236,7 +236,7 @@ permalink: "/presenters/"
 
 [amrex]: https://amrex-codes.github.io
 [xsdk]: https://xsdk.info
-[petsc]: https://www.mcs.anl.gov/petsc/
+[petsc]: https://petsc.org
 [ideas]: https://ideas-productivity.org
 [bssw]: https://bssw.io
 [fastmath]: https://fastmath-scidac.llnl.gov
