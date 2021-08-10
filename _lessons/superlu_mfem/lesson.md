@@ -56,8 +56,8 @@ to solve very ill-conditioned linear systems.
 
 ```
 $ ./convdiff | tail -n 3
-Time required for first solve:  0.0408995 (s)
-Final L2 norm of residual: 2.43686e-16
+Time required for first solve:  0.0342715 (s)
+Final L2 norm of residual: 2.43841e-16
 ```
 
 |Steady State|
@@ -70,7 +70,7 @@ Final L2 norm of residual: 2.43686e-16
 
 ```
 $ ./convdiff --velocity 1000 | tail -n 3
-Time required for first solve:  0.47337 (s)
+Time required for first solve:  0.434585 (s)
 Final L2 norm of residual: 0.00095
 ```
 
@@ -107,7 +107,7 @@ of the solution GMRES gives as velocity increases
 
 ### Run 3: Now use SuperLU_DIST, with "natural ordering"
 ```
-$  ./convdiff --velocity 1000 -slu -cp 0  
+$  ./convdiff --velocity 1000 -slu -cp 0
 Options used:
    --refine 0
    --order 1
@@ -116,7 +116,6 @@ Options used:
    --superlu
    --slu-colperm 0
    --slu-rowperm 1
-   --slu-parsymbfact 0
    --one-matrix
    --one-rhs
 Number of unknowns: 10201
@@ -129,24 +128,21 @@ Number of unknowns: 10201
 ** NUMfact space (MB): (sum-of-all-processes)
     L\U :           41.12 |  Total :    50.74
 ** Total highmark (MB):
-    Sum-of-all :    50.74 | Avg :    50.74  | Max :    50.74
-**************************************************
-Time required for first solve:  19.0018 (s)
-Final L2 norm of residual: 1.62703e-18
-
+    Sum-of-all :    61.17 | Avg :    61.17  | Max :    61.17
 **************************************************
 **** Time (seconds) ****
-	EQUIL time             0.00
+        EQUIL time             0.00
 	ROWPERM time           0.01
 	SYMBFACT time          0.04
 	DISTRIBUTE time        0.11
-	FACTOR time           18.52
-	Factor flops	1.958603e+08	Mflops 	   10.58
-	SOLVE time             0.10
-	Solve flops	5.167045e+06	Mflops 	   52.21
-	REFINEMENT time        0.20	Steps       2
-
+	FACTOR time           20.68
+	Factor flops    1.956262e+08    Mflops      9.46
+	SOLVE time             0.11
+	Solve flops     5.167045e+06    Mflops     45.99
+	REFINEMENT time        0.23     Steps       2
 **************************************************
+Time required for first solve:  21.1867 (s)
+Final L2 norm of residual: 1.82335e-18
 ```
 
 |Stead State For _vel=1000_|
@@ -164,24 +160,18 @@ Options used:
    --superlu
    --slu-colperm 2
    --slu-rowperm 1
-   --slu-parsymbfact 0
    --one-matrix
    --one-rhs
 Number of unknowns: 10201
-	Nonzeros in L       594238
-	Nonzeros in U       580425
-	nonzeros in L+U     1164462
-	nonzeros in LSUB    203857
+        Nonzeros in L       606806
+	Nonzeros in U       605547
+	nonzeros in L+U     1202152
 
 ** Memory Usage **********************************
 ** NUMfact space (MB): (sum-of-all-processes)
-    L\U :           10.07 |  Total :    15.52
+    L\U :           10.39 |  Total :    18.65
 ** Total highmark (MB):
-    Sum-of-all :    15.52 | Avg :    15.52  | Max :    15.52
-**************************************************
-Time required for first solve:  0.111105 (s)
-Final L2 norm of residual: 1.53726e-18
-
+    Sum-of-all :    22.25 | Avg :    22.25  | Max :    22.25
 **************************************************
 **** Time (seconds) ****
 	EQUIL time             0.00
@@ -196,6 +186,8 @@ Final L2 norm of residual: 1.53726e-18
 	REFINEMENT time        0.01	Steps       2
 
 **************************************************
+Time required for first solve:  0.114001 (s)
+Final L2 norm of residual: 1.77054e-18
 ```
 NOTE: the number of nonzeros in L+U is much smaller than natural ordering.
 This affects the memory usage and runtime.
@@ -211,38 +203,35 @@ Options used:
    --superlu
    --slu-colperm 4
    --slu-rowperm 1
-   --slu-parsymbfact 0
    --one-matrix
    --one-rhs
 Number of unknowns: 10201
-	Nonzeros in L       522306
-	Nonzeros in U       527748
-	nonzeros in L+U     1039853
-	nonzeros in LSUB    218211
+        Nonzeros in L       518644
+        Nonzeros in U       521021
+        nonzeros in L+U     1029464
 
 ** Memory Usage **********************************
 ** NUMfact space (MB): (sum-of-all-processes)
-    L\U :            9.24 |  Total :    14.96
+    L\U :            9.17 |  Total :    17.04
 ** Total highmark (MB):
-    Sum-of-all :    14.96 | Avg :    14.96  | Max :    14.96
-**************************************************
-Time required for first solve:  0.152424 (s)
-Final L2 norm of residual: 1.51089e-18
+    Sum-of-all :    21.04 | Avg :    21.04  | Max :    21.04
 
 **************************************************
 **** Time (seconds) ****
 	EQUIL time             0.00
 	ROWPERM time           0.01
 	COLPERM time           0.05
-	SYMBFACT time          0.01
+	SYMBFACT time          0.00
 	DISTRIBUTE time        0.02
 	FACTOR time            0.05
-	Factor flops	7.827314e+07	Mflops 	 1717.18
-	SOLVE time             0.00
-	Solve flops	2.120276e+06	Mflops 	  606.75
+        Factor flops    5.749964e+07    Mflops   1212.24
+        SOLVE time             0.00
+	Solve flops     2.100190e+06    Mflops    637.17
 	REFINEMENT time        0.01	Steps       2
 
 **************************************************
+Time required for first solve:  0.146954 (s)
+Final L2 norm of residual: 1.91956e-18
 ```
 
 |Solutions @_dv_=25 in [100,1000]|Steady State Solution @ _vel=1000_|
@@ -267,41 +256,40 @@ Options used:
    --one-matrix
    --one-rhs
 Number of unknowns: 641601
-	Nonzeros in L       40412796
-	Nonzeros in U       40412796
-	nonzeros in L+U     80183991
-	nonzeros in LSUB    15748820
+        Nonzeros in L       40059096
+        Nonzeros in U       40059096
+        nonzeros in L+U     79476591
 
 ** Memory Usage **********************************
 ** NUMfact space (MB): (sum-of-all-processes)
-    L\U :          701.82 |  Total :   758.92
+    L\U :          696.35 |  Total :   744.90
 ** Total highmark (MB):
-    Sum-of-all :   786.78 | Avg :   786.78  | Max :   786.78
-**************************************************
-Time required for first solve:  18.8951 (s)
-Final L2 norm of residual: 5.99013e-18
-
+    Sum-of-all :  1447.47 | Avg :  1447.47  | Max :  1447.47
+	
 **************************************************
 **** Time (seconds) ****
 	EQUIL time             0.03
 	ROWPERM time           0.29
-	COLPERM time           4.83
-	SYMBFACT time          0.32
-	DISTRIBUTE time        1.58
-	FACTOR time            9.87
-	Factor flops	2.326266e+10	Mflops 	 2357.24
-	SOLVE time             0.41
-	Solve flops	1.604473e+08	Mflops 	  395.95
-	REFINEMENT time        0.90	Steps       2
+	COLPERM time           4.59
+	SYMBFACT time          0.31
+	DISTRIBUTE time        1.46
+	FACTOR time           10.14
+        Factor flops    1.720048e+10    Mflops   1695.74
+        SOLVE time             0.34
+        Solve flops     1.588700e+08    Mflops    474.11
+        REFINEMENT time        0.81     Steps       2
 **************************************************
+
+Time required for first solve:  18.4967 (s)
+Final L2 norm of residual: 5.99574e-18
 ```
 
-### Run 6: Now use SuperLU_DIST, with Metis(A'+A) ordering, using 16 MPI tasks, on a larger problem.
+### Run 6: Now use SuperLU_DIST, with Metis(A'+A) ordering, using 12 MPI tasks, on a larger problem.
 
 Here, we'll re-run the above except on 16 tasks and just grep the output form some key values of interest.
 
 ```
-$ mpiexec -n 12 ./convdiff --refine 3 --velocity 1000 -slu --slu-colperm 4 >& run6.out
+$ mpiexec -n 12 ./convdiff --refine 3 --velocity 1000 -slu --slu-colperm 4 | tee run6.out
 Options used:
    --refine 3
    --order 1
@@ -317,17 +305,12 @@ Number of unknowns: 641601
 	Nonzeros in L       40340620
 	Nonzeros in U       40340620
 	nonzeros in L+U     80039639
-	nonzeros in LSUB    15901421
 
 ** Memory Usage **********************************
 ** NUMfact space (MB): (sum-of-all-processes)
     L\U :          705.31 |  Total :   974.93
 ** Total highmark (MB):
     Sum-of-all :  2888.58 | Avg :   180.54  | Max :   180.54
-**************************************************
-Time required for first solve:  9.10544 (s)
-Final L2 norm of residual: 2.29801e-39
-
 **************************************************
 **** Time (seconds) ****
 	EQUIL time             0.03
@@ -340,6 +323,9 @@ Final L2 norm of residual: 2.29801e-39
 	SOLVE time             0.14
 	Solve flops	1.623936e+08	Mflops 	 1148.60
 	REFINEMENT time        0.30	Steps       2
+**************************************************
+Time required for first solve:  9.14984 (s)
+Final L2 norm of residual: 3.49602e-21
 ```
 
 {% include qanda
