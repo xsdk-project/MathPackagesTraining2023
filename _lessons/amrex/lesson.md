@@ -22,6 +22,36 @@ header:
 |What time-stepping do I use?|Understand the difference between subcycling and not|It's a choice|
 |How do I visualize AMR results?|Use Visit and Paraview for AMReX vis|Visualization tools exist for AMR data.|
 
+## Setup Instructions For AMReX Tutorials
+
+Vis can be finicky on Cooley because there are certain details that we need to set up first:
+
+- Access Cooley with `ssh -X`
+- Vis needs to be run inside an interactive session on a compute node
+
+Recall, to get an interactive session, do, e.g.:
+
+```
+qsub -I -n 1 -t 300 -A ATPESC2021 -q training
+```
+
+- Then in the interactive session, edit your `~/.soft.cooley` file to contain only the following and then use the `resoft` command:
+
+```
++mvapich2
++anaconda3-4.0.0
++ffmpeg
+@default
+```
+
+- Also in the interactive session, configure the vis tools using the following command:
+
+```
+source /grand/projects/ATPESC2021/EXAMPLES/track-5-numerical/amrex/source_this_file.sh
+```
+
+- When finished with these AMReX tutorials, revise your `~/.soft.cooley` following step 3 [here](https://xsdk-project.github.io/MathPackagesTraining2021/setup_instructions/) and then do `resoft` to revert these package changes for other tutorials.
+
 ## Example: AMR101: Multi-Level Scalar Advection
 
 ### What Features Are We Using
@@ -678,31 +708,6 @@ You are now ready to play the movie!  See the "VCR-like" controls at the top. Cl
 For fun: if you want to color the particles, make sure "Glyph1" is highlighted, then 
 change the drop-down menu option (above the calculator row) from "vtkBlockColors" to "cpu" --
 if you have run with 4 processes then you will see the particles displayed with different colors.
-
-### Debugging Vis Issues on ALCF Cooley
-
-Vis can be finicky on Cooley because there are certain details that we need to set up first:
-
-- Access Cooley with `ssh -X`
-- Vis needs to be run inside an interactive session on a compute node
-
-To get an interactive session, do, e.g.:
-
-```
-qsub -I -n 1 -t 300 -A ATPESC2020 -q training
-```
-
-- Then in the interactive session, run the following commands to load modules:
-
-```
-soft add +mvapich2
-soft add +anaconda3-4.0.0
-soft add +ffmpeg
-```
-
-- Setup a display for ParaView to use by doing `export DISPLAY=:0`
-
-... Now we can do, e.g. `make movie3D` for the AMR101 and AMR102 examples above - in some cases this can report a console error but still generate an animated gif.
 
 ### Further Reading
 
