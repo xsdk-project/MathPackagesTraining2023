@@ -243,7 +243,7 @@ By adding `--refine 3`, each element in the mesh is subdivided twice yielding a 
 But, we'll run it on only one processor.
 
 ```
-$ mpiexec -n 1 ./convdiff --refine 3 --velocity 1000 -slu -cp 4
+$ /soft/libraries/mpi/mvapich2-2.2/gcc/bin/mpiexec -n 1 ./convdiff --refine 3 --velocity 1000 -slu -cp 4
 Options used:
    --refine 3
    --order 1
@@ -289,7 +289,7 @@ Final L2 norm of residual: 5.99574e-18
 Here, we'll re-run the above except on 16 tasks and just grep the output form some key values of interest.
 
 ```
-$ mpiexec -n 12 ./convdiff --refine 3 --velocity 1000 -slu --slu-colperm 4 | tee run6.out
+$ /soft/libraries/mpi/mvapich2-2.2/gcc/bin/mpiexec -n 12 ./convdiff --refine 3 --velocity 1000 -slu --slu-colperm 4 | tee run6.out
 Options used:
    --refine 3
    --order 1
@@ -341,7 +341,7 @@ Here, we solve a different linear system but with the same coefficient matrix A.
 Notice the improvement in solve time when re-using the factors.
 
 ```
-$ mpiexec -n 12 ./convdiff --refine 3 --velocity 1000 -slu -cp 4 -2rhs
+$ /soft/libraries/mpi/mvapich2-2.2/gcc/bin/mpiexec -n 12 ./convdiff --refine 3 --velocity 1000 -slu -cp 4 -2rhs
 Options used:
    --refine 3
    --order 1
