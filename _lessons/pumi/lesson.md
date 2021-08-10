@@ -435,7 +435,7 @@ of functionalities that support the needs of multiple applications.
   * Beall, M.W. and Shephard, M.S., **A general topology-based mesh data structure**, Int. J. Numer. Meth. Engng., 40(9):1573-1596, 1997, DOI: 10.1002(SICI)1097-0207(19970515)40:9<1573::AID-NME128>3.0.CO;2-9.
 
 * Adaptivity
-  * Morteza H. Siboni, and  Mark S. Shephard, **Adaptive Workflow for Simulation of RF Heaters**, 2021. Submitted to Computer Physics Communications.
+  * "Morteza H. Siboni, and  Mark S. Shephard, **Adaptive Workflow for Simulation of RF Heaters**, 2021. Submitted to Computer Physics Communications.":https://www.scorec.rpi.edu/REPORTS/2021-3.pdf
   * "Aleksandr Ovcharenko, **Parallel Anisotropic Mesh Adaptation with Boundary Layers**, Ph.D. Dissertation, RPI, 2012":http://www.scorec.rpi.edu/REPORTS/2012-20.pdf
   * Q. Lu, M.S. Shephard, S. Tendulkar and M.W. Beall, **Parallel Curved Mesh Adaptation for Large Scale High-Order Finite Element Simulations**, Proc. 21 Roundtable, Springer, NY, pp. 419-436, 2012, DOI 10.1007978-3-642-33573-0.
   * A. Ovcharenko, K. Chitale, O. Sahni, K.E. Jansen and M.S. Shephard, S. Tendulkar and M.W. Beall, **Parallel Adaptive Boundary Layer Meshing for CFD Analysis**, Proc. 21st International Meshing Roundtable, Springer, NY, pp. 437-455, 2012, DOI 10.1007978-3-642-33573-0
