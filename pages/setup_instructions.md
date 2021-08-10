@@ -60,21 +60,20 @@ $ which mpiexec
 
 1. Confirm you can compile and run an example
 ```
-qsub -I -n 1 -t 5 -A ATPESC2021 -q training
-cd track-5-numerical/hand_coded_heat
-make mpi_test
+$ qsub -I -n 1 -t 5 -A ATPESC2021 -q training
+$ cd track-5-numerical/hand_coded_heat
+$ make mpi_test
 mpicc mpi_test.c -o mpi_test
 mpiexec -n 4 ./mpi_test
 Size=4, Rank=0
 Size=4, Rank=1
 Size=4, Rank=2
 Size=4, Rank=3
-exit
+$ exit
 ```
   * The `qsub` command reserves a cooley node for interactive work for 5 minutes.
     You may have to wait a moment for the interactive prompt on the reserved node to return.
-  * The above commands produce makefile and execution output. In particular
-    the last `echo` command should produce a `0` response.
+  * The above commands produce the `mpi_test` binary and execution output.
 1. As soon after 9:30am, Tuesday , August 10th as possible, allocate an interactive node on
    cooley. The following command allocates a single Cooley node (`-n 1`) for 300 minutes
    (`-t 300`) using the ATPESC2021 allocation (`-A ATPESC2021`) and the queue reservation (`-q training`):
