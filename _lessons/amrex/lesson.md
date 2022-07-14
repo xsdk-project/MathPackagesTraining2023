@@ -5,7 +5,7 @@ title: "Meshing and Discretization with AMReX"
 teaser: "A Block Structured Adaptive Mesh Refinement Framework"
 subheader: "Not your grandmother's AMR...!"
 permalink: "lessons/amrex/"
-years: [2020]
+years: [2022]
 use_math: true
 lesson: true
 header:
@@ -22,7 +22,7 @@ header:
 
 <!-- (Expected # minutes to complete) %% temporarily omit -->
 
-|Questions|Objectives|Key Points|
+|**Questions**|**Objectives**|**Key Points**|
 |What can I do with AMReX?|Understand that "AMR" means more<br>than just "traditional AMR"|AMR + EB + Particles|
 |How do I get started?|Understand easy set-up|It's not hard to get started|
 |What time-stepping do I use?|Understand the difference between subcycling and not|It's a choice|
@@ -37,13 +37,13 @@ Vis can be finicky on Cooley because there are certain details that we need to s
 
 Recall, to get an interactive session, do, e.g.:
 
-```
+```shell
 qsub -I -n 1 -t 300 -A ATPESC2021 -q training
 ```
 
 - Then in the interactive session, edit your `~/.soft.cooley` file to contain only the following and then use the `resoft` command:
 
-```
+```shell
 +mvapich2
 +anaconda3-4.0.0
 +ffmpeg
@@ -52,13 +52,17 @@ qsub -I -n 1 -t 300 -A ATPESC2021 -q training
 
 - Also in the interactive session, configure the vis tools using the following command:
 
-```
+```shell
 source /grand/projects/ATPESC2021/EXAMPLES/track-5-numerical/amrex/source_this_file.sh
 ```
 
 - When finished with these AMReX tutorials, revise your `~/.soft.cooley` following step 3 [here](https://xsdk-project.github.io/MathPackagesTraining2021/setup_instructions/) and then do `resoft` to revert these package changes for other tutorials.
 
+|
+
 ## Example: AMR101: Multi-Level Scalar Advection
+
+---
 
 ### What Features Are We Using
 
@@ -120,7 +124,6 @@ The subcycling algorithm can be written as follows
 void
 AmrCoreAdv::timeStepWithSubcycling (int lev, Real time, int iteration)
 {
-
     // Advance a single level for a single time step, and update flux registers
     Real t_nph = 0.5 * (t_old[lev] + t_new[lev]);
     DefineVelocityAtLevel(lev, t_nph);
@@ -135,16 +138,13 @@ AmrCoreAdv::timeStepWithSubcycling (int lev, Real time, int iteration)
         {
             timeStepWithSubcycling(lev+1, time+(i-1)*dt[lev+1], i);
         }
-
         if (do_reflux)
         {
             // update lev based on coarse-fine flux mismatch
             flux_reg[lev+1]->Reflux(phi_new[lev], 1.0, 0, 0, phi_new[lev].nComp(), geom[lev]);
         }
-
         AverageDownTo(lev); // average lev+1 down to lev
     }
-
 }
 ```
 
@@ -235,18 +235,19 @@ Coarse STEP 8 ends. TIME = 0.007031485953 DT = 0.0008789650903 Sum(Phi) = 540755
 
 Here Sum(Phi) is the sum of $$\phi$$ over all the cells at the coarsest level.
 
-Questions to answer:
+### Questions to Answer:
 
-```
 1. How do the subcycling vs no-subycling calculations compare?
-    a.   How many steps did each take at the finest level? Why might this not be the same?
-    b.   How many cells were at the finest level in each case? Why might this number not be the same?
 
-2  What was the total run time for each calculation?  Was this what you expected?
+   a. How many steps did each take at the finest level? Why might this not be the same?
+
+   b. How many cells were at the finest level in each case? Why might this number not be the same?
+
+2. What was the total run time for each calculation?  Was this what you expected?
 
 3. Was phi conserved (over time) in each case?
-      a.  If you set do_refluxing = 0 for the subcycling case, was phi still conserved?
-      b.  How in the algorithm is conservation enforced differently between subcycling and not?
+   a. If you set do_refluxing = 0 for the subcycling case, was phi still conserved?
+   b. How in the algorithm is conservation enforced differently between subcycling and not?
 
 4. How did the runtimes vary with 1 vs. 4 MPI processes?  
    We suggest you use a big enough problem here -- try running
@@ -256,7 +257,6 @@ Questions to answer:
    mpiexec -n 4 ./main3d.gnu.MPI.ex inputs_for_scaling
 
 5. Why could we check conservation by just adding up the values at the coarsest level?
-```
 
 ### Visualizing the Results
 
@@ -317,7 +317,11 @@ You are now ready to play the movie!  See the "VCR-like" controls at the top. Cl
 * What happens as you change the refinement criteria (i.e. use different values of $$\phi$$)?
   (You can edit these in inputs)  
 
+|
+
 ## Example: "AMR102: Advection of Particles Around Obstacles"
+
+---
 
 ### What Features Are We Using
 
@@ -354,7 +358,7 @@ and setting
 $$\bf{u} = \bf{u^{spec}} - \beta \nabla \xi$$
 
 To solve this variable coefficient Poisson equation, we use the native AMReX geometric multigrid solver.
-In our case $\beta = 1 / \rho = 1$ since we are assuming constant density $\rho.$
+In our case $$\beta = 1 / \rho = 1$$ since we are assuming constant density $$\rho.$$
 
 Note that for this example we are solving everything at a single level for convenience,
 but linear solvers, EB and particles all have full multi-level functionality.
