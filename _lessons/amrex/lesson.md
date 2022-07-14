@@ -12,6 +12,12 @@ header:
  image_fullwidth: "amrex_warpx-fs8.png"
 ---
 
+|
+
+{:refdef: style="text-align: center;"}
+![AMReX Logo](AMReX_logo_small_banner_500.png)
+{:refdef}
+
 ## At a Glance
 
 <!-- (Expected # minutes to complete) %% temporarily omit -->
@@ -56,18 +62,18 @@ source /grand/projects/ATPESC2021/EXAMPLES/track-5-numerical/amrex/source_this_f
 
 ### What Features Are We Using
 
-* Mesh data 
+* Mesh data
 * Dynamic AMR with and without subcycling
 
 ### The Problem
 
-Consider a drop of dye (we'll define $$\phi$$ to be the concentration of dye) 
-in a thin incompressible fluid that is spinning 
-clock-wise then counter-clockwise with a prescribed motion.  We consider the dye to be a 
+Consider a drop of dye (we'll define $$\phi$$ to be the concentration of dye)
+in a thin incompressible fluid that is spinning
+clock-wise then counter-clockwise with a prescribed motion.  We consider the dye to be a
 passive tracer that is advected by the fluid velocity.  The fluid is thin enough that we can model
 this as two-dimensional motion; here we have the option of solving in a 2D or 3D computational domain.
 
-In other words, we want to solve for $$\phi(x,y,t)$$ by evolving 
+In other words, we want to solve for $$\phi(x,y,t)$$ by evolving
 
 $$\frac{\partial \phi}{\partial t} + \nabla \cdot (\bf{u^{spec}} \phi)  = 0$$
 
@@ -90,7 +96,7 @@ To update the solution in a patch at a given level, we compute fluxes ($${\bf u^
 on each face, and difference the fluxes to create the update to phi.   The update routine
 in the code looks like
 
-```cplusplus
+```cpp
   // Do a conservative update
   {
     phi_out(i,j,k) = phi_in(i,j,k) +
@@ -100,7 +106,7 @@ in the code looks like
   }
 ```
 
-In this routine we use the macro AMREX_D_TERM so that we can write dimension-independent code; 
+In this routine we use the macro AMREX_D_TERM so that we can write dimension-independent code;
 in 3D this returns the flux differences in all three directions, but in 2D it does not include
 the z-fluxes.
 
@@ -109,7 +115,8 @@ here having the algorithm written in flux form allows us to either make the flux
 coarse and fine levels in a no-subcycling algorithm, or "reflux" after the update in a subcycling algorithm.
 
 The subcycling algorithm can be written as follows
-```C++
+
+```cpp
 void
 AmrCoreAdv::timeStepWithSubcycling (int lev, Real time, int iteration)
 {
@@ -142,7 +149,8 @@ AmrCoreAdv::timeStepWithSubcycling (int lev, Real time, int iteration)
 ```
 
 while the no-subcycling algorithm looks like
-```C++
+
+```cpp
 void
 AmrCoreAdv::timeStepNoSubcycling (Real time, int iteration)
 {
@@ -159,7 +167,7 @@ AmrCoreAdv::timeStepNoSubcycling (Real time, int iteration)
 
 ### Running the Code
 
-```
+```shell
 cd {{site.handson_root}}/amrex/AMReX_Amr101/Exec
 ```
 Note that you can choose to work entirely in 2D or in 3D ... whichever you prefer.
@@ -167,23 +175,23 @@ The instructions below will be written for 3D but you can substitute the 2D exec
 
 In this directory you'll see
 
-```
-main2d.gnu.MPI.ex -- the 2D executable -- this has been built with MPI 
+```shell
+main2d.gnu.MPI.ex -- the 2D executable -- this has been built with MPI
 
-main3d.gnu.MPI.ex -- the 3D executable -- this has been built with MPI 
+main3d.gnu.MPI.ex -- the 3D executable -- this has been built with MPI
 
 inputs -- an inputs file for both 2D and 3D
 ```
 
-To run in serial, 
+To run in serial,
 
-```
+```shell
 ./main3d.gnu.MPI.ex inputs
 ```
 
 To run in parallel, for example on 4 ranks:
 
-```
+```shell
 mpiexec -n 4 ./main3d.gnu.MPI.ex inputs
 ```
 
@@ -209,17 +217,17 @@ adv.phierr = 1.01  1.1  1.5              # regridding criteria  at each level
 The base grid here is a square of 64 x 64 x 8 cells, made up of 16 subgrids each of size 16x16x8 cells.  
 The problem is periodic in all directions.
 
-We have hard-wired the code here to refine based on the magnitude of $$\phi$$.    Here we set the 
+We have hard-wired the code here to refine based on the magnitude of $$\phi$$.    Here we set the
 threshold level by level.  If $$\phi > 1.01$$ then we want to refine at least once; if $$\phi > 1.1$$ we
 want to resolve $$\phi$$ with two levels of refinement, and if $$\phi > 1.5$$ we want even more refinement.
 
 Note that you can see the total runtime by looking at the line at the end of your run that says
 
 ```
-Total Time: 
+Total Time:
 ```
 
-and you can check conservation of $$\phi$$ by checking the line that prints, e.g. 
+and you can check conservation of $$\phi$$ by checking the line that prints, e.g.
 
 ```
 Coarse STEP 8 ends. TIME = 0.007031485953 DT = 0.0008789650903 Sum(Phi) = 540755.0014
@@ -241,7 +249,7 @@ Questions to answer:
       b.  How in the algorithm is conservation enforced differently between subcycling and not?
 
 4. How did the runtimes vary with 1 vs. 4 MPI processes?  
-   We suggest you use a big enough problem here -- try running 
+   We suggest you use a big enough problem here -- try running
 
    mpiexec -n 1 ./main3d.gnu.MPI.ex inputs_for_scaling
 
@@ -264,13 +272,13 @@ and Embedded Boundary data (in the AMR 101 exercise we only have grid data).
 
 To use the ParaView 5.8 python script, simply do the following to generate `amr101_3D.gif`:
 
-```
+```shell
 $ make movie3D
 ```
 
 If you run the 2D executable, make the 2D movie using:
 
-```
+```shell
 $ make movie2D
 ```
 
@@ -313,15 +321,15 @@ You are now ready to play the movie!  See the "VCR-like" controls at the top. Cl
 
 ### What Features Are We Using
 
-* Mesh data with EB 
+* Mesh data with EB
 * Linear solvers (multigrid)
 * Particle-Mesh interpolation
 
 ### The Problem
 
-Challenge: 
+Challenge:
 
-Recall our previous problem of the drop of dye in a thin incompressible fluid that is spinning 
+Recall our previous problem of the drop of dye in a thin incompressible fluid that is spinning
 clock-wise then counter-clockwise with a prescribed motion.  
 
 Now instead of advecting the dye as a scalar quantity defined on the mesh (the
@@ -332,7 +340,7 @@ Again the fluid is thin enough that we can model this as two-dimensional
 motion; again we have the option of solving in a 2D or 3D computational domain.
 
 To make things even more interesting, there is now an object in the flow, in this case a cylinder.
-It would be very difficult to analytically specify the flow field around the object, so instead 
+It would be very difficult to analytically specify the flow field around the object, so instead
 we project the velocity field so that the resulting field represents incompressible flow around the object.
 
 ### Projecting the Velocity for Incompressible Flow around the Cylinder
@@ -341,7 +349,7 @@ Mathematically, projecting the specified velocity field means solving
 
 $$\nabla \cdot (\beta \nabla \xi)  = \nabla \cdot \bf{u^{spec}}$$
 
-and setting 
+and setting
 
 $$\bf{u} = \bf{u^{spec}} - \beta \nabla \xi$$
 
@@ -397,29 +405,29 @@ advection.
 
 ### Running the code
 
-```
+```shell
 cd {{site.handson_root}}/amrex/AMReX_Amr102/Exec
 ```
 
 In this directory you'll see
 
-```
-main2d.gnu.MPI.ex -- the 2D executable -- this has been built with MPI 
+```shell
+main2d.gnu.MPI.ex -- the 2D executable -- this has been built with MPI
 
-main3d.gnu.MPI.ex -- the 3D executable -- this has been built with MPI 
+main3d.gnu.MPI.ex -- the 3D executable -- this has been built with MPI
 
 inputs -- an inputs file for both 2D and 3D
 ```
 
-As before, to run the 3D code in serial: 
+As before, to run the 3D code in serial:
 
-```
+```shell
 ./main3d.gnu.MPI.ex inputs
 ```
 
 To run in parallel, for example on 4 ranks:
 
-```
+```shell
 mpiexec -n 4 ./main3d.gnu.MPI.ex inputs
 ```
 
@@ -463,11 +471,11 @@ You can vary the number of particles per cell and interpolation to see how they 
 
 Questions to answer:
 
-```
+
 1. How does the solution in the absence of the cylinder compare to our previous solution (where phi was advected
    as a mesh variable)?
 
-2. Note that at the very end we print the time spent creating the geometrical information. 
+2. Note that at the very end we print the time spent creating the geometrical information.
    How does this compare to the total run time?
 
 3. Go back and run the AMR101 example with the same size box and amr.max_level = 1.  How does
@@ -476,7 +484,7 @@ Questions to answer:
 
 4. Note that for the purposes of visualization, we deposited the particle weights onto the grid.
    Was phi conserved using this approach?
-```
+
 
 ### Visualizing the Results
 
@@ -546,14 +554,14 @@ You are now ready to play the movie!  See the "VCR-like" controls at the top. Cl
 
 ### What Features Are We Using
 
-* EB for obstacles 
-* Particle-obstacle and particle-wall collisions 
+* EB for obstacles
+* Particle-obstacle and particle-wall collisions
 
 ### The Problem
 
 Have you ever played pachinko?  
 
-A pachinko machine is like a vertical pinball machine. 
+A pachinko machine is like a vertical pinball machine.
 
 Balls are released at the top of the "playing field", and bounce off obstacles as they fall.
 
@@ -593,7 +601,7 @@ For now we freeze the obstacles (although if you look in the code it's not hard 
 how to change them!) but we can change the initial particle locations at run-time by editing the
 initial_particles_3d file.
 
-To run in serial, 
+To run in serial,
 
 ```
 ./main3d.gnu.MPI.ex inputs_3d
@@ -647,7 +655,7 @@ That took 1.145916707 seconds.
 
 ### Visualizing the Results
 
-Again we'll use Paraview 5.8 to visualize the results. 
+Again we'll use Paraview 5.8 to visualize the results.
 
 As before, to use the Paraview python script, simply do:
 
@@ -669,8 +677,8 @@ Instructions to visualize the EB representation of the cylinders:
 
 ```
 1. Start Paraview 5.8
-2. File --> Open ... select "eb.pvtp" (highlight it then click OK) 
-3. Click green Apply button 
+2. File --> Open ... select "eb.pvtp" (highlight it then click OK)
+3. Click green Apply button
 ```
 
 You should see cylinders with their axes in the z-direction.
@@ -705,7 +713,7 @@ Now to load the particles:
 
 You are now ready to play the movie!  See the "VCR-like" controls at the top. Click the play button.
 
-For fun: if you want to color the particles, make sure "Glyph1" is highlighted, then 
+For fun: if you want to color the particles, make sure "Glyph1" is highlighted, then
 change the drop-down menu option (above the calculator row) from "vtkBlockColors" to "cpu" --
 if you have run with 4 processes then you will see the particles displayed with different colors.
 
