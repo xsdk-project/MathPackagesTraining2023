@@ -26,7 +26,7 @@ with open('sme_choices.csv', mode ='r')as file:
            continue
         line_time = datetime.strptime(line[0], '%m/%d/%Y %H:%M:%S')
         # time stamp ensures first-come, first served ordering
-        time_id = abs((line_time - datetime(2021,8,10)).total_seconds())
+        time_id = abs((line_time - datetime(2022,8,9)).total_seconds())
         student_id = line[1]
         request = [time_id, student_id]
         for i in range(2,len(line)-2):

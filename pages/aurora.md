@@ -14,8 +14,8 @@ permalink: "/aurora/"
   {% endif %}
 {% endfor %}
 
-When it is fully delivered in 2021, [Aurora]({{vroom.webinfo}}) will be the world’s
-first supercomputer able to sustain 1 exaFLOP.
+When it is fully delivered in 2022, [Aurora]({{vroom.webinfo}}) will be the world’s
+second supercomputer able to sustain 1 exaFLOP and will have a theoretical peak of over 2 exaFLOPs.
 
 <center style="font-size:24px"><a href="{{vroom.zoom_link}}">Enter This Virtual Room Zoom Meeting</a></center>
 <center style="font-size:18px">Launch Slack for this room in<br><a href="{{vroom.slackweb}}" onclick="window.open(this.href,'newwindow','width=600,height=900'); return false;">new browser window</a> or <a href="{{vroom.slackapp}}">desktop app</a></center>

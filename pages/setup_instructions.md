@@ -44,7 +44,7 @@ this command to update your local copy if we discover changes are necessary.
 ```
 +gcc-8.2.0
 +cuda-10.2
-PATH+=/grand/ATPESC2021/usr/MathPackages/openmpi-4.1.1-gcc82-cuda102/bin
+PATH+=/grand/ATPESC2022/usr/MathPackages/openmpi-4.1.1-gcc82-cuda102/bin
 +ffmpeg
 @default
 ```
@@ -55,12 +55,12 @@ resoft
   * Confirm correct mpiexec is in PATH
 ```
 $ which mpiexec
-/grand/ATPESC2021/usr/MathPackages/openmpi-4.1.1-gcc82-cuda102/bin/mpiexec
+/grand/ATPESC2022/usr/MathPackages/openmpi-4.1.1-gcc82-cuda102/bin/mpiexec
 ```
 
 1. Confirm you can compile and run an example
 ```
-$ qsub -I -n 1 -t 5 -A ATPESC2021 -q training
+$ qsub -I -n 1 -t 5 -A ATPESC2022 -q training
 $ cd track-5-numerical/hand_coded_heat
 $ make mpi_test
 mpicc mpi_test.c -o mpi_test
@@ -76,9 +76,9 @@ $ exit
   * The above commands produce the `mpi_test` binary and execution output.
 1. As soon after 9:30am, Tuesday , August 10th as possible, allocate an interactive node on
    cooley. The following command allocates a single Cooley node (`-n 1`) for 300 minutes
-   (`-t 300`) using the ATPESC2021 allocation (`-A ATPESC2021`) and the queue reservation (`-q training`):
+   (`-t 300`) using the ATPESC2022 allocation (`-A ATPESC2022`) and the queue reservation (`-q training`):
 ```
-qsub -I -n 1 -t 300 -A ATPESC2021 -q training
+qsub -I -n 1 -t 300 -A ATPESC2022 -q training
 ```
 The command blocks until the node is ready.  Until the allocation expires (300 minutes in this example), all commands executed in the returned session will run on the allocated compute node; `mpiexec` can be used directly instead of going through `qsub`.
   * **Note 1:** Please **DO NOT** run MPI jobs on the login nodes. Instead, run them on an allocated compute node.
