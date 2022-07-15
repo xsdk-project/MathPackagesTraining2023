@@ -84,7 +84,7 @@ Choice of solver:
 
 Run the first example for a small problem of size 27000 using restarted GMRES with a Krylov space of size 10.
 ```
-./ij -n 30 30 30 -gmres
+mpirun -np 1 ij -n 30 30 30 -gmres
 ```
 
 #### Expected Behavior/Output
@@ -98,15 +98,15 @@ Running with these driver parameters:
     (Px, Py, Pz) = (1, 1, 1)
     (cx, cy, cz) = (1.000000, 1.000000, 1.000000)
 
-    Problem size = (30 x 30 x 30)
+    Problem size = (30, 30, 30)
 
 =============================================
 Generate Matrix:
 =============================================
 Spatial Operator:
-  wall clock time = 0.000000 seconds
+  wall clock time = 0.001146 seconds
   wall MFLOPS     = 0.000000
-  cpu clock time  = 0.000000 seconds
+  cpu clock time  = 0.001146 seconds
   cpu MFLOPS      = 0.000000
 
   RHS vector has unit components
@@ -115,9 +115,9 @@ Spatial Operator:
 IJ Vector Setup:
 =============================================
 RHS and Initial Guess:
-  wall clock time = 0.000000 seconds
+  wall clock time = 0.000250 seconds
   wall MFLOPS     = 0.000000
-  cpu clock time  = 0.000000 seconds
+  cpu clock time  = 0.000250 seconds
   cpu MFLOPS      = 0.000000
 
 Solver: DS-GMRES
@@ -126,36 +126,36 @@ HYPRE_GMRESGetPrecond got good precond
 Setup phase times:
 =============================================
 GMRES Setup:
-  wall clock time = 0.000000 seconds
+  wall clock time = 0.000025 seconds
   wall MFLOPS     = 0.000000
-  cpu clock time  = 0.000000 seconds
+  cpu clock time  = 0.000025 seconds
   cpu MFLOPS      = 0.000000
 
 =============================================
 Solve phase times:
 =============================================
 GMRES Solve:
-  wall clock time = 0.270000 seconds
+  wall clock time = 0.189000 seconds
   wall MFLOPS     = 0.000000
-  cpu clock time  = 0.270000 seconds
+  cpu clock time  = 0.190432 seconds
   cpu MFLOPS      = 0.000000
 
 
 GMRES Iterations = 392
 Final GMRES Relative Residual Norm = 9.915663e-09
-Total time = 0.270000
+Total time = 0.189026
 ```
 
 Note the total time and the number of iterations.
 Now increase the Krylov subspace by changing input to -k to 40, and finally 75.
 
-{% include qanda question='What do you observe about the number of iterations and times?' answer='Number of iterations and times generally improve except for the last run, which is somewhat slower because the last iterations are more expensive. Iterations: 392, 116, 73. Times: 0.27, 0.16, 0.17.' %}
+{% include qanda question='What do you observe about the number of iterations and times?' answer='Number of iterations and times generally improve except for the last run, which is somewhat slower because the last iterations are more expensive. Iterations: 392, 116, 73. Times: 0.19, 0.12, 0.13.' %}
 
 {% include qanda question='How many restarts were required for the last run using -k 75?'  answer='None, since the number of iterations is 73. Here full GMRES was used.'%}
 
 Now solve this problem using -pcg and -bicgstab.
 
-{% include qanda question='What do you observe about the number of iterations and times for all three methods? Which method is the fastest and which one has the lowest number of iterations?' answer='Conjugate gradient takes 74 iterations and 0.04 seconds, BiCGSTAB 51 iterations and 0.05 seconds. Conjugate gradient has the lowest time, but BiCGSTAB has the lowest number of iterations.' %}
+{% include qanda question='What do you observe about the number of iterations and times for all three methods? Which method is the fastest and which one has the lowest number of iterations?' answer='Conjugate gradient takes 74 iterations and 0.02 seconds, BiCGSTAB 51 iterations and 0.03 seconds. Conjugate gradient has the lowest time, but BiCGSTAB has the lowest number of iterations.' %}
 
 {% include qanda question='Why is BiCGSTAB slower than PCG?' answer='It requires two matrix vector operations and additional vector operations per iteration, and thus each iteration takes longer than an iteration of PCG.' %}
 
@@ -172,16 +172,16 @@ For $$a = 0$$ we just get the Poisson equation, but when $$a > 0$$ we get a nons
 Now let us apply Krylov solvers to the convection-diffusion equation with $$a=10$$, starting with conjugate gradient.
 
 ```
-./ij -n 50 50 50 -difconv -a 10 -pcg
+mpirun -np 1 ij -n 50 50 50 -difconv -a 10 -pcg
 ```
 {% include qanda question='What do you observe? Why?' answer='PCG fails, because the linear system is nonsymmetric.' %}
 
 Now try GMRES(20) and BiCGSTAB.
 ```
-./ij -n 50 50 50 -difconv -a 10 -gmres -k 20
+mpirun -np 1 ij -n 50 50 50 -difconv -a 10 -gmres -k 20
 ```
 ```
-./ij -n 50 50 50 -difconv -a 10 -bicgstab
+mpirun -np 1 ij -n 50 50 50 -difconv -a 10 -bicgstab
 ```
 
 {% include qanda question='What do you observe? Which solver is faster for this problem?' answer='BiCGSTAB and GMRES both solve the problem. BiCGSTAB is faster than GMRES(20) for this problem.' %}
@@ -189,15 +189,15 @@ Now try GMRES(20) and BiCGSTAB.
 
 Now let us scale up the Poisson problem starting with a cube of size $$50 \times 50 \times 50$$ on one process:
 ```
-mpiexec -n 1 ./ij -n 50 50 50 -pcg -P 1 1 1
+mpirun -np 1 ij -n 50 50 50 -pcg -P 1 1 1
 ```
 Now we increase the problem size to a cube of size $$100 \times 100 \times 100$$
 by increasing the number of processes to 8 using the process topology -P 2 2 2.
 ```
-mpiexec -n 8 ./ij -n 50 50 50 -pcg -P 2 2 2
+mpirun -np 8 ij -n 50 50 50 -pcg -P 2 2 2
 ```
 {% include qanda question='What happens to convergence and solve time?' answer='
-the number of iterations increases from 124 to 249, the time from 0.55 seconds to 1.46 seconds.' %}
+the number of iterations increases from 124 to 249, the time from 0.19 seconds to 1.89 seconds.' %}
 
 
 
@@ -205,28 +205,28 @@ the number of iterations increases from 124 to 249, the time from 0.55 seconds t
 
 Now perform the previous weak scaling study using algebraic multigrid starting with
 ```
-mpiexec -n 1 ./ij -n 50 50 50 -amg -P 1 1 1
+mpirun -np 1 ij -n 50 50 50 -amg -P 1 1 1
 ```
 followed by
 ```
-mpiexec -n 8 ./ij -n 50 50 50 -amg -P 2 2 2
+mpirun -np 8 ij -n 50 50 50 -amg -P 2 2 2
 ```
 
 {% include qanda question='What happens to convergence and solve time now?' answer='AMG solves the problem using significantly less iterations, and time increases somewhat slower.  Number of iterations: 12, 23.
-Total time: 0.51, 1.18 seconds.' %}
+Total time: 0.37, 1.48 seconds.' %}
 
 Now repeat the scaling study using AMG as a preconditioner for CG:
 ```
-mpiexec -n 1 ./ij -n 50 50 50 -amgpcg -P 1 1 1
+mpirun -np 1 ij -n 50 50 50 -amgpcg -P 1 1 1
 ```
 ```
-mpiexec -n 8 ./ij -n 50 50 50 -amgpcg -P 2 2 2
+mpirun -np 8 ij -n 50 50 50 -amgpcg -P 2 2 2
 ```
-{% include qanda question='What happens to convergence and solve time now?' answer='Using PCG preconditioned with AMG further decreases the number of iterations and solve times.  Number of iterations: 8, 11.  Total time: 0.47, 0.89 seconds.' %}
+{% include qanda question='What happens to convergence and solve time now?' answer='Using PCG preconditioned with AMG further decreases the number of iterations and solve times.  Number of iterations: 8, 11.  Total time: 0.34, 1.05 seconds.' %}
 
 Now let us take a look at the complexities of the last run by printing some setup statistics:
 ```
-mpiexec -n 8 ./ij -n 50 50 50 -amgpcg -P 2 2 2 -iout 1
+mpirun -np 8 ij -n 50 50 50 -amgpcg -P 2 2 2 -iout 1
 ```
 You should now see the following statistics:
 ```
@@ -323,7 +323,7 @@ $$\frac{\sum_i^L {nnz(A_i + P_i)}}{nnz(A)}$$.
 Now, let us see what happens if we coarsen more aggressively on the finest level:
 
 ```
-mpiexec -n 8 ./ij -n 50 50 50 -amgpcg -P 2 2 2 -iout 1 -agg_nl 1
+mpirun -np 8 ij -n 50 50 50 -amgpcg -P 2 2 2 -iout 1 -agg_nl 1
 ```
 We now receive the following output for average number of nonzeroes and complexities:
 ```
@@ -358,11 +358,11 @@ lev  rows cols    min max     weight   weight     min       max
                 memory = 1.700654
 ```
 As you can see, the number of levels, the number of nonzeroes per rows and the complexities have decreased.
-{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations increases (17 vs. 11), but total time is less (0.62 vs 0.89)'  %}
+{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations increases (17 vs. 11), but total time is less (0.70 vs 0.97)'  %}
 
 Now let us use aggressive coarsening in the first two levels.
 ```
-mpiexec -n 8 ./ij -n 50 50 50 -amgpcg -P 2 2 2 -iout 1 -agg_nl 2
+mpirun -np 8 ij -n 50 50 50 -amgpcg -P 2 2 2 -iout 1 -agg_nl 2
 ```
 {% include qanda question='What happens to complexities, number of iterations and total time?' answer='Complexities decrease further to 1.22, but the number of iterations is increasing to 26 and total time increases as well. Choosing to aggressively coarsen on the second level does not lead to further time savings, but gives further memory savings. If achieving the shortest time is the objective, coarsen aggressively on the second level is not adviced.'  %}
 
@@ -376,22 +376,22 @@ We now use the driver for the structured interface, which will also give various
 
 To run the structured solver PFMG for this problem type
 ```
-mpiexec -n 8 ./struct -n 50 50 50 -P 2 2 2 -pfmg
+mpirun -np 8 struct -n 50 50 50 -P 2 2 2 -pfmg
 ```
-{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations 35, but the total time is less (0.40)'  %}
+{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations 35, but the total time is less (0.39)'  %}
 
 Now run it as a preconditioner for conjugate gradient.
 ```
-mpiexec -n 8 ./struct -n 50 50 50 -pfmgpcg -P 2 2 2
+mpirun -np 8 ./struct -n 50 50 50 -pfmgpcg -P 2 2 2
 ```
-{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations 14, but the total time is less (0.20)'  %}
+{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations 14, but the total time is less (0.21)'  %}
 
 To get even better total time, now run the non-Galerkin version.
 
 ```
-mpiexec -n 8 ./struct -n 50 50 50 -pfmgpcg -P 2 2 2 -rap 1
+mpirun -np 8 struct -n 50 50 50 -pfmgpcg -P 2 2 2 -rap 1
 ```
-{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations remains 14, but the total time is less (0.18)'  %}
+{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations remains 14, but the total time is less (0.17)'  %}
 
 
 ### Additional Exercises 
@@ -399,78 +399,78 @@ mpiexec -n 8 ./struct -n 50 50 50 -pfmgpcg -P 2 2 2 -rap 1
 We will now consider a two-dimensional problem with a rotated anisotropy on a rectangular domain.
 Let us begin with a grid-aligned anisotropy.
 ```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -pcg -iout 3
+mpirun -np 1 ij -rotate -n 300 300 -eps 0.01 -alpha 0 -pcg -iout 3
 ```
 ```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -gmres -k 100 -iout 3
+mpirun -np 1 ij -rotate -n 300 300 -eps 0.01 -alpha 0 -gmres -k 50 -iout 3
 ```
 ```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -bicgstab -iout 3
+mpirun -np 1 ij -rotate -n 300 300 -eps 0.01 -alpha 0 -bicgstab -iout 3
 ```
 ```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -amg -iout 3
+mpirun -np 1 ij -rotate -n 300 300 -eps 0.01 -alpha 0 -amg -iout 3
 ```
 ```
-./struct -rotate -n 300 300 -eps 0.01 -alpha 0 -pfmg
+mpirun -np 1 struct -rotate -n 300 300 -eps 0.01 -alpha 0 -pfmg
 ```
 {% include qanda question='What do you observe?' answer='The residual norms for all solvers improve, but only AMG and PFMG converge within less than 1000 iterations.' %}
 
 Now let us rotate the anisotropy by 45 degrees.
 ```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 45 -amg
+mpirun -np 1 ij -rotate -n 300 300 -eps 0.01 -alpha 45 -amg
 ```
 ```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 45 -amgpcg
+mpirun -np 1 ij -rotate -n 300 300 -eps 0.01 -alpha 45 -amgpcg
 ```
 ```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 45 -amggmres
+mpirun -np 1 ij -rotate -n 300 300 -eps 0.01 -alpha 45 -amggmres
 ```
 ```
-./struct -rotate -n 300 300 -eps 0.01 -alpha 45 -pfmg
+mpirun -np 1 struct -rotate -n 300 300 -eps 0.01 -alpha 45 -pfmg
 ```
 ```
-./struct -rotate -n 300 300 -eps 0.01 -alpha 45 -pfmgpcg
+mpirun -np 1 struct -rotate -n 300 300 -eps 0.01 -alpha 45 -pfmgpcg
 ```
 ```
-./struct -rotate -n 300 300 -eps 0.01 -alpha 45 -pfmggmres
+mpirun -np 1 struct -rotate -n 300 300 -eps 0.01 -alpha 45 -pfmggmres
 ```
 
 {% include qanda question='Does the result change? What is the order of the solvers?' answer='The order from slowest to fastest is: PFMG, PFMG-GMRES, PFMG-CG, AMG, AMG-GMRES, AMG-CG. PFMG does not work well for non-grid-aligned anisotropies, but convergence improves when PFMG is combined with a Krylov solver. AMG can handle non-grid-aligned anisotropies well.' %}
 
 Now let us rotate the anisotropy by 30 degrees.
 ```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 30 -amg
+mpirun -np 1 ij -rotate -n 300 300 -eps 0.01 -alpha 30 -amg
 ```
 ```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 30 -amgpcg
+mpirun -np 1 ij -rotate -n 300 300 -eps 0.01 -alpha 30 -amgpcg
 ```
 ```
-./struct -rotate -n 300 300 -eps 0.01 -alpha 30 -pfmg
+mpirun -np 1 struct -rotate -n 300 300 -eps 0.01 -alpha 30 -pfmg
 ```
 ```
-./struct -rotate -n 300 300 -eps 0.01 -alpha 30 -pfmgpcg
+mpirun -np 1 struct -rotate -n 300 300 -eps 0.01 -alpha 30 -pfmgpcg
 ```
 
 {% include qanda question='Does the result change? What is the order of the solvers?' answer='The order from slowest to fastest is: PFMG, AMG, AMG-CG, PFMG-CG. While AMG is signifcantly better than PFMG, this problem is harder for it than the previous problem. PFMG-CG is faster here than AMG-CG.' %}
 
 Let us now scale up the problem for AMG-CG and PFMG-CG.
 ```
-mpiexec -n 2 ./ij -P 2 1 -rotate -n 300 300 -eps 0.01 -alpha 30 -amgpcg
+mpirun -np 2 ij -P 2 1 -rotate -n 300 300 -eps 0.01 -alpha 30 -amgpcg
 ```
 ```
-mpiexec -n 4 ./ij -P 2 2 -rotate -n 300 300 -eps 0.01 -alpha 30 -amgpcg
+mpirun -np 4 ij -P 2 2 -rotate -n 300 300 -eps 0.01 -alpha 30 -amgpcg
 ```
 ```
-mpiexec -n 8 ./ij -P 4 2 -rotate -n 300 300 -eps 0.01 -alpha 30 -amgpcg
+mpirun -np 8 ij -P 4 2 -rotate -n 300 300 -eps 0.01 -alpha 30 -amgpcg
 ```
 ```
-mpiexec -n 2 ./struct -P 2 1 1 -rotate -n 300 300 -eps 0.01 -alpha 30 -pfmgpcg
+mpirun -np 2 struct -P 2 1 1 -rotate -n 300 300 -eps 0.01 -alpha 30 -pfmgpcg
 ```
 ```
-mpiexec -n 4 ./struct -P 2 2 1 -rotate -n 300 300 -eps 0.01 -alpha 30 -pfmgpcg
+mpirun -np 4 struct -P 2 2 1 -rotate -n 300 300 -eps 0.01 -alpha 30 -pfmgpcg
 ```
 ```
-mpiexec -n 8 ./struct -P 4 2 1 -rotate -n 300 300 -eps 0.01 -alpha 30 -pfmgpcg
+mpirun -np 8 struct -P 4 2 1 -rotate -n 300 300 -eps 0.01 -alpha 30 -pfmgpcg
 ```
 
 {% include qanda question='How do the solvers scale?' answer='Both solvers scale well, with PFMG-CG taking more iterations, but overall less time than AMG-CG.' %}
@@ -489,37 +489,37 @@ For $$a = 0$$ we just get the Poisson equation, but when $$a > 0$$ we get a nons
 Now let us apply Krylov solvers to the convection-diffusion equation with $$a=10$$, starting with conjugate gradient.
 
 ```
-./ij -n 50 50 50 -difconv -a 10 -pcg
+mpirun -np 1 ij -n 50 50 50 -difconv -a 10 -pcg
 ```
 {% include qanda question='What do you observe? Why?' answer='PCG fails, because the linear system is nonsymmetric.' %}
 
 Now try GMRES(20), BiCGSTAB, and AMG with and without aggressive coarsening.
 ```
-./ij -n 50 50 50 -difconv -a 10 -gmres -k 20
+mpirun -np 1 ij -n 50 50 50 -difconv -a 10 -gmres -k 20
 ```
 ```
-./ij -n 50 50 50 -difconv -a 10 -bicgstab
+mpirun -np 1 ij -n 50 50 50 -difconv -a 10 -bicgstab
 ```
 ```
-./ij -n 50 50 50 -difconv -a 10 -amg
+mpirun -np 1 ij -n 50 50 50 -difconv -a 10 -amg
 ```
 ```
-./ij -n 50 50 50 -difconv -a 10 -amg -agg_nl 1
+mpirun -np 1 ij -n 50 50 50 -difconv -a 10 -amg -agg_nl 1
 ```
 {% include qanda question='What do you observe? Order the solvers in the order of slowest to fastest solver for this problem!' answer='BiCGSTAB, GMRES and AMG with or without aggressive coarsening solve the problem. The order slowest to fastest for this problem is: GMRES(20), AMG, BiCGSTAB, AMG with aggressive coarsening.' %}
 
 Let us solve the problem using structured multigrid solvers.
 ```
-./struct -n 50 50 50 -a 10 -pfmg
+mpirun -np 1 struct -n 50 50 50 -a 10 -pfmg
 ```
 ```
-./struct -n 50 50 50 -a 10 -pfmg -rap 1
+mpirun -np 1 struct -n 50 50 50 -a 10 -pfmg -rap 1
 ```
 ```
-./struct -n 50 50 50 -a 10 -pfmggmres
+mpirun -np 1 struct -n 50 50 50 -a 10 -pfmggmres
 ```
 ```
-./struct -n 50 50 50 -a 10 -pfmggmres -rap 1
+mpirun -np 1 struct -n 50 50 50 -a 10 -pfmggmres -rap 1
 ```
 
 {% include qanda question='What do you observe? Which solver fails? What is the order of the remaining solvers in terms of number of iterations? Which solver is the fastest.' answer='The non-Galerkin version of PFMG as alone solver fails. The order from largest to least number of iterations is: Non-Galerkin PFMG-GMRES, PFMG, PFMG-GMRES. But PFMG alone solves the problem faster.' %}
