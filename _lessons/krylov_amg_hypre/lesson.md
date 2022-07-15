@@ -50,6 +50,7 @@ Choice of Problem:
   -laplacian [<options>] : build 7pt 3D laplacian problem (default)
   -difconv [<opts>]      : build convection-diffusion problem
     -n <nx> <ny> <nz>    : problem size per process
+    -gn <gnx> <gny> <gnz>: global problem size
     -P <Px> <Py> <Pz>    : process topology
     -a <ax>              : convection coefficient
   -rotate [<opts>]       : build 2D problem with rotated anisotropy
@@ -393,6 +394,64 @@ mpirun -np 8 struct -n 50 50 50 -pfmgpcg -P 2 2 2 -rap 1
 ```
 {% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations remains 14, but the total time is less (0.17)'  %}
 
+### Third Set of Runs (Comparing GPU to CPU performance)
+
+We will now compare the performance of GPU to CPU. 
+Since there are 16 cores available on the CPU, we will use 16 MPI tasks for the CPU runs.
+In contrast, there is only 1 GPU, so there will be no communication using MPI.
+
+Let us first run a small Poisson problem on a 20 x 20 x 20 grid using CG preconditioned with AMG and PFMG
+using optimal settings to get best total times.
+```
+mpirun -np 16 ij -amgpcg -P 4 2 2 -gn 20 20 20
+```
+```
+mpirun -np 1 ij_gpu -amgpcg -gn 20 20 20
+```
+```
+mpirun -np 16 struct -pfmgpcg -P 4 2 2 -gn 20 20 20
+```
+```
+mpirun -np 1 struct_gpu -pfmgpcg -gn 20 20 20
+```
+{% include qanda question='What do you observe?' answer='The CPU runs are faster than the GPU runs for AMG-PCG and PFMG-PCG. There is not sufficient work for the GPU to offset the startup cost. PFMG-PCG is faster than AMG-PCG.' %}
+
+Now let us consider a larger problem of size 100 x 100 x 100.
+```
+mpirun -np 16 ij -amgpcg -P 4 2 2 -gn 100 100 100
+```
+```
+mpirun -np 1 ij_gpu -amgpcg -gn 100 100 100
+```
+```
+mpirun -np 16 struct -pfmgpcg -P 4 2 2 -gn 100 100 100
+```
+```
+mpirun -np 1 struct_gpu -pfmgpcg -gn 100 100 100
+```
+{% include qanda question='How did the situation change?' answer='Now the GPU runs are faster than the CPU runs. We observe a speedup of about 4 for AMG-PCG and about 8 for PFMG-PCG. PFMG-PCG is significantly faster than AMG-PCG.' %}
+
+We can find the cross-over point, at which CPU and GPU times are approximately the same, at 45 x 45 x 45.
+```
+mpirun -np 16 struct -pfmgpcg -P 4 2 2 -gn 45 45 45
+```
+```
+mpirun -np 1 struct_gpu -pfmgpcg -gn 45 45 45
+```
+```
+mpirun -np 16 ij -amgpcg -P 4 2 2 -gn 45 45 45
+```
+```
+mpirun -np 1 ij_gpu -amgpcg -gn 45 45 45
+```
+Let us now consider a diffusion problem with a 27-point stencil to see the effect of a system with a somewhat denser matrix on the performance.
+```
+mpirun -np 16 ij -amgpcg -P 4 2 2 -27pt -gn 100 100 100
+```
+```
+mpirun -np 1 ij_gpu -amgpcg -27pt -gn 100 100 100
+```
+{% include qanda question='What speedup do we observe now?' answer='We now observe a speedup of about 14, which is much higher than the speedup 4 we got for the Laplace problem with a 7-point stencil.' %}
 
 ### Additional Exercises 
 
