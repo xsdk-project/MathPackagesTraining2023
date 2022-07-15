@@ -453,6 +453,8 @@ mpirun -np 1 ij_gpu -amgpcg -27pt -gn 100 100 100
 ```
 {% include qanda question='What speedup do we observe now?' answer='We now observe a speedup of about 14, which is much higher than the speedup 4 we got for the Laplace problem with a 7-point stencil.' %}
 
+Where is the cross-over point for this problem? Hint: Try -gn 25 25 25. Note that it is much lower than for the Laplace problem.
+
 ### Additional Exercises 
 
 We will now consider a two-dimensional problem with a rotated anisotropy on a rectangular domain.
