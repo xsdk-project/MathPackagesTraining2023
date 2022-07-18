@@ -473,7 +473,7 @@ pic_interpolation = 1                    # Particle In Cell interpolation scheme
 
 You can vary the number of particles per cell and interpolation to see how they influence the smoothness of the phi field.
 
-Questions to answer:
+### Questions to Answer:
 
 
 1. How does the solution in the absence of the cylinder compare to our previous solution (where phi was advected
