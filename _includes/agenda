@@ -9,7 +9,7 @@
 {% capture newline %}
 {% endcapture %}
 
-|CDT<br>Start|Mins|Topic|Speaker(s)|Virtual<br>Venue|
+|CDT<br>Start|Mins|Topic|Speaker(s)|<br>Venue|
 |---:|:---:|:---|---:|:---|{{newline}}
 {%- if include.speaker_filter -%}
   {%- for agitm in site.data.agenda -%}
