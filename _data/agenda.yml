@@ -125,14 +125,11 @@
   id: 18
 
 - title: "**Dinner**"
-  id: 19
-
-- title: "**Break**"
   start: "Tue Aug 10 6:30 PM"
   length: 60
-  id: 20
+  id: 19
 
 - title: "SME Speed Dating<br>OPTIONAL ACTIVITY"
   start: "Tue Aug 9 7:30 PM"
   length: 60
-  id: 21
+  id: 20
