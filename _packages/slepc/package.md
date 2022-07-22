@@ -1,6 +1,6 @@
 ---
 layout: package
-subheadline: ATPESC 2021 Package Overviews
+subheadline: ATPESC 2022 Package Overviews
 title: "SLEPc"
 teaser: "Scalable Library for Eigenvalue Problem Computations"
 permalink: "packages/slepc/"

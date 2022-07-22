@@ -1,7 +1,7 @@
 ---
 layout: page
 show_meta: false
-title: "ATPESC 2021 Hands On Lessons"
+title: "ATPESC 2022 Hands On Lessons"
 not_active: true
 header:
    image_fullwidth: "llnl_machine.jpg"
