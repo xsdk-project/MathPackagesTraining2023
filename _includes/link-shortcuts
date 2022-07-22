@@ -26,13 +26,13 @@
 [m3]: <mailto:hongzh@mcs.anl.gov>
 [m4]: <mailto:miller86@llnl.gov>
 [m5]: <mailto:ASAlmgren@lbl.gov>
-[m6]: <mailto:DEWillcox@lbl.gov>
+[m6]: <mailto:epalmer@lbl.gov>
 [m7]: <mailto:demmel@cs.berkeley.edu>
 [m8]: <mailto:reynolds@smu.edu>
 [m9]: <mailto:jhu@sandia.gov>
 [m10]: <mailto:caglusa@sandia.gov>
 [m11]: <mailto:bsmith@mcs.anl.gov>
-[m12]: <mailto:adener@anl.gov>
+[m12]: <mailto:tmunson@mcs.anl.gov>
 [m13]: <mailto:pghysels@lbl.gov>
 
 [w1]: https://ccse.lbl.gov/index.html
@@ -51,11 +51,11 @@
 [Lois Curfman McInnes]: {{site.url}}{{site.baseurl}}/presenters/#lois-curfman-mcinnes
 [Mark Miller]: {{site.url}}{{site.baseurl}}/presenters/#mark-c-miller
 [Ann Almgren]: {{site.url}}{{site.baseurl}}/presenters/#ann-almgren
-[Don Willcox]: {{site.url}}{{site.baseurl}}/presenters/#don-willcox
+[Erik Palmer]: {{site.url}}{{site.baseurl}}/presenters/#erik-palmer
 [Dan Reynolds]: {{site.url}}{{site.baseurl}}/presenters/#dan-reynolds
 [Christian Glusa]: {{site.url}}{{site.baseurl}}/presenters/#christian-glusa
 [Jonathan Hu]: {{site.url}}{{site.baseurl}}/presenters/#jonathan-hu
-[Alp Dener]: {{site.url}}{{site.baseurl}}/presenters/#alp-dener
+[Todd Munson]: {{site.url}}{{site.baseurl}}/presenters/#todd-munson
 [Satish Balay]: {{site.url}}{{site.baseurl}}/presenters/#satish-balay
 [Barry Smith]: {{site.url}}{{site.baseurl}}/presenters/#barry-smith
 [Ulrike Yang]: {{site.url}}{{site.baseurl}}/presenters/#ulrike-yang
