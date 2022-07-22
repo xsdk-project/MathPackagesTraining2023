@@ -36,6 +36,15 @@ permalink: "/presenters/"
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 
+### David Gardner
+### David Gardner
+
+|:---:|:---:|
+|![](https://people.llnl.gov/sites/default/files/styles/medium/public/img/gardner48.png?itok=oJGssFtM){:width="200px"}|Key Expertise: [SUNDIALS][sundials], [FASTMath][fastmath]<br><br>Affiliation: [LLNL][llnl]<br><br>Contact: [email][dg-m]<br><br>GitHub: [Profile][dg-g]|
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 ### Dan Reynolds
 ### Dan Reynolds
 
@@ -283,6 +292,7 @@ permalink: "/presenters/"
 [mcm-m]: <mailto:miller86@llnl.gov>
 [sb-m]: <mailto:balay@mcs.anl.gov>
 [dr-m]: <mailto:reynolds@smu.edu>
+[dg-m]: <mailto:gardner48@llnl.gov>
 [aa-m]: <mailto:ASAlmgren@lbl.gov>
 [ep-m]: <mailto:epalmer@lbl.gov>
 [tm-m]: <mailto:tmunson@mcs.anl.gov>
@@ -309,6 +319,7 @@ permalink: "/presenters/"
 [mcm-g]: https://github.com/markcmiller86
 [sb-g]: https://github.com/balay
 [dr-g]: https://github.com/drreynolds
+[dg-g]: https://github.com/gardner48
 [aa-g]: https://github.com/asalmgren
 [ep-g]: https://github.com/etpalmer63
 [tm-g]: https://gitlab.com/tmunson
