@@ -39,10 +39,10 @@
   length: 75
   id: 6
 
-- title: "Iterative Solvers & Algebraic Multigrid (with HYPRE)"
+- title: "Iterative Solvers & Algebraic Multigrid (with MueLU)"
   speakers:
-    - "Ulrike Yang"
-    - "Sarah Osborn"
+    - "Christian Glusa"
+    - "Graham Harper"
   vname: "Main-room or breakout (TBD)"
   has_synopsis: true
   id: 7
@@ -96,11 +96,10 @@
   has_synopsis: true
   id: 15
 
-- title: "Iterative Solvers & Preconditioners (with MueLu)"
+- title: "Iterative Solvers & Preconditioners (with HYPRE)"
   speakers:
-    - "Christian Glusa"
-    - "Peter Ohm"
-    - "Graham Harper"
+    - "Sarah Osborn"
+    - "Ulrike Yang"
   vname: "Main-room or breakout (TBD)"
   has_synopsis: true
   id: 16
