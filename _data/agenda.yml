@@ -12,7 +12,7 @@
   length: 75
   id: 2
 
-- title: "Structured Discretization<br>(with AMReX)"
+- title: "Structured Meshes<br>(with AMReX)"
   speakers:
     - "Ann Almgren"
     - "Erik Palmer"
@@ -20,7 +20,7 @@
   has_synopsis: true
   id: 3
 
-- title: "Unstructured Discretization<br>(with MFEM/PUMI)"
+- title: "Unstructured Meshes<br>(with MFEM/PUMI)"
   speakers:
     - "Aaron Fisher"
     - "Mark Shephard"
@@ -39,7 +39,7 @@
   length: 75
   id: 6
 
-- title: "Iterative Solvers & Algebraic Multigrid (with MueLU)"
+- title: "Krylov Solvers & Multigrid Preconditioning<br>(with Belos & MueLu)"
   speakers:
     - "Christian Glusa"
     - "Graham Harper"
@@ -47,7 +47,7 @@
   has_synopsis: true
   id: 7
 
-- title: "Direct Solvers<br>(with SuperLU/Strumpack)"
+- title: "Direct Solvers<br>(with SuperLu/Strumpack)"
   speakers:
     - "Sherry Li"
     - "Pieter Ghysels"
@@ -79,7 +79,7 @@
   id: 12
   has_synopsis: true
 
-- title: "**Break**<br>*SME Selectionse*<br>*Panel Questions Due*"
+- title: "**Break**<br>*SME Selections*<br>*Panel Questions Due*"
   start: "Tue Aug 9 2:45 PM"
   length: 30
   id: 13
@@ -96,7 +96,7 @@
   has_synopsis: true
   id: 15
 
-- title: "Iterative Solvers & Preconditioners (with HYPRE)"
+- title: "Iterative Solvers & Algebraic Multigrid<br>(with HYPRE)"
   speakers:
     - "Sarah Osborn"
     - "Ulrike Yang"
@@ -104,21 +104,18 @@
   has_synopsis: true
   id: 16
 
-- title: "Wrap-up / Panel - Contributing to the<br>Numerical Package Community"
+- title: "Wrap-up / Panel<br>Contributing to the Numerical Package Community"
   speakers:
-    - "Ann Almgren"
-    - "Aaron Fisher"
-    - "Christian Glusa"
+    - "Piete Ghysels"
     - "Richard Tran Mills"
-    - "Dan Reynolds"
-    - "Cameron Smith"
+    - "Sarah Osborn"
   start: "Tue Aug 9 4:30 PM"
   length: 60
   vname: "Main-room"
   has_synopsis: true
   id: 17
 
-- title: "**Unstructured time**<br>SME slections due, break, informal discussion, continued hands-on"
+- title: "**Unstructured time**<br>SME selections due, break, informal discussion, continued hands-on"
   start: "Tue Aug 9 5:30 PM"
   length: 60
   id: 18
