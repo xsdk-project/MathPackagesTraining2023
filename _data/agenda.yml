@@ -47,7 +47,7 @@
   has_synopsis: true
   id: 7
 
-- title: "Direct Solvers<br>(with SuperLu/Strumpack)"
+- title: "Direct Solvers<br>(with SuperLU/STRUMPACK)"
   speakers:
     - "Sherry Li"
     - "Pieter Ghysels"

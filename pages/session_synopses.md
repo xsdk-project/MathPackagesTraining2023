@@ -52,7 +52,7 @@ support the ability of application code developers to take advantage of unstruct
 meshes, FASTMath develops core tools to support the development of unstructured
 mesh simulation capabilities. This lecture will first introduce the highly extendible
 MFEM high order finite element solver library and then overview the PUMI unstructured
-mesh tools developed to support mesh adaptation, load balancing and PIC calculations. 
+mesh tools developed to support mesh adaptation, load balancing and PIC calculations.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -127,7 +127,7 @@ interfaces, and its most used multigrid solvers, BoomerAMG and PFMG, including
 a brief discussion of the effect of their data structures on performance.
 The lesson includes hands-on examples with structured and unstructured solvers
 from the HYPRE library applied to several test problems.
- 
+
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -142,14 +142,14 @@ interfaces for the Toolkit for Advanced Optimization (TAO) package within
 the PETSc library and exercise several gradient-based algorithms on a scalable
 synthetic test problem. We will observe and discuss the relative convergence
 of different classes of algorithms and sensitivity analysis methods in a
-parallel environment. Finally, we will also introduce constraints and study 
+parallel environment. Finally, we will also introduce constraints and study
 their effect on the problem solution.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-### Direct Solvers (with SuperLU/Strumpack)
-### Direct Solvers (with SuperLU/Strumpack)
+### Direct Solvers (with SuperLU/STRUMPACK)
+### Direct Solvers (with SuperLU/STRUMPACK)
 [Slides](../files/ATPESC-2021-Track-5-Talk-5-Li-Ghysels-DirectSolvers.pdf)
 
 In this lecture we discuss several aspects of direct solvers for large
