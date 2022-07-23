@@ -13,8 +13,7 @@ permalink: "/agenda/"
 {% include agenda %}
 <br>
 
-<!-- //Remove Sample Schedules
-
+{% comment %}
 {% for example in site.data.pathways %}
 **{{example.title}}:**
 
@@ -40,8 +39,7 @@ permalink: "/agenda/"
    {% endfor %}
 <br>
 {% endfor %}
-
--->
+{% endcomment %}
 
 ### [ATPESC 2022 Main Agenda](https://extremecomputingtraining.anl.gov/agenda-2022/)
 
