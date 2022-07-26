@@ -71,12 +71,23 @@ For CMake:
 module load cmake-3.20.3-gcc-9.3.0-57eqw4f
 ```
 
-For blas, the recommendation is to use blis (from aocl):
+For blas, lapack the recommendation is to use blis, libflame (from aocl) - i.e:
 
 ```
-module load aocl/blis-3.0
+module load aocl/blis/blis-3.2 aocl/libflame/libflame-3.2
+gcc -llibflame -lblis
 ```
 
+## Install software
+
+Install software at `/grand/ATPESC2022/usr/MathPackages` - for ex: `/grand/ATPESC2022/usr/MathPackages/petsc`
+
+And then copy over needed tutorial binaries, datafiles etc. over to `/grand/ATPESC2022/EXAMPLES/track-5-numerical` into appropriate folders - for ex: (from last year)
+
+```
+balay@thetalogin5:~> ls /grand/ATPESC2021/EXAMPLES/track-5-numerical
+amrex  hand_coded_heat  krylov_amg_hypre  krylov_amg_muelu  mfem-pumi-lesson  nonlinear_solvers_petsc  numerical_optimization_tao  rank_structured_strumpack  superlu  time_integrators_sundials
+```
 
 ## Getting Started Guide
 
