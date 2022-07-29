@@ -36,10 +36,6 @@ Go to the directory for the Krylov application
 cd {{site.handson_root}}/krylov_amg_muelu
 ```
 
-<video controls="controls" width="100%">
-<source src="set1.mp4" type="video/mp4">
-</video>
-
 ## The Problem Being Solved
 
 The Poisson equation arises in electrostatics, incompressible fluid flow simulations, and numerous
@@ -176,10 +172,6 @@ In what follows, we will be using the CG solver.
 
 ### Set 2 - Krylov solver, simple preconditioners
 
-<video controls="controls" width="100%">
-<source src="set2.mp4" type="video/mp4">
-</video>
-
 We now explore some simple (and quite generic) options for preconditioning the problem.
 
 So far, the `Preconditioner Type` parameter was set to `None`, meaning no preconditioning.
@@ -242,10 +234,6 @@ The number of iterations taken by CG scales with the square root of the conditio
 ---
 
 ### Set 3 - Krylov solver, multigrid preconditioner
-
-<video controls="controls" width="100%">
-<source src="set3.mp4" type="video/mp4">
-</video>
 
 The reason that the Gauss-Seidel preconditioner did not work well is that it effectively only reduces error locally, but not globally.
 We hence need a global mechanism of error correction, which can be provided by adding one or more coarser grids.
