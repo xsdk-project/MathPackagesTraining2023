@@ -347,14 +347,14 @@ Compared to earlier runs, we also observe that single-GPU runs are much faster t
 <!-- We switch the smother to Chebyshev. -->
 <!-- <img src="arrow.png" width="30"> Repeat the above experiment. -->
 <!-- ``` -->
-<!-- mpiexec -np 1 ./MueLu_driver.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations" -->
-<!-- mpiexec -np 12 ./MueLu_driver.exe --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations" -->
+<!-- mpirun -np 1 ./MueLu_driver.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations" -->
+<!-- mpirun -np 12 ./MueLu_driver.exe --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations" -->
 <!-- ``` -->
 
 <!--
-mpiexec -np 2 ./MueLu_driver.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations"
-mpiexec -np 4 ./MueLu_driver.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations"
-mpiexec -np 8 ./MueLu_driver.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations"
+mpirun -np 2 ./MueLu_driver.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations"
+mpirun -np 4 ./MueLu_driver.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations"
+mpirun -np 8 ./MueLu_driver.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations"
 
 {% include qanda question='What do you observe?' answer='The Gauss-Seidel smoother convergence degrades slightly as the number of MPI ranks is increased.  The Chebyshev smoother convergence is unaffected by the number of ranks.' %}
 
@@ -377,12 +377,12 @@ Now let's see the effect of running Gauss-Seidel with increasing numbers of MPI 
 
 <img src="arrow.png" width="30"> Run
 ```
-mpiexec -np 1  ./MueLu_driver.exe --xml=set3-mg-gs.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations"
-mpiexec -np 12 ./MueLu_driver.exe --xml=set3-mg-gs.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations"
+mpirun -np 1  ./MueLu_driver.exe --xml=set3-mg-gs.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations"
+mpirun -np 12 ./MueLu_driver.exe --xml=set3-mg-gs.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations"
 ```
-<!-- mpiexec -np 2  ./MueLu_driver.exe --xml=set3-mg-gs.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations" -->
-<!-- mpiexec -np 4  ./MueLu_driver.exe --xml=set3-mg-gs.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations" -->
-<!-- mpiexec -np 8  ./MueLu_driver.exe --xml=set3-mg-gs.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations" -->
+<!-- mpirun -np 2  ./MueLu_driver.exe --xml=set3-mg-gs.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations" -->
+<!-- mpirun -np 4  ./MueLu_driver.exe --xml=set3-mg-gs.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations" -->
+<!-- mpirun -np 8  ./MueLu_driver.exe --xml=set3-mg-gs.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations" -->
 
 {% include qanda question='What do you observe as you add MPI ranks?'
 answer='The number of iterations changes slightly, while the solution time decreases.' %}
@@ -495,7 +495,7 @@ A good choice of solver and preconditioner will depend significantly on the prob
 
 <!-- Running the same problem in parallel using MPI is as simple as running -->
 <!-- ``` -->
-<!-- mpiexec -n 12 ./MueLu_driver.exe -->
+<!-- mpirun -n 12 ./MueLu_driver.exe -->
 <!-- ``` -->
 <!-- (Each node of Cooley has 2 sockets of 6 cores each, so you still only need a single node for this to work.) -->
 
@@ -567,7 +567,7 @@ A good choice of solver and preconditioner will depend significantly on the prob
 
 <!-- If you want to use both GPUs, run -->
 <!-- ``` -->
-<!-- mpiexec -n 2 ./MueLu_driver_gpu.exe --xml=mg-gpu.xml --nx=1000 --ny=1000 --kokkos-num-devices=2 --node=cuda --config -->
+<!-- mpirun -n 2 ./MueLu_driver_gpu.exe --xml=mg-gpu.xml --nx=1000 --ny=1000 --kokkos-num-devices=2 --node=cuda --config -->
 <!-- ``` -->
 
 ---
