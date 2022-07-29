@@ -31,9 +31,10 @@ header:
 <!-- * [Open the Answers Form]({{page.answers_google_form}}) -->
 Make sure that you have followed the [setup instructions]({{site.url}}/{{site.baseurl}}/setup_instructions/).
 
-Go to the directory for the Krylov application
+Go to the directory for the Krylov application, and make sure the appropriate modules are loaded
 ```
 cd {{site.handson_root}}/krylov_amg_muelu
+module load openmpi aocl/blis aocl/libflame
 ```
 
 ## The Problem Being Solved
@@ -49,18 +50,18 @@ It is discretized using central finite differences, leading to a symmetric posit
 
 ## The Example Source Code
 
-For this lesson, we will be using the executable `MueLu_Stratimikos.exe` from the MueLu package of Trilinos which allows us to test a variety of solvers and preconditioners.
+For this lesson, we will be using the executable `MueLu_driver_gpu.exe` from the MueLu package of Trilinos which allows us to test a variety of solvers and preconditioners.
 
 For the first part of the lesson, we will be running on a single MPI rank, so no need to ask for a massive allocation.
 
 The executable takes several command line arguments that influence the linear system that is generated on the fly or read in from file.
 A complete set of options will be printed by typing
 ```
-./MueLu_Stratimikos.exe --help
+./MueLu_driver_gpu.exe --help
 ```
 The most important ones are:
 ```
-Usage: ./MueLu_Stratimikos.exe [options]
+Usage: ./MueLu_driver_gpu.exe [options]
   options:
   --help                               Prints this help message
   --nx                   int           mesh points in x-direction.
@@ -82,7 +83,7 @@ Solvers (such as CG and GMRES) and preconditioners (such as Jacobi, Gauss-Seidel
 Trilinos supports both XML and YAML parameter files.
 
 In order to make following along as simple as possible and avoid typos, parameter XML files for all examples can be found in the lesson folder.
-If you want to see the difference between to input files, run ```diff a.xml b.xml```.
+If you want to see the difference between to input files, run ```diff set1-gmres.xml set1-cg.xml```.
 
 
 ## Running the Example
@@ -93,7 +94,7 @@ The default Krylov method is GMRES, and no preconditioner is used.
 
 <img src="arrow.png" width="30"> Run
 ```
-./MueLu_Stratimikos.exe --xml=set1-gmres.xml
+./MueLu_driver_gpu.exe --xml=set1-gmres.xml
 ```
 
 #### Expected Behavior/Output
@@ -150,7 +151,7 @@ We change the `Solver Type` parameter to `Pseudo Block CG`.
 
 <img src="arrow.png" width="30"> Run
 ```
-./MueLu_Stratimikos.exe --xml=set1-cg.xml
+./MueLu_driver_gpu.exe --xml=set1-cg.xml
 ```
 
 {% include qanda question='Do you see any significant changes in convergence behavior?' answer='No, neither solver manages to converge in less than 100 iterations.' %}
@@ -159,8 +160,8 @@ We change the `Solver Type` parameter to `Pseudo Block CG`.
 
 You can check the last answer by comparing the approximate memory usage of CG and GMRES using
 ```
-/usr/bin/time -v ./MueLu_Stratimikos.exe --nx=1000 --ny=1000 --xml=set1-gmres.xml 2>&1 | grep "Maximum resident set size"
-/usr/bin/time -v ./MueLu_Stratimikos.exe --nx=1000 --ny=1000 --xml=set1-cg.xml    2>&1 | grep "Maximum resident set size"
+/usr/bin/time -v ./MueLu_driver_gpu.exe --nx=1000 --ny=1000 --xml=set1-gmres.xml 2>&1 | grep "Maximum resident set size"
+/usr/bin/time -v ./MueLu_driver_gpu.exe --nx=1000 --ny=1000 --xml=set1-cg.xml    2>&1 | grep "Maximum resident set size"
 ```
 We used a larger problem to be able to see the difference more clearly.
 
@@ -192,7 +193,7 @@ This means that a single sweep of symmetric Gauss-Seidel is used for preconditio
 
 <img src="arrow.png" width="30"> Run
 ```
-./MueLu_Stratimikos.exe --xml=set2-sgs1.xml
+./MueLu_driver_gpu.exe --xml=set2-sgs1.xml
 ```
 
 <!-- {% include qanda question='Why did the solve become even worse?' answer='Gauss-Seidel is an unsymmetric preconditioner, but CG needs a symmetric one!' %} -->
@@ -207,7 +208,7 @@ We switch `relaxation: sweeps` to 3.
 
 <img src="arrow.png" width="30"> Run
 ```
-./MueLu_Stratimikos.exe --xml=set2-sgs3.xml
+./MueLu_driver_gpu.exe --xml=set2-sgs3.xml
 ```
 and verify that the number of iterations further decreased.
 
@@ -215,9 +216,9 @@ Now, we will check whether we have created a scalable solver strategy.
 
 <img src="arrow.png" width="30"> Record the number of iterations for different problem sizes by running
 ```
-./MueLu_Stratimikos.exe --xml=set2-sgs3.xml --nx=50  --ny=50
-./MueLu_Stratimikos.exe --xml=set2-sgs3.xml --nx=100 --ny=100
-./MueLu_Stratimikos.exe --xml=set2-sgs3.xml --nx=200 --ny=200
+./MueLu_driver_gpu.exe --xml=set2-sgs3.xml --nx=50  --ny=50
+./MueLu_driver_gpu.exe --xml=set2-sgs3.xml --nx=100 --ny=100
+./MueLu_driver_gpu.exe --xml=set2-sgs3.xml --nx=200 --ny=200
 ```
 (This means that we are running the same 2D Laplace problem as above, but on meshes of size 50x50, etc.)
 
@@ -242,9 +243,9 @@ We switch the `Preconditioner Type` parameter to `MueLu`, which is an algebraic 
 
 <img src="arrow.png" width="30"> Run
 ```
-./MueLu_Stratimikos.exe --xml=set3-mg-jacobi.xml --nx=50  --ny=50
-./MueLu_Stratimikos.exe --xml=set3-mg-jacobi.xml --nx=100 --ny=100
-./MueLu_Stratimikos.exe --xml=set3-mg-jacobi.xml --nx=200 --ny=200
+./MueLu_driver_gpu.exe --xml=set3-mg-jacobi.xml --nx=50  --ny=50
+./MueLu_driver_gpu.exe --xml=set3-mg-jacobi.xml --nx=100 --ny=100
+./MueLu_driver_gpu.exe --xml=set3-mg-jacobi.xml --nx=200 --ny=200
 ```
 
 {% include qanda question='Is the solver scalable?' answer='Yes, the number of iterations stays more or less constant as we increase the problem size.' %}
@@ -259,7 +260,7 @@ Let''s look a little more closely at the output from the largest example.
 
 <img src="arrow.png" width="30"> Rerun:
 ```
-./MueLu_Stratimikos.exe --xml=set3-mg-jacobi.xml --nx=200 --ny=200
+./MueLu_driver_gpu.exe --xml=set3-mg-jacobi.xml --nx=200 --ny=200
 ```
 The multigrid summary provides the following information:
 
@@ -294,48 +295,46 @@ By default, we use a single sweep of Jacobi smoothing, which is very cheap.
 
 <img src="arrow.png" width="30"> First, we run
 ```
-./MueLu_Stratimikos.exe --xml=set3-mg-jacobi.xml --timings --nx=1000 --ny=1000
+./MueLu_driver_gpu.exe --xml=set3-mg-jacobi.xml --timings --nx=1000 --ny=1000
 ```
 to display timing information on a large enough problem.
 The relevant timer to look at is `Belos: PseudoBlockCGSolMgr total solve time`.
 (You might want to run this more than once in case you are experiencing some system noise.)
 Since there are quite a lot of timers, you could grep for the iteration count and the timer by appending
-```|  egrep "total solve time|Number of Iterations"``` to the command, i.e.,
+```|  grep -E "total solve time|Number of Iterations"``` to the command, i.e.,
 ```
-./MueLu_Stratimikos.exe --xml=set3-mg-jacobi.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations"
+./MueLu_driver_gpu.exe --xml=set3-mg-jacobi.xml --timings --nx=1000 --ny=1000 |  grep -E "total solve time|Number of Iterations"
 ```
 
-We know that Gauss-Seidel is a better smoother than Jacobi.
+We know that usually Gauss-Seidel is a better smoother than Jacobi.
 There are two ways of using Gauss-Seidel while keeping the preconditioner symmetric:
 we can either use different directions in the sweeps in pre- and post-smoothing, or use a symmetric Gauss-Seidel smoother for both.
 
 <img src="arrow.png" width="30"> Run
 ```
-./MueLu_Stratimikos.exe --xml=set3-mg-sgs.xml --timings --nx=1000 --ny=1000
-./MueLu_Stratimikos.exe --xml=set3-mg-gs.xml  --timings --nx=1000 --ny=1000
+./MueLu_driver_gpu.exe --xml=set3-mg-sgs.xml --timings --nx=1000 --ny=1000
+./MueLu_driver_gpu.exe --xml=set3-mg-gs.xml  --timings --nx=1000 --ny=1000
 ```
 and compare the timings with the Jacobi case.
 
-{% include qanda question='Do you see an improvement?' answer='Yes. For symmetric Gauss-Seidel, the number of iterations decreases.  For forward Gauss-Seidel
+{% include qanda question='Do you see an improvement in iterations?' answer='Yes. For symmetric Gauss-Seidel, the number of iterations decreases.  For forward Gauss-Seidel
 for pre-smoothing and backwards Gauss-Seidel for post-smoothing, both number of iterations and time-to-solution are reduced.' %}
 
-Now let's see the effect of running Gauss-Seidel with increasing numbers of MPI ranks.
+{% include qanda question='Do you think that Gauss-Seidel is easily adaptible for use on massively parallel architectures such as GPUs?' answer='Gauss-Seidel has
+limited opportunities for parallelism.  Equation $$i$$ cannot be solved until all equations $$j, j<i$$ that $$i$$ depends on have been solved, hence it is slower than other smoothers on GPUs.' %}
+Hint: Have a look at the [Gauss-Seidel algorithm](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method#Algorithm).
+
+There are approaches for Gauss-Seidel which are more amenable to GPU architectures.
+These methods utilize graph colorings to increase the multithreading capabilities.
 
 <img src="arrow.png" width="30"> Run
 ```
-mpiexec -np 1  ./MueLu_Stratimikos.exe --xml=set3-mg-gs.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations"
-mpiexec -np 12 ./MueLu_Stratimikos.exe --xml=set3-mg-gs.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations"
+./MueLu_driver_gpu.exe --xml=set3-mg-mtsgs.xml --timings --nx=1000 --ny=1000
+./MueLu_driver_gpu.exe --xml=set3-mg-mtgs.xml  --timings --nx=1000 --ny=1000
 ```
-<!-- mpiexec -np 2  ./MueLu_Stratimikos.exe --xml=set3-mg-gs.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations" -->
-<!-- mpiexec -np 4  ./MueLu_Stratimikos.exe --xml=set3-mg-gs.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations" -->
-<!-- mpiexec -np 8  ./MueLu_Stratimikos.exe --xml=set3-mg-gs.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations" -->
 
-{% include qanda question='What do you observe as you add MPI ranks?'
-answer='The number of iterations changes slightly, while the solution time decreases.' %}
-
-{% include qanda question='Do you think that Gauss-Seidel is easily adaptible for use on massively parallel architectures such as GPUs?' answer='Gauss-Seidel has
-limited opportunities for parallelism.  Equation $$i$$ cannot be solved until all equations $$j, j<i$$ that $$i$$ depends on have been solved.' %}
-Hint: Have a look at the [Gauss-Seidel algorithm](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method#Algorithm).
+{% include qanda question='How do these compare to the smoothers without coloring? How do they compare to a Jacobi smoother?' answer='They perform faster than the
+counterparts without graph coloring. However, they are still not faster than Jacobi on a GPU.' %}
 
 Another common smoother is a matrix polynomial, specifically, a Chebyshev polynomial.  This type smoother has certain advantages over relaxation methods
 like Jacobi or Gauss-Seidel.
@@ -347,13 +346,12 @@ like Jacobi or Gauss-Seidel.
 We switch the smother to Chebyshev.
 <img src="arrow.png" width="30"> Repeat the above experiment.
 ```
-mpiexec -np 1 ./MueLu_Stratimikos.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations"
-mpiexec -np 12 ./MueLu_Stratimikos.exe --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations"
+./MueLu_driver_gpu.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  grep -E "total solve time|Number of Iterations"
 ```
 <!--
-mpiexec -np 2 ./MueLu_Stratimikos.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations"
-mpiexec -np 4 ./MueLu_Stratimikos.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations"
-mpiexec -np 8 ./MueLu_Stratimikos.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  egrep "total solve time|Number of Iterations"
+mpiexec -np 2 ./MueLu_driver_gpu.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  grep -E "total solve time|Number of Iterations"
+mpiexec -np 4 ./MueLu_driver_gpu.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  grep -E "total solve time|Number of Iterations"
+mpiexec -np 8 ./MueLu_driver_gpu.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  grep -E "total solve time|Number of Iterations"
 
 {% include qanda question='What do you observe?' answer='The Gauss-Seidel smoother convergence degrades slightly as the number of MPI ranks is increased.  The Chebyshev smoother convergence is unaffected by the number of ranks.' %}
 
@@ -371,6 +369,10 @@ Choosing a smoother that is computationally inexpensive but with poor convergenc
 Choosing a smoother that is computationally expensive but with good convergence properties can result in a small number of solver iterations, but overall long
 run times.
 
+### Set 4 - Krylov solver, multigrid preconditioner, considerations for CPU vs GPU
+
+TBD
+
 <!-- #### Changing the behavior of the grid transfer operators -->
 
 <!-- ##### Change coarsening procedure by setting the aggregation threshold parameter -->
@@ -386,7 +388,7 @@ run times.
 <!-- <img src="arrow.png" width="30"> Run the following example. -->
 
 <!-- ``` -->
-<!-- ./MueLu_Stratimikos.exe --nx=50 --ny=50 -->
+<!-- ./MueLu_driver_gpu.exe --nx=50 --ny=50 -->
 <!-- ``` -->
 
 <!-- This example solves the PDE $$u_{xx} + u_{yy} = f$$ discretized -->
@@ -400,7 +402,7 @@ run times.
 <!-- <img src="arrow.png" width="30"> Now run the following variation. -->
 
 <!-- ``` -->
-<!-- ./MueLu_Stratimikos.exe --nx=50 --ny=50 --stretchx=10 -->
+<!-- ./MueLu_driver_gpu.exe --nx=50 --ny=50 --stretchx=10 -->
 <!-- ``` -->
 
 <!-- This example solves a Poisson problem, but on a mesh where each element has an -->
@@ -476,7 +478,7 @@ A good choice of solver and preconditioner will depend significantly on the prob
 
 <!-- Running the same problem in parallel using MPI is as simple as running -->
 <!-- ``` -->
-<!-- mpiexec -n 12 ./MueLu_Stratimikos.exe -->
+<!-- mpiexec -n 12 ./MueLu_driver_gpu.exe -->
 <!-- ``` -->
 <!-- (Each node of Cooley has 2 sockets of 6 cores each, so you still only need a single node for this to work.) -->
 
@@ -557,7 +559,7 @@ A good choice of solver and preconditioner will depend significantly on the prob
 
 The executable has the option to load the linear system and the right-hand side from MatrixMarket files, e.g.,
 ```
-./MueLu_Stratimikos.exe --matrix=poisson-matrix.m --rhs=poisson-rhs.m --coords=poisson-coords.m
+./MueLu_driver_gpu.exe --matrix=poisson-matrix.m --rhs=poisson-rhs.m --coords=poisson-coords.m
 ```
 
 ---
