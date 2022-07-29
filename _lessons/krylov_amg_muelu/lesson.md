@@ -528,27 +528,28 @@ A good choice of solver and preconditioner will depend significantly on the prob
 <!-- The reason for the above observation is that the number of unknowns is not reduced significantly enough to offset the deteriorated convergence properties. -->
 <!-- Problems which have more non-zeros per row (e.g. in higher spatial dimension) can benefit more from this change. -->
 
-#### MueLu on next-generation platforms
 
-MueLu has specialized kernels that allow it to run on next-generation computing platforms such as KNLs and GPUs,
-using a [Kokkos](https://github.com/kokkos/kokkos) backend.
-If MueLu has been compiled with OpenMP or CUDA support, this code can be enabled at runtime by setting the parameter `use kokkos refactor` to true.
+<!-- #### MueLu on next-generation platforms -->
 
-```
-export CUDA_LAUNCH_BLOCKING=1
-export CUDA_MANAGED_FORCE_DEVICE_ALLOC=1
-export TPETRA_ASSUME_CUDA_AWARE_MPI=0
-```
-Try running
-```
-./MueLu_Stratimikos_gpu.exe --xml=mg-gpu.xml --nx=1000 --ny=1000 --timings --node=cuda --config
-```
-with the refactor option set.
+<!-- MueLu has specialized kernels that allow it to run on next-generation computing platforms such as KNLs and GPUs, -->
+<!-- using a [Kokkos](https://github.com/kokkos/kokkos) backend. -->
+<!-- If MueLu has been compiled with OpenMP or CUDA support, this code can be enabled at runtime by setting the parameter `use kokkos refactor` to true. -->
 
-If you want to use both GPUs, run
-```
-mpiexec -n 2 ./MueLu_Stratimikos_gpu.exe --xml=mg-gpu.xml --nx=1000 --ny=1000 --kokkos-num-devices=2 --node=cuda --config
-```
+<!-- ``` -->
+<!-- export CUDA_LAUNCH_BLOCKING=1 -->
+<!-- export CUDA_MANAGED_FORCE_DEVICE_ALLOC=1 -->
+<!-- export TPETRA_ASSUME_CUDA_AWARE_MPI=0 -->
+<!-- ``` -->
+<!-- Try running -->
+<!-- ``` -->
+<!-- ./MueLu_Stratimikos_gpu.exe --xml=mg-gpu.xml --nx=1000 --ny=1000 --timings --node=cuda --config -->
+<!-- ``` -->
+<!-- with the refactor option set. -->
+
+<!-- If you want to use both GPUs, run -->
+<!-- ``` -->
+<!-- mpiexec -n 2 ./MueLu_Stratimikos_gpu.exe --xml=mg-gpu.xml --nx=1000 --ny=1000 --kokkos-num-devices=2 --node=cuda --config -->
+<!-- ``` -->
 
 ---
 
