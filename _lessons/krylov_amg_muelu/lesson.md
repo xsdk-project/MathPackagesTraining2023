@@ -59,7 +59,7 @@ A complete set of options will be printed by typing
 ```
 ./MueLu_driver_gpu.exe --help
 ```
-The most important ones are:
+The most important ones are: <!-- TODO: add --timings to the list -->
 ```
 Usage: ./MueLu_driver_gpu.exe [options]
   options:
@@ -168,6 +168,7 @@ We used a larger problem to be able to see the difference more clearly.
 In what follows, we will be using the CG solver.
 
 <!-- IS THERE A BETTER WAY OF CHECKING PEAK MEMORY? -->
+<!-- TODO: Yes, use Kokkos profiling tools -->
 
 ---
 
@@ -189,7 +190,7 @@ Moreover, we add the following configuration for Ifpack2.
   </ParameterList>
 </ParameterList>
 ```
-This means that a single sweep of symmetric Gauss-Seidel is used for preconditioning.
+This means that a single sweep of symmetric Gauss-Seidel is used for preconditioning. <!-- TODO: Don't use Gauss-Seidel preconditioning on GPU -->
 
 <img src="arrow.png" width="30"> Run
 ```
@@ -318,14 +319,10 @@ We switch the smother to Chebyshev.
 ```
 ./MueLu_driver_gpu.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  grep -E "total solve time|Number of Iterations"
 ```
-<!--
-mpiexec -np 2 ./MueLu_driver_gpu.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  grep -E "total solve time|Number of Iterations"
-mpiexec -np 4 ./MueLu_driver_gpu.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  grep -E "total solve time|Number of Iterations"
-mpiexec -np 8 ./MueLu_driver_gpu.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  grep -E "total solve time|Number of Iterations"
 
-{% include qanda question='What do you observe?' answer='The Gauss-Seidel smoother convergence degrades slightly as the number of MPI ranks is increased.  The Chebyshev smoother convergence is unaffected by the number of ranks.' %}
+<!--{% include qanda question='What do you observe?' answer='The Gauss-Seidel smoother convergence degrades slightly as the number of MPI ranks is increased.  The Chebyshev smoother convergence is unaffected by the number of ranks.' %}-->
 
-{% include qanda question='Can you explain your observations?' answer='First, when Gauss-Seidel is run with
+<!--{% include qanda question='Can you explain your observations?' answer='First, when Gauss-Seidel is run with
 more than one MPI rank,
 the order in which unknowns are updated is different than in serial.
 Second, the Ifpack2 Gauss-Seidel implementation is additive. Each MPI rank simultaneously runs
@@ -342,10 +339,10 @@ run times.
 ### Set 4 - Krylov solver, multigrid preconditioner, considerations for CPU vs GPU
 
 We know that usually Gauss-Seidel is a better smoother than Jacobi.
-We'll explore this more in-depth and consider how the architecture changes the choice of algorithm.
+We'll explore this more in-depth and consider how the architecture influences the choice of algorithm.
 There are two ways of using Gauss-Seidel while keeping the preconditioner symmetric:
 we can either use different directions in the sweeps in pre- and post-smoothing, or use a symmetric Gauss-Seidel smoother for both.
-We will focus on multi-threaded Gauss-Seidel, which utilizes graph colorings to increate its parallel capabilities.
+We will focus on multi-threaded symmetric Gauss-Seidel, where the multi-threaded aspect utilizes graph colorings to increase its parallel capabilities.
 
 <img src="arrow.png" width="30"> Run the CPU-based driver
 ```
@@ -357,8 +354,8 @@ and compare the number of iterations and the timings.
 {% include qanda question='Do you see an improvement in iterations?' answer='Yes. For symmetric Gauss-Seidel, the number of iterations decreases.  For forward Gauss-Seidel
 for pre-smoothing and backwards Gauss-Seidel for post-smoothing, both number of iterations and time-to-solution are reduced.' %}
 
-The choice of algorithms matter depending on the underlying computational architecture.
-Now, run the same multigrid solvers on GPU and compare them.
+The choice of algorithm matters depending on the underlying computational architecture.
+Now, run the same solvers on GPU and compare them.
 
 <img src="arrow.png" width="30"> Run the GPU-based driver
 ```
