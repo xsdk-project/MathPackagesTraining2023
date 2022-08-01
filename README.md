@@ -78,6 +78,16 @@ module load aocl/blis/blis-3.2 aocl/libflame/libflame-3.2
 gcc -llibflame -lblis
 ```
 
+## CUDA options
+
+The A100 GPU has `CUDA Capability: 8.0`  i.e the corresponding compile options are:
+
+```
+nvcc -gencode arch=compute_80,code=sm_80
+```
+
+With cmake - the likely option is: `-DCMAKE_CUDA_ARCHITECTURES=80`
+
 ## Install software
 
 Install software at `/grand/ATPESC2022/usr/MathPackages` - for ex: `/grand/ATPESC2022/usr/MathPackages/petsc`

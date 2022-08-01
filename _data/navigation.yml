@@ -31,8 +31,6 @@
     url: "/lessons/amrex/"
   - title: "Unstructured Meshing & Discretization with MFEM"
     url: "/lessons/mfem_convergence/"
-  - title: "MFEM+PUMI Adaptive Workflow"
-    url: "/lessons/pumi/"
   - title: "Krylov Solvers & Algebraic Multigrid with HYPRE"
     url: "/lessons/krylov_amg_hypre/"
   - title: "Krylov Solvers & Preconditioning with MueLu"

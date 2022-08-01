@@ -12,7 +12,7 @@ header:
  image_fullwidth: "amrex_warpx-fs8.png"
 ---
 
-|
+<br>
 
 {:refdef: style="text-align: center;"}
 ![AMReX Logo](AMReX_logo_small_banner_500.png)
@@ -29,6 +29,10 @@ header:
 |How do I visualize AMR results?|Use Visit and Paraview for AMReX vis|Visualization tools exist for AMR data.|
 
 ## Setup Instructions For AMReX Tutorials
+
+TBD
+
+<!--
 
 Vis can be finicky on Cooley because there are certain details that we need to set up first:
 
@@ -60,16 +64,45 @@ source /grand/projects/ATPESC2021/EXAMPLES/track-5-numerical/amrex/source_this_f
 
 |
 
-## Example: AMR101: Multi-Level Scalar Advection
+-->
+
+
+<br>
+### Science Goal
+<br>
+
+To motivate our discussion of adaptive mesh refinement consider:
+
+|![drop](drop_small.gif){: width="500"}|
+|:--:|
+| https://www.youtube.com/watch?v=KiBrKzykwO8 |
+
+
+We want to develop a fluid simulation that captures the behavior seen in this experiment.
+First, we began with a simplified problem, 2D flow around a cylinder.
+
+We plan on doing a large and detailed simulation. Therefore we will be limited by
+computational resources and time to solution.
+We want to focus our computation on capaturing the phenomena at the water dye "boundary" and
+not on the water.
+
+<br>
+<br>
+<br>
+## AMR101: Multi-Level Scalar Advection
 
 ---
 
-### What Features Are We Using
+**FEATURES:**
+- Mesh Data
+- Dynamic Adaptive Mesh Refinement
+- Scalable Parallel Computation
 
-* Mesh data
-* Dynamic AMR with and without subcycling
 
-### The Problem
+
+
+<br>
+### Mathematical Problem Formulation
 
 Consider a drop of dye (we'll define $$\phi$$ to be the concentration of dye)
 in a thin incompressible fluid that is spinning
@@ -94,7 +127,7 @@ Note that because $${\bf{u^{spec}}}$$ is defined as the curl of a scalar field, 
 In this example we'll be using AMR to resolve the scalar field since the location of the dye is
 what we care most about.
 
-### The AMR Algorithm
+### The Algorithm
 
 To update the solution in a patch at a given level, we compute fluxes ($${\bf u^{spec}} \phi$$)
 on each face, and difference the fluxes to create the update to phi.   The update routine
@@ -110,12 +143,334 @@ in the code looks like
   }
 ```
 
-In this routine we use the macro AMREX_D_TERM so that we can write dimension-independent code;
+In this routine we use the macro `AMREX_D_TERM` so that we can write dimension-independent code;
 in 3D this returns the flux differences in all three directions, but in 2D it does not include
 the z-fluxes.
 
-Knowing how to synchronize the solution at coarse/fine boundaries is essential in an AMR algorithm;
-here having the algorithm written in flux form allows us to either make the fluxes consistent between
+<br>
+### Adaptive Mesh Refinement
+
+Adaptive mesh refinement focuses computation on the areas of interest.
+
+
+Example code.
+
+
+```cpp
+// Make a new level using provided BoxArray and DistributionMapping and
+// fill with interpolated coarse level data.
+// overrides the pure virtual function in AmrCore
+void
+AmrCoreAdv::MakeNewLevelFromCoarse (int lev, Real time, const BoxArray& ba,
+                    const DistributionMapping& dm)
+{
+    const int ncomp = phi_new[lev-1].nComp();
+    const int nghost = phi_new[lev-1].nGrow();
+    
+    phi_new[lev].define(ba, dm, ncomp, nghost);
+    phi_old[lev].define(ba, dm, ncomp, nghost);
+
+    t_new[lev] = time;
+    t_old[lev] = time - 1.e200;
+
+    // This clears the old MultiFab and allocates the new one
+    for (int idim = 0; idim < AMREX_SPACEDIM; idim++)
+    {   
+    facevel[lev][idim] = MultiFab(amrex::convert(ba,IntVect::TheDimensionVector(idim)), dm, 1, 1);
+    }   
+
+    if (lev > 0 && do_reflux) {
+    flux_reg[lev].reset(new FluxRegister(ba, dm, refRatio(lev-1), lev, ncomp));
+    }   
+
+    FillCoarsePatch(lev, time, phi_new[lev], 0, ncomp);
+}    
+```
+
+
+
+Knowing how to synchronize the solution at coarse/fine boundaries is essential in an AMR algorithm.
+
+
+<br>
+### Running the Code
+
+```shell
+cd {{site.handson_root}}/amrex/AMReX_Amr101/Exec
+```
+Note that you can choose to work entirely in 2D or in 3D ... whichever you prefer.
+The instructions below will be written for 3D but you can substitute the 2D executable.
+
+In this directory you'll see
+
+```shell
+main3d.gnu.MPI.ex -- the 3D executable -- this has been built with MPI
+
+inputs -- an inputs file for both 2D and 3D
+```
+
+To run in serial,
+
+```shell
+./main3d.gnu.MPI.ex inputs
+```
+
+To run in parallel, for example on 4 ranks:
+
+```shell
+mpiexec -n 4 ./main3d.gnu.MPI.ex inputs
+```
+
+
+<br>
+#### Inputs File
+
+The following parameters can be set at run-time -- these are currently set in the inputs
+file but you can also set them on the command line.  
+
+```
+stop_time          =  2.0                # the final time (if we have not exceeded number of steps)
+max_step           = 1000000             # the maximum number of steps (if we have not exceeded stop_time)
+
+amr.n_cell         =  64  64   8         # number of cells at the coarsest AMR level in each coordinate direction
+
+amr.max_grid_size  = 16                  # the maximum number of cells in any direction in a single grid
+
+amr.plot_int       = 10                  # frequency of writing plotfiles
+
+adv.cfl            = 0.9                 # cfl number to be used for computing the time step
+
+adv.phierr = 1.01  1.1  1.5              # regridding criteria  at each level
+
+```
+
+The base grid here is a square of 64 x 64 x 8 cells, made up of 16 subgrids each of size 16x16x8 cells.  
+The problem is periodic in all directions.
+
+We have hard-wired the code here to refine based on the magnitude of $$\phi$$. Here we set the
+threshold level by level.  If $$\phi > 1.01$$ then we want to refine at least once; if $$\phi > 1.1$$ we
+want to resolve $$\phi$$ with two levels of refinement, and if $$\phi > 1.5$$ we want even more refinement.
+
+
+
+<br>
+#### Simulation Output
+
+Note that you can see the total runtime by looking at the line at the end of your run that says
+
+```
+Total Time:
+```
+
+and you can check conservation of $$\phi$$ by checking the line that prints, e.g.
+
+```
+Coarse STEP 8 ends. TIME = 0.007031485953 DT = 0.0008789650903 Sum(Phi) = 540755.0014
+```
+
+Here Sum(Phi) is the sum of $$\phi$$ over all the cells at the coarsest level.
+
+
+<br>
+### Visualizing the Results
+
+For convenience we created a python script powered by ParaView 5.9
+to render the AMReX plotfiles. FFmpeg is then used to stitch the images into a movie
+and gif. To generate a movie from the plotfiles type:
+
+```
+make movie3D
+```
+
+This will generate two files, `amr101_3D.avi` and `amr101_3D.gif`.
+
+
+Here is a sample slice through a 3D run with 64x64x8 cells at the coarsest level and three finer levels (4 total levels).
+
+![Sample solution](amr101_3D.gif){: width="500"}
+
+To plot the files manually with a local copy of ParaView see the details below:
+
+<details>
+<strong>Using ParaView 5.9 Manually</strong>
+
+<p>
+To do the same thing with ParaView 5.9 manually (if, e.g. you have the plotfiles
+on your local machine and want to experiment):
+</p>
+
+<ol>
+<li>Start Paraview 5.9</li>
+<li>File --> Open ... and select the collection of directories named "plt.." --> [OK]</li>
+<li>From the "Open Data With..." dialog that pops up, select "AMReX/BoxLib Grid Reader" --> [OK]</li>
+<li>Check the "phi" box in the "Cell Array Status" menu that appears</li>
+<li>Click green Apply button</li>
+<li>Click on the "slice" icon -- three to the right of the calculator</li>
+<li>This will create "Slice 1" in the Pipeline Browser which will be highlighted.</li>
+<li>Click on "Z Normal"</li>
+<li>Unclick the "Show Plane" button</li>
+<li>Click green Apply button</li>
+<li>Change the drop-down menu option (above the calculator row) from "vtkBlockColors" to "phi"</li>
+</ol>
+
+You are now ready to play the movie!  See the "VCR-like" controls at the top. Click the play button.
+
+</details>
+
+
+
+<br>
+### Activity
+
+Try the following:
+
+- Run `AMReX_Amr101` with and without adaptive mesh refinement and consider how the
+  differing runs compare.
+
+- Run `AMReX_Amr101` in parallel with different amounts of MPI Ranks and compare
+  results. Also try using the `inputs` input file and `inputs_for_scaling` input
+  file.
+
+
+<br>
+### Key Observations:
+
+1. Adaptive mesh refinement can focus computational resources for higher resolution
+   and lower runtimes.
+
+   <details>
+   <img src="ResolutionCompare.png" alt="Plot of AMReX timings vs. MPI Ranks" style="width:300px">
+    
+   <p>
+   Comparison of three different runs. The first two show the result without adaptive mesh
+   refinement. Here, the lowest resolution run with 64x64x8 is the fastest but captures the
+   least detail. The second run has a resolution of 512x512x8 but it takes almost three
+   times longer than the last run. The last run with adaptive mesh refinement enabled,
+   has 4 levels, with a resolutions that vary from 64x64x8 to 512x512x64.
+
+   The animations follow the same order as the bar plot above. From left to right,
+   64x64x8, and 512x512x8 without refinement, and a run with adaptive mesh refinement.  
+
+   </p>
+   
+   <p>
+   <img src="amr101_3D_64x64.png" alt="" style="width:300px">
+   <img src="amr101_3D_512x512.png" alt="" style="width:300px">
+   <img src="amr101_3D.png" alt="" style="width:300px">
+   </p>
+   </details>
+
+2. Efficient MPI scaling reduces runtimes but requires thought.  
+
+   |AMR101 Runtimes on Theta|
+   |MPI Ranks|Total Time|
+   |:-:|:-:|
+   |1  |0.1|
+   |2  |0.1|
+   |4  |0.1|
+   |8  |0.1|
+   |16 |0.1|
+   |32 |0.1|
+   |64 |0.1|
+   |128|0.1|
+
+    
+  <details>
+  
+  <p>
+  <img src="AMR101RunTimes.png" alt="Plot of AMReX timings vs. MPI Ranks" style="width:300px">
+  </p>
+  
+  The figure above shows the result of running,
+  <pre>
+    mpiexec -n 1 ./main3d.gnu.MPI.ex inputs_for_scaling
+    mpiexec -n 2 ./main3d.gnu.MPI.ex inputs_for_scaling
+    mpiexec -n 4 ./main3d.gnu.MPI.ex inputs_for_scaling
+  ...
+  </pre>
+  with different numbers of MPI ranks.
+  
+  
+  Run times quickly decrease with the number of MPI Ranks, demonstrating
+  good scaling. However, as the number of ranks gets above 64,
+  the amount of decrease slows down.
+  This can be due to a number of reasons, such as communication cost, or
+  not enough work for each rank. In this case, its likely the former.
+  </details>
+   
+<br>
+<br>
+<br>
+### Parallelism with GPUs
+
+The same AMReX code can be recompiled to use a GPU backend for some computations.
+
+
+```cpp
+#ifdef _OPENMP
+#pragma omp parallel if(Gpu::notInLaunchRegion())
+#endif
+    {
+
+        for (MFIter mfi(state,TilingIfNotGPU()); mfi.isValid(); ++mfi)
+        {
+            const Box& bx  = mfi.tilebox();
+            const auto statefab = state.array(mfi);
+            const auto tagfab  = tags.array(mfi);
+            Real phierror = phierr[lev];
+
+            amrex::ParallelFor(bx,
+            [=] AMREX_GPU_DEVICE (int i, int j, int k) noexcept
+            {
+                state_error(i, j, k, tagfab, statefab, phierror, tagval);
+            });
+        }
+    }
+}
+
+```
+
+This AMReX construction automatically adapts to several forms of parallelism. When MPI
+is used, it will distribute the work among MPI ranks. When OpenMP is enabled, work
+is distributed among threads. When a GPU backend is enabled, this computation
+will be done on the GPU. AMReX functionality is flexible enough that this can
+be adapted for NVidia, AMD, or Intel GPUs _without code changes_.
+
+
+If using GNU Make to compile, the command would be:
+
+```shell
+make DIM=3 USE_MPI=TRUE USE_CUDA=TRUE CUDA_ARCH=80
+```
+
+The result would be an executable named `./main3d.gnu.CUDA.MPI.ex`.
+
+Indeed, this is how the executable already located in the
+directory was created.
+
+### Activity
+
+- Try running the GPU enabled version and compare runtimes.
+
+<br>
+<br>
+<br>
+### Subcycling vs. No-Subcycling
+
+
+There are choices in how you implement your adaptive mesh refinement algorithms. One
+of these choices is whether to subcycle (in-time) or not.
+
+{::options parse_block_html="true" /}
+<div style="border: solid #8B8B8B 2px; padding: 10px;">
+**Subcycling:** Subcycling in time refers
+to taking shorter time steps on finer levels of mesh refinement. So that time step for each
+cell is refined in a way analogous to the physical dimensions.
+</div>
+{::options parse_block_html="false" /}
+<br>
+
+Having the algorithm written in flux form allows us to either make the fluxes consistent between
 coarse and fine levels in a no-subcycling algorithm, or "reflux" after the update in a subcycling algorithm.
 
 The subcycling algorithm can be written as follows
@@ -165,77 +520,14 @@ AmrCoreAdv::timeStepNoSubcycling (Real time, int iteration)
 }
 ```
 
-### Running the Code
+<br>
+### Activity
 
-```shell
-cd {{site.handson_root}}/amrex/AMReX_Amr101/Exec
-```
-Note that you can choose to work entirely in 2D or in 3D ... whichever you prefer.
-The instructions below will be written for 3D but you can substitute the 2D executable.
+- Try modifying the inputs file to run with and without subcycling. How
+  do these compare?
 
-In this directory you'll see
-
-```shell
-main2d.gnu.MPI.ex -- the 2D executable -- this has been built with MPI
-
-main3d.gnu.MPI.ex -- the 3D executable -- this has been built with MPI
-
-inputs -- an inputs file for both 2D and 3D
-```
-
-To run in serial,
-
-```shell
-./main3d.gnu.MPI.ex inputs
-```
-
-To run in parallel, for example on 4 ranks:
-
-```shell
-mpiexec -n 4 ./main3d.gnu.MPI.ex inputs
-```
-
-The following parameters can be set at run-time -- these are currently set in the inputs
-file but you can also set them on the command line.  
-
-```
-stop_time          =  2.0                # the final time (if we have not exceeded number of steps)
-max_step           = 1000000             # the maximum number of steps (if we have not exceeded stop_time)
-
-amr.n_cell         =  64  64   8         # number of cells at the coarsest AMR level in each coordinate direction
-
-amr.max_grid_size  = 16                  # the maximum number of cells in any direction in a single grid
-
-amr.plot_int       = 10                  # frequency of writing plotfiles
-
-adv.cfl            = 0.9                 # cfl number to be used for computing the time step
-
-adv.phierr = 1.01  1.1  1.5              # regridding criteria  at each level
-
-```
-
-The base grid here is a square of 64 x 64 x 8 cells, made up of 16 subgrids each of size 16x16x8 cells.  
-The problem is periodic in all directions.
-
-We have hard-wired the code here to refine based on the magnitude of $$\phi$$.    Here we set the
-threshold level by level.  If $$\phi > 1.01$$ then we want to refine at least once; if $$\phi > 1.1$$ we
-want to resolve $$\phi$$ with two levels of refinement, and if $$\phi > 1.5$$ we want even more refinement.
-
-Note that you can see the total runtime by looking at the line at the end of your run that says
-
-```
-Total Time:
-```
-
-and you can check conservation of $$\phi$$ by checking the line that prints, e.g.
-
-```
-Coarse STEP 8 ends. TIME = 0.007031485953 DT = 0.0008789650903 Sum(Phi) = 540755.0014
-```
-
-Here Sum(Phi) is the sum of $$\phi$$ over all the cells at the coarsest level.
-
-### Questions to Answer:
+<br>
+### Key Observations:
 
 1. How do the subcycling vs no-subycling calculations compare?
 
@@ -245,71 +537,22 @@ Here Sum(Phi) is the sum of $$\phi$$ over all the cells at the coarsest level.
 
 2. What was the total run time for each calculation?  Was this what you expected?
 
-3. Was phi conserved (over time) in each case?
-   a. If you set do_refluxing = 0 for the subcycling case, was phi still conserved?
-   b. How in the algorithm is conservation enforced differently between subcycling and not?
 
-4. How did the runtimes vary with 1 vs. 4 MPI processes?  
-   We suggest you use a big enough problem here -- try running
 
-   mpiexec -n 1 ./main3d.gnu.MPI.ex inputs_for_scaling
 
-   mpiexec -n 4 ./main3d.gnu.MPI.ex inputs_for_scaling
 
-5. Why could we check conservation by just adding up the values at the coarsest level?
-
-### Visualizing the Results
-
-Here is a sample slice through a 3D run with 64x64x8 cells at the coarsest level and three finer levels (4 total levels).
-
-![Sample solution](amr101_3D.gif)
-
-After you run the code you will have a series of plotfiles.  To visualize these
-we will use ParaView 5.8, which has native support for AMReX Grid, Particle,
-and Embedded Boundary data (in the AMR 101 exercise we only have grid data).
-
-#### Make a Movie with the ParaView 5.8 Script
-
-To use the ParaView 5.8 python script, simply do the following to generate `amr101_3D.gif`:
-
-```shell
-$ make movie3D
-```
-
-If you run the 2D executable, make the 2D movie using:
-
-```shell
-$ make movie2D
-```
 
 Notes:
 
 - To delete old plotfiles before a new run, do `rm -rf plt*`
 
+<!--// These direction will likely be updated.
 - You will need `+ffmpeg` in your `~/.soft.cooley` file. If you do not already have it, do `soft add +ffmpeg` and then `resoft` to load it.
+-->
+- You can do `realpath amr101_3D.gif` to get the movie's path and then copy it to your local machine by doing `scp [username]@theta.alcf.anl.gov:[path-to-gif] .`
 
-- You can do `realpath amr101_3D.gif` to get the movie's path on Cooley and then copy it to your local machine by doing `scp [username]@cooley.alcf.anl.gov:[path-to-gif] .`
 
-#### Using ParaView 5.8 Manually
-
-To do the same thing with ParaView 5.8 manually (if, e.g. you have the plotfiles on your local machine and want to experiment or if you connected ParaView 5.8 in client-server mode to Cooley):
-
-```
-1. Start Paraview 5.8
-2. File --> Open ... and select the collection of directories named "plt.." --> [OK]
-3. From the "Open Data With..." dialog that pops up, select "AMReX/BoxLib Grid Reader" --> [OK]
-4. Check the "phi" box in the "Cell Array Status" menu that appears
-5. Click green Apply button
-6. Click on the "slice" icon -- three to the right of the calculator
-   This will create "Slice 1" in the Pipeline Browser which will be highlighted.
-7. Click on "Z Normal"
-8. Unclick the "Show Plane" button
-9. Click green Apply button
-10. Change the drop-down menu option (above the calculator row) from "vtkBlockColors" to "phi"
-```
-
-You are now ready to play the movie!  See the "VCR-like" controls at the top. Click the play button.
-
+<br>
 ### Additional Topics to Explore
 
 * What happens as you change the max grid size for decomposition?
@@ -317,21 +560,22 @@ You are now ready to play the movie!  See the "VCR-like" controls at the top. Cl
 * What happens as you change the refinement criteria (i.e. use different values of $$\phi$$)?
   (You can edit these in inputs)  
 
-|
 
-## Example: "AMR102: Advection of Particles Around Obstacles"
+<br>
+<br>
+<br>
+
+## AMR102: Advection of Particles Around Obstacles
 
 ---
+**FEATURES:**
+- Mesh data with Embedded Boundaries
+- Linear Solvers (Multigrid)
+- Particle-Mesh Interpolation
 
-### What Features Are We Using
 
-* Mesh data with EB
-* Linear solvers (multigrid)
-* Particle-Mesh interpolation
-
-### The Problem
-
-Challenge:
+<br>
+### Mathematical Problem Formulation
 
 Recall our previous problem of the drop of dye in a thin incompressible fluid that is spinning
 clock-wise then counter-clockwise with a prescribed motion.  
@@ -407,6 +651,7 @@ fields, and in this tutorial you can experiment with the number of particles
 per cell and interpolation scheme to see how well you can resolve the dye
 advection.
 
+<br>
 ### Running the code
 
 ```shell
@@ -416,11 +661,9 @@ cd {{site.handson_root}}/amrex/AMReX_Amr102/Exec
 In this directory you'll see
 
 ```shell
-main2d.gnu.MPI.ex -- the 2D executable -- this has been built with MPI
-
 main3d.gnu.MPI.ex -- the 3D executable -- this has been built with MPI
 
-inputs -- an inputs file for both 2D and 3D
+inputs -- an inputs file
 ```
 
 As before, to run the 3D code in serial:
@@ -473,7 +716,13 @@ pic_interpolation = 1                    # Particle In Cell interpolation scheme
 
 You can vary the number of particles per cell and interpolation to see how they influence the smoothness of the phi field.
 
-### Questions to Answer:
+<br>
+### Activity:
+
+
+
+<br>
+### Key Observations:
 
 
 1. How does the solution in the absence of the cylinder compare to our previous solution (where phi was advected
@@ -516,6 +765,7 @@ Notes:
 
 - You can do `realpath amr102_3D.gif` to get the movie's path on Cooley and then copy it to your local machine by doing `scp [username]@cooley.alcf.anl.gov:[path-to-gif] .`
 
+<details>
 #### Using ParaView 5.8 Manually
 
 To do the same thing with ParaView 5.8 manually (if, e.g. you have the plotfiles on your local machine and want to experiment or if you connected ParaView 5.8 in client-server mode to Cooley):
@@ -553,6 +803,7 @@ Now to load the particles:
 ```
 
 You are now ready to play the movie!  See the "VCR-like" controls at the top. Click the play button.
+</details>
 
 ## Example: AMReX-Pachinko
 
