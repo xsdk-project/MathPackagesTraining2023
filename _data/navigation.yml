@@ -9,8 +9,8 @@
     url: "/agenda/"
   - title: "VIP Talks"
     url: "/vip_talks/"
-  - title: "Virtual Meeting Rooms"
-    url: "/virtual_rooms/"
+  #- title: "Virtual Meeting Rooms"
+  #  url: "/virtual_rooms/"
   - title: "Getting help"
     url: "/getting-help/"
   - title: "Panel Question Submissions"
@@ -25,8 +25,8 @@
   url: "/lessons/"
   side: left
   dropdown:
-  - title: "Hand Coded Heat"
-    url: "/lessons/hand_coded_heat/"
+    #- title: "Hand Coded Heat"
+    #  url: "/lessons/hand_coded_heat/"
   - title: "Structured Meshing & Discretization with AMReX"
     url: "/lessons/amrex/"
   - title: "Unstructured Meshing & Discretization with MFEM"
