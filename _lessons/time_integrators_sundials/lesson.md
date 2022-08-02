@@ -289,7 +289,7 @@ in are in the file [HandsOn2.cpp][4], and are indicated by the comment
    argument when creating the integrator, or supply separate routines that
    should be used for the IMEX splitting of the ODE right-hand side.
 
-   This is done [here][12] in `HandsOn2.cpp`, where we either supply on function
+   This is done [here][12] in `HandsOn2.cpp`, where we either supply one function
    `ComputeRhsAdvDiff()` for *fully implicit* integration, or we supply two
    functions, `ComputeRhsAdv()` and `ComputeRhsDiff()`, for an IMEX splitting of
    the ODE right-hand side.
@@ -434,7 +434,7 @@ solver algorithms; other of today's ATPESC lecturers focus specifically on
 scalable and robust versions of these algorithms.
 
 Finally, we note that the application demonstrated here can be run on much
-larger spatial meshes and parallel architectures than those tested here.
+larger spatial meshes and parallel architectures than we have used in this demo.
 
 ----
 
@@ -463,14 +463,14 @@ its default parameters differ slightly:
 Perhaps the most challenging (and most critical) component for a scalable
 implicit or IMEX time integrator is the creation of an effective, efficient, and
 scalable preconditioner to accelerate the iterative linear solvers (more on this
-by other ATPESC speakers).  This requires three steps:
+by other ATPESC speakers).  Use of a preconditioner with [SUNDIALS][1] requires two steps:
 
 1. Create preconditioner "setup" and "solve" routines that prepare any data
    structures necessary to perform preconditioning (called infrequently) and
    apply the preconditioner (called frequently), respectively.
 
    Here, we omit the setup function and provide a [preconditioner_solve][14]
-   function, that employ a scalable geometric multigrid solver for only the
+   function, that employs a scalable geometric multigrid solver for only the
    diffusion portion of the problem, $$\nabla \cdot ( D \nabla u )$$.  This
    should be a perfect preconditioner when running in IMEX mode, but will only
    be approximate when running a fully implicit formulation of the problem.
@@ -478,7 +478,7 @@ by other ATPESC speakers).  This requires three steps:
 2. Supply the preconditioning routines to the integrator.
 
    In our example, when creating the GMRES linear solver, we signal to use left
-   preconditioning [here][15]. We then attach the `precondition_solve` routines
+   preconditioning [here][15]. We then attach the `precondition_solve` routine
    to the integrator [here][16].
 
 ### Performance with IMEX integration
