@@ -99,8 +99,8 @@ semi-discretization.
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-### Iterative Solvers & Preconditioners (with MueLu)
-### Iterative Solvers & Preconditioners (with MueLu)
+### Iterative Solvers & Algebraic Multigrid (with Trilinos, Belos & MueLu)
+### Iterative Solvers & Algebraic Multigrid (with Trilinos, Belos & MueLu)
 [Slides](../files/ATPESC-2021-Track-5-Talk-4-GlusaHarperOhm-KrylovSolversAndPreconditioningWithMueLu.pdf)
 
 In this session, attendees will learn about linear solvers and preconditioners
