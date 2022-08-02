@@ -23,14 +23,55 @@ header:
 <!-- (Expected # minutes to complete) %% temporarily omit -->
 
 |**Questions**|**Objectives**|**Key Points**|
+|How does Adaptive Mesh Refinement (AMR) work and when would I want it?|Understand AMR applicability, benefits and trade-offs.| AMR is a flexible approach for achieving science goals.|
+|How does AMReX do AMR?|Understand AMReX provides functionality as a software framework.|Simulations are coded with AMReX data structures and functions; your science is still your code.|
+|Would AMReX be useful for my application?|Understand conceptual requirements and benefits of running with AMReX.|AMReX's AMR routines are capable of accelerating AMR, Embedded Boundaries, Particles and more on a variety of heterogeneous architectures.|
+
+
+<!--
 |What can I do with AMReX?|Understand that "AMR" means more<br>than just "traditional AMR"|AMR + EB + Particles|
 |How do I get started?|Understand easy set-up|It's not hard to get started|
 |What time-stepping do I use?|Understand the difference between subcycling and not|It's a choice|
 |How do I visualize AMR results?|Use Visit and Paraview for AMReX vis|Visualization tools exist for AMR data.|
+-->
 
 ## Setup Instructions For AMReX Tutorials
 
-TBD
+
+
+1. Log into the Theta login node with your username (replace "elvis"):
+```shell
+ssh -A elvis@theta.alcf.anl.gov
+```
+
+2. In your homefolder, create a local copy of the AMReX examples:
+```shell
+cd ~
+rsync -a /grand/ATPESC2022/EXAMPLES/track-5-numerical .
+```
+
+3. To access ThetaGPU resources, transfer to a GPU service node:
+```shell
+ssh thetagpusn1 # or thetagpusn2
+```
+
+4. From the GPU service node, request a single-gpu reservation:
+```shell
+qusb -I -q single-gpu -t 60 -n 1 -A ATPESC2022
+```
+
+5. Load OpenMPI and Python.
+```shell
+module load openmpi
+module load conda
+```
+
+6. Verify the environment is set correctly.
+Now if you type, `module list`, you should see:
+
+
+
+
 
 <!--
 
@@ -274,16 +315,22 @@ Here Sum(Phi) is the sum of $$\phi$$ over all the cells at the coarsest level.
 <br>
 ### Visualizing the Results
 
-For convenience we created a python script powered by ParaView 5.9
-to render the AMReX plotfiles. FFmpeg is then used to stitch the images into a movie
+For convenience we created a python script powered by
+[ParaView 5.9](https://gitlab.kitware.com/paraview/paraview/-/tags/v5.9.1)
+to render the AMReX plotfiles. [FFmpeg](https://ffmpeg.org/) is then used to stitch the images into a movie
 and gif. To generate a movie from the plotfiles type:
 
 ```
-make movie3D
+pvbatch movie_amr101.py
 ```
 
 This will generate two files, `amr101_3D.avi` and `amr101_3D.gif`.
-
+To view the files you can copy them to your local machine and view
+them with scp. Open a terminal on your local machine and move the folder where you want
+to download the mp4 and gif. Then type:
+```shell
+scp elvis@theta.alcf.anl.gov:~/track-5-numerical/AMReX_Amr101/amr101_3D* .
+```
 
 Here is a sample slice through a 3D run with 64x64x8 cells at the coarsest level and three finer levels (4 total levels).
 
