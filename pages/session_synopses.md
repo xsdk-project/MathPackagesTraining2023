@@ -22,8 +22,8 @@ and use it to help answer a very simple science question.
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-### Structured Discretization (with AMReX)
-### Structured Discretization (with AMReX)
+### Structured Meshes (with AMReX)
+### Structured Meshes (with AMReX)
 [Slides](../files/ATPESC-2021-Track-5-Talk-1-AnnAlmgren-StructuredMesh.pdf)
 
 Block-structured adaptive mesh refinement (AMR) provides a natural framework
@@ -32,7 +32,7 @@ the most computationally efficient way possible.  AMReX supports the development
 of block-structured AMR algorithms for solving systems of partial differential
 equations (PDE's) and other algorithms that require structured mesh and/or
 particle discretizations.   We will begin with an overview of block-structured
-AMR, including several different time-stepping strategies, and then discuss the
+AMR, and then discuss the
 features of AMReX we might want to use to solve a multiphysics problem on
 machines from laptops to supercomputers.  Hands-on exercises will include passive
 scalar advection with time-dependent adaptivity,  the use of native linear
@@ -42,8 +42,8 @@ solvers to impose incompressibility on a flow around obstacles, and
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-### Unstructured Discretization (with MFEM/PUMI)
-### Unstructured Discretization (with MFEM/PUMI)
+### Unstructured Meshes (with MFEM/PUMI)
+### Unstructured Meshes (with MFEM/PUMI)
 [Slides](../files/ATPESC-2021-Track-5-Talk-2-AaronFisher-MarkShephard-UnstructuredDiscretization.pdf)
 
 Unstructured meshes can yield required levels of accuracy using fewer degrees of
@@ -195,8 +195,8 @@ breifly discuss key tradeoffs in using numerical packages in practice.
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-### Panel - Contributing to the Numerical Package Community
-### Panel - Contributing to the Numerical Package Community
+### Wrap-up / Panel - Contributing to the Numerical Package Community
+### Wrap-up / Panel - Contributing to the Numerical Package Community
 
 This will be a 45 minute panel question and answer period for ATPESC learners to ask
 questions about working with numerical package and the community of numerical package

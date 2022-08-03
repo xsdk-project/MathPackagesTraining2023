@@ -39,7 +39,7 @@
   length: 75
   id: 6
 
-- title: "Iterative Solvers & Algebraic Multigrid (with Trilinos, Belos & MueLu)"
+- title: "Iterative Solvers & Algebraic Multigrid<br>(with Trilinos, Belos & MueLu)"
   speakers:
     - "Christian Glusa"
     - "Graham Harper"
@@ -105,7 +105,7 @@
   has_synopsis: true
   id: 16
 
-- title: "Wrap-up / Panel<br>Contributing to the Numerical Package Community"
+- title: "Wrap-up / Panel <br> Contributing to the Numerical Package Community"
   speakers:
     - "Pieter Ghysels"
     - "Richard Tran Mills"
