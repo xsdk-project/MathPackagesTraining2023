@@ -422,7 +422,7 @@ How does the average step size for this tolerance compare against the average
 step size of `HandsOn1.CUDA.exe` for the same tolerances?
 
 {% include qanda
-    question=Why do the time steps gradually increase throughout
+    question='Why do the time steps gradually increase throughout
     the simulation?'
     answer='The solution becomes smoother and decays toward zero as
     time goes on.  Since the solution changes more gradually as time
