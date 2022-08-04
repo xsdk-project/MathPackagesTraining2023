@@ -18,14 +18,14 @@ header:
 |How does integration *order* <br>impact cost?|Observe impact of order on time <br>to solution and number of steps.|Changing integration order is simple <br>allowing optimization for a given problem.|
 |What is the role and benefit of <br>preconditioning?|Compare integration methods with <br>and without preconditioning.|Preconditioning is critical for scalability.|
 
-## Setup Instructions
+## ThetaGPU Setup Instructions
 
 1. Connect to Theta:
    ```
    ssh [username]@theta.alcf.anl.gov
    ```
 
-2. If you have not already done so, create a copy the hands-on lessons
+2. If you have not already done so, create a copy of the hands-on lessons
    ```
     cd ~
     rsync -a /grand/ATPESC2022/EXAMPLES/track-5-numerical .
@@ -67,7 +67,7 @@ The entire set of hands-on lesson codes is also available on
 ## The Problem Being Solved
 
 In this problem, we model the transport of a pollutant that has been released
-into a flow in a two dimensional domain.  We want to determine both where the
+into a flow in a two dimensional domain. We want to determine both where the
 pollutant goes, and when it has diffused sufficiently to be of no further harm.
 
 [![Problem Setup ::](sundials_amrex_setup.png)](sundials/sundials_amrex_setup.png)
@@ -285,7 +285,7 @@ stable and accurate to within the specified tolerances!_
 
 The time step sizes taken by the integrator in this run are seen below:
 
-[![Explicit stepsize adaptivity ::](h_vs_iter-explicit.png)](sundials/h_vs_iter-explicit.png)
+![h_vs_iter explicit](h_vs_iter-explicit.png)
 
 _notice how rapidly the adaptive time-stepper finds the CFL stability limit_.
 Also notice that the adaptivity algorithm periodically attempts to increase the
@@ -416,7 +416,7 @@ Compute the solution error as before,
 
 The corresponding time adaptivity history plot is below:
 
-[![Implicit stepsize adaptivity ::](h_vs_iter-implicit.png)](sundials/h_vs_iter-implicit.png)
+![h_vs_iter implicit](h_vs_iter-implicit.png)
 
 How does the average step size for this tolerance compare against the average
 step size of `HandsOn1.CUDA.exe` for the same tolerances?
@@ -485,10 +485,8 @@ We can again run the code using adaptive time stepping,
 
 The corresponding stepsize history plot with this configuration is shown below:
 
-[![ImEx stepsize adaptivity ::](h_vs_iter-imex.png)](sundials/h_vs_iter-imex.png)
-
-
-
+![h_vs_iter_explicit](h_vs_iter-explicit.png)
+![h_vs_iter_imex](h_vs_iter-imex.png)
 
 ----
 
