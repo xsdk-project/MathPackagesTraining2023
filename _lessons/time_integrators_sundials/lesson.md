@@ -170,7 +170,7 @@ command line, then the command line option takes precedence.
 
 ## Hands-on Lesson 1 -- Explicit Time Integration
 
-This lesson uses `HandsOn1.exe` and explores the following topics:
+This lesson uses `HandsOn1.CUDA.exe` and explores the following topics:
 
 a. Problem specification -- vector wrapper and right-hand side functions
 
@@ -225,7 +225,7 @@ Run the first hands-on code using its default parameters (note that this uses a
 mesh size of $$128^2$$ and fixed time step size of 5.0),
 
 ```bash
-./HandsOn1.exe inputs-1
+./HandsOn1.CUDA.exe inputs-1
 ```
 
 and compare the final result against a stored reference solution (again on a
@@ -241,7 +241,7 @@ magnitude $$\mathcal{O}(1)$$, so we hope for errors well below 0.1).
 Now re-run this hands-on code using a larger time step size of 100.0,
 
 ```bash
-./HandsOn1.exe inputs-1 fixed_dt=100.0
+./HandsOn1.CUDA.exe inputs-1 fixed_dt=100.0
 ```
 
 _see how much faster the code ran!_  However, if we check the accuracy of the
@@ -267,7 +267,7 @@ With this executable, we may switch to adaptive time-stepping (with the default
 tolerances, $$rtol=10^{-4}$$ and $$atol=10^{-9}$$) by specifying `fixed_dt=0`,
 
 ```bash
-./HandsOn1.exe inputs-1 fixed_dt=0
+./HandsOn1.CUDA.exe inputs-1 fixed_dt=0
 fcompare plt00001/ reference_solution/
 ```
 
@@ -289,7 +289,7 @@ time step size to investigate whether this stability limit has changed; however,
 the raw percentage of these failed steps remains rather small.
 
 Run the code a few more times with various values of `rtol` (e.g.,
-`./HandsOn1.exe inputs-1 fixed_dt=0 rtol=1e-6`) -- how well does the adaptivity
+`./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-6`) -- how well does the adaptivity
 algorithm produce solutions within the desired tolerances?  How do the number of
 time steps change as different tolerances are requested?
 
@@ -300,7 +300,7 @@ are included (explicit methods have available orders 2 through 8). Alternate
 orders of accuracy may be run with the `arkode_order` option, e.g.,
 
 ```bash
-./HandsOn1.exe inputs-1 fixed_dt=0 arkode_order=8
+./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=8
 fcompare plt00001/ reference_solution/
 ```
 
@@ -317,7 +317,7 @@ at this tolerance?
 
 ## Hands-on lesson 2 -- Implicit / IMEX Time Integration
 
-This lesson uses `HandsOn2.exe` and explores the following topics:
+This lesson uses `HandsOn2.CUDA.exe` and explores the following topics:
 
 1. Specification of algebraic solver algorithms (nonlinear and linear)
 
@@ -355,17 +355,17 @@ Run the second hands-on code using its default parameters (this also uses a mesh
 size of $$128^2$$ and fixed time step size of 5.0),
 
 ```bash
-./HandsOn2.exe inputs-2
+./HandsOn2.CUDA.exe inputs-2
 fcompare plt00001/ reference_solution/
 ```
 
-_note that this takes significantly longer than `HandsOn1.exe` with the same
-time step size._
+_note that this takes significantly longer than `HandsOn1.CUDA.exe` with the
+same time step size._
 
 Re-run this problem using the larger time step size of 100.0,
 
 ```bash
-./HandsOn2.exe inputs-2 fixed_dt=100.0
+./HandsOn2.CUDA.exe inputs-2 fixed_dt=100.0
 fcompare plt00001/ reference_solution/
 ```
 
@@ -388,7 +388,7 @@ As with the previous hands-on exercise, we can switch to adaptive time-stepping
 `fixed_dt=0`,
 
 ```bash
-./HandsOn2.exe inputs-2 fixed_dt=0
+./HandsOn2.CUDA.exe inputs-2 fixed_dt=0
 ```
 
 Compute the solution error, and determine the adaptive time-stepping statistics
@@ -401,7 +401,7 @@ display h_vs_iter.png
 ```
 
 How does the average step size for this tolerance compare against the average
-step size of `HandsOn1.exe` for the same tolerances?
+step size of `HandsOn1.CUDA.exe` for the same tolerances?
 
 {% include qanda
     question='Open the plot `h_vs_iter.png` -- why do the time steps
@@ -418,19 +418,19 @@ algorithm more useful than the fully explicit approach when loose tolerances
 
 ### IMEX partitioning
 
-By default, `HandsOn2.exe` uses a fully implicit formulation of the problem.
+By default, `HandsOn2.CUDA.exe` uses a fully implicit formulation of the problem.
 However, this can instead be run with the advection terms
 $$\vec{a} \cdot \nabla u$$ treated explicitly by specifying `rhs_adv=1`, i.e.
 
 ```bash
-./HandsOn2.exe inputs-2 rhs_adv=1
+./HandsOn2.CUDA.exe inputs-2 rhs_adv=1
 fcompare plt00001/ reference_solution/
 ```
 
 For comparison, re-run an identical test but with fully-implicit treatment,
 
 ```bash
-./HandsOn2.exe inputs-2
+./HandsOn2.CUDA.exe inputs-2
 fcompare plt00001/ reference_solution/
 ```
 
@@ -452,7 +452,7 @@ error each time -- can you find a maximum stable step size?
 
 {% include qanda
     question='Why is the maximum stable step size larger than for
-    `HandsOn1.exe`?'
+    `HandsOn1.CUDA.exe`?'
     answer='Since diffusion is now treated implicitly, the CFL-limited
     step size is now determined only by the advection terms.  As these
     are qualitatively different than the diffusion terms, we should
@@ -489,7 +489,8 @@ larger spatial meshes and parallel architectures than we have used in this demo.
 
 ## Evening Hands-on Session -- Preconditioning
 
-This lesson uses `HandsOn3.exe` and explores the following topics:
+This lesson uses Theta (rather than ThetaGPU) and `HandsOn3.exe` to explore the
+following topics:
 
 1. Preconditioner specification
 
@@ -512,7 +513,8 @@ its default parameters differ slightly:
 Perhaps the most challenging (and most critical) component for a scalable
 implicit or IMEX time integrator is the creation of an effective, efficient, and
 scalable preconditioner to accelerate the iterative linear solvers (more on this
-by other ATPESC speakers).  Use of a preconditioner with [SUNDIALS][1] requires two steps:
+by other ATPESC speakers).  Use of a preconditioner with [SUNDIALS][1] requires
+two steps:
 
 1. Create preconditioner "setup" and "solve" routines that prepare any data
    structures necessary to perform preconditioning (called infrequently) and
