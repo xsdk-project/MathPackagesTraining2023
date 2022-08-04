@@ -283,19 +283,27 @@ tolerances, $$rtol=10^{-4}$$ and $$atol=10^{-9}$$) by specifying `fixed_dt=0`,
 _note how rapidly the executable finishes, providing a solution that is both
 stable and accurate to within the specified tolerances!_
 
-Run the accompanying Python script `process_ARKStep_diags.py` to view some
-overall time adaptivity statistics and to generate plots of the time step size
-history,
+The time step sizes taken by the integrator in this run are seen below:
+
+[![Explicit stepsize adaptivity ::](h_vs_iter-explicit.png)](sundials/h_vs_iter-explicit.png)
+
+_notice how rapidly the adaptive time-stepper finds the CFL stability limit_.
+Also notice that the adaptivity algorithm periodically attempts to increase the
+time step size to investigate whether this stability limit has changed; however,
+the raw percentage of these failed steps remains rather small.
+
+~~~
+**Note**
+
+You can generate this plot by runing the provided Python script `process_ARKStep_diags.py`:
 
 ```bash
 ./process_ARKStep_diags.py HandsOn1_diagnostics.txt
 display h_vs_iter.png
 ```
 
-_notice how rapidly the adaptive time-stepper finds the CFL stability limit_.
-Also notice that the adaptivity algorithm periodically attempts to increase the
-time step size to investigate whether this stability limit has changed; however,
-the raw percentage of these failed steps remains rather small.
+We just included the plot here since it can be difficult to display graphics from the GPU compute nodes on Theta.
+~~~
 
 Run the code a few more times with various values of `rtol` (e.g.,
 `./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-6`) -- how well does the adaptivity
@@ -400,21 +408,22 @@ As with the previous hands-on exercise, we can switch to adaptive time-stepping
 ./HandsOn2.CUDA.exe inputs-2 fixed_dt=0
 ```
 
-Compute the solution error, and determine the adaptive time-stepping statistics
-as before,
+Compute the solution error as before,
 
 ```bash
 ./fcompare plt00001/ reference_solution/
-./process_ARKStep_diags.py HandsOn2_diagnostics.txt
-display h_vs_iter.png
 ```
+
+The corresponding time adaptivity history plot is below:
+
+[![Implicit stepsize adaptivity ::](h_vs_iter-implicit.png)](sundials/h_vs_iter-implicit.png)
 
 How does the average step size for this tolerance compare against the average
 step size of `HandsOn1.CUDA.exe` for the same tolerances?
 
 {% include qanda
-    question='Open the plot `h_vs_iter.png` -- why do the time steps
-    gradually increase throughout the simulation?'
+    question=Why do the time steps gradually increase throughout
+    the simulation?'
     answer='The solution becomes smoother and decays toward zero as
     time goes on.  Since the solution changes more gradually as time
     proceeds, the integrator can ramp up the step size.' %}
@@ -466,6 +475,20 @@ error each time -- can you find a maximum stable step size?
     step size is now determined only by the advection terms.  As these
     are qualitatively different than the diffusion terms, we should
     expect different stability limitations.' %}
+
+We can again run the code using adaptive time stepping,
+
+```bash
+./HandsOn2.CUDA.exe inputs-2 rhs_adv=1 fixed_dt=0
+./fcompare plt00001/ reference_solution/
+```
+
+The corresponding stepsize history plot with this configuration is shown below:
+
+[![ImEx stepsize adaptivity ::](h_vs_iter-imex.png)](sundials/h_vs_iter-imex.png)
+
+
+
 
 ----
 
