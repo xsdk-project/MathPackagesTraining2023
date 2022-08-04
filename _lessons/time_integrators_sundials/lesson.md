@@ -292,16 +292,15 @@ Also notice that the adaptivity algorithm periodically attempts to increase the
 time step size to investigate whether this stability limit has changed; however,
 the raw percentage of these failed steps remains rather small.
 
-  **Note**
 
-  You can generate this plot by runing the provided Python script `process_ARKStep_diags.py`:
+**Note**: *You can generate this plot by runing the provided Python script `process_ARKStep_diags.py`:*
 
-  ```bash
-  ./process_ARKStep_diags.py HandsOn1_diagnostics.txt
-  display h_vs_iter.png
-  ```
+```bash
+./process_ARKStep_diags.py HandsOn1_diagnostics.txt
+```
 
-  We just included the plot here since it can be difficult to display graphics from the GPU compute nodes on Theta.
+*We just included the plot here since it can be difficult to display graphics from the GPU compute nodes on Theta.*
+
 
 Run the code a few more times with various values of `rtol` (e.g.,
 `./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-6`) -- how well does the adaptivity
