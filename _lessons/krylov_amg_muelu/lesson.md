@@ -25,6 +25,7 @@ header:
   - [Set 1 - Krylov solver, no preconditioner](#set-1---krylov-solver-no-preconditioner)
   - [Set 2 - Krylov solver, simple preconditioners](#set-2---krylov-solver-simple-preconditioners)
   - [Set 3 - Krylov solver, multigrid preconditioner](#set-3---krylov-solver-multigrid-preconditioner)
+  - [Set 4 - Krylov solver, multigrid preconditioner, considerations for CPU vs GPU](#set-4---krylov-solver-multigrid-preconditioner-considerations-for-cpu-vs-gpu)
 
 #### To begin this lesson
 
@@ -160,8 +161,8 @@ We change the `Solver Type` parameter to `Pseudo Block CG`.
 
 You can check the last answer by comparing the approximate memory usage of CG and GMRES using
 ```
-./memory.sh ./MueLu_driver_gpu.exe --nx=1000 --ny=1000 --xml=set1-gmres.xml"
-./memory.sh ./MueLu_driver_gpu.exe --nx=1000 --ny=1000 --xml=set1-cg.xml"
+./memory.sh ./MueLu_driver_gpu.exe --nx=1000 --ny=1000 --xml=set1-gmres.xml
+./memory.sh ./MueLu_driver_gpu.exe --nx=1000 --ny=1000 --xml=set1-cg.xml
 ```
 We used a larger problem to be able to see the difference more clearly.
 
@@ -182,16 +183,16 @@ Moreover, we add the following configuration for Ifpack2.
 <ParameterList name="Ifpack2">
   <Parameter name="Prec Type" type="string" value="relaxation"/>
   <ParameterList name="Ifpack2 Settings">
-    <Parameter name="relaxation: type" type="string" value="Symmetric Gauss-Seidel"/>
+    <Parameter name="relaxation: type" type="string" value="Jacobi"/>
     <Parameter name="relaxation: sweeps" type="int" value="1"/>
   </ParameterList>
 </ParameterList>
 ```
-This means that a single sweep of symmetric Gauss-Seidel is used for preconditioning. <!-- TODO: Don't use Gauss-Seidel preconditioning on GPU -->
+This means that a single sweep of Jacobi is used for preconditioning.
 
 <img src="arrow.png" width="30"> Run
 ```
-./MueLu_driver_gpu.exe --xml=set2-sgs1.xml
+./MueLu_driver_gpu.exe --xml=set2-jacobi1.xml
 ```
 
 <!-- {% include qanda question='Why did the solve become even worse?' answer='Gauss-Seidel is an unsymmetric preconditioner, but CG needs a symmetric one!' %} -->
@@ -201,12 +202,12 @@ This means that a single sweep of symmetric Gauss-Seidel is used for preconditio
 
 <!-- <img src="arrow.png" width="30"> Rerun to verify that the solver is now converging. -->
 
-We can strengthen the preconditioner by increasing the number of symmetric Gauss-Seidel sweeps we are using as a preconditioner.
+We can strengthen the preconditioner by increasing the number of Jacobi sweeps we are using as a preconditioner.
 We switch `relaxation: sweeps` to 3.
 
 <img src="arrow.png" width="30"> Run
 ```
-./MueLu_driver_gpu.exe --xml=set2-sgs3.xml
+./MueLu_driver_gpu.exe --xml=set2-jacobi3.xml
 ```
 and verify that the number of iterations further decreased.
 
@@ -214,9 +215,9 @@ Now, we will check whether we have created a scalable solver strategy.
 
 <img src="arrow.png" width="30"> Record the number of iterations for different problem sizes by running
 ```
-./MueLu_driver_gpu.exe --xml=set2-sgs3.xml --nx=50  --ny=50
-./MueLu_driver_gpu.exe --xml=set2-sgs3.xml --nx=100 --ny=100
-./MueLu_driver_gpu.exe --xml=set2-sgs3.xml --nx=200 --ny=200
+./MueLu_driver_gpu.exe --xml=set2-jacobi3.xml --nx=50  --ny=50
+./MueLu_driver_gpu.exe --xml=set2-jacobi3.xml --nx=100 --ny=100
+./MueLu_driver_gpu.exe --xml=set2-jacobi3.xml --nx=200 --ny=200
 ```
 (This means that we are running the same 2D Laplace problem as above, but on meshes of size 50x50, etc.)
 
@@ -311,10 +312,11 @@ like Jacobi or Gauss-Seidel.
   - The SpMV kernel is naturally parallelizable with many high-performance implementations.  There are limited opportunities for parallelism in Gauss-Seidel,
     e.g., coloring.
 
-We switch the smother to Chebyshev.
+We switch the smoother to Chebyshev.
+
 <img src="arrow.png" width="30"> Repeat the above experiment.
 ```
-./MueLu_driver_gpu.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  grep -E "total solve time|Number of Iterations"
+./MueLu_driver_gpu.exe --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  grep -E "total solve time|Number of Iterations"
 ```
 
 <!--{% include qanda question='What do you observe?' answer='The Gauss-Seidel smoother convergence degrades slightly as the number of MPI ranks is increased.  The Chebyshev smoother convergence is unaffected by the number of ranks.' %}-->
@@ -554,7 +556,7 @@ A good choice of solver and preconditioner will depend significantly on the prob
 
 ### Running your own problem
 
-The executable has the option to load the linear system and the right-hand side from MatrixMarket files, e.g.,
+Instead of generating the linear system on the fly, the executable has the option to load matrix, right-hand side and coordinates information from MatrixMarket files, e.g.,
 ```
 ./MueLu_driver_gpu.exe --matrix=poisson-matrix.m --rhs=poisson-rhs.m --coords=poisson-coords.m
 ```
