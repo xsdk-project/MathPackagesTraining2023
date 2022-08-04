@@ -311,7 +311,7 @@ like Jacobi or Gauss-Seidel.
   - The SpMV kernel is naturally parallelizable with many high-performance implementations.  There are limited opportunities for parallelism in Gauss-Seidel,
     e.g., coloring.
 
-We switch the smother to Chebyshev.
+We switch the smoother to Chebyshev.
 <img src="arrow.png" width="30"> Repeat the above experiment.
 ```
 ./MueLu_driver_gpu.exe  --xml=set3-mg-chebyshev.xml --timings --nx=1000 --ny=1000 |  grep -E "total solve time|Number of Iterations"
