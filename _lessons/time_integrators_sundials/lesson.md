@@ -260,7 +260,7 @@ computed solution,
 ./fcompare plt00001/ reference_solution/
 ```
 
-we see it has an error of $$10^{98}$$.
+we see it has an incredibly large error (mine was $$\mathcal{O}(10^{284})$$).
 
 {% include qanda
     question='What do you think happened?'
@@ -313,8 +313,8 @@ orders of accuracy may be run with the `arkode_order` option, e.g.,
 ./fcompare plt00001/ reference_solution/
 ```
 
-_note the dramatic decrease in overall time steps (457 vs 258), but the
-accompanying increase in total RHS evaluations (2865 vs 3773)._ Although
+_note the dramatic decrease in overall time steps (462 vs 260), but the
+accompanying increase in total RHS evaluations (2900 vs 3790)._ Although
 higher-order methods may indeed utilize larger step sizes (both for accuracy and
 frequently stability), those come at the cost of increased work per step.
 
