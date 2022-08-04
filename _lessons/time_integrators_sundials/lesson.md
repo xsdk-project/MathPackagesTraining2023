@@ -36,12 +36,14 @@ header:
    qsub-gpu -I -q single-gpu -t 60 -n 1 -A ATPESC2022
    ```
 
-3. Load the OpenMPI, BLAS, LAPACK, and CMake modules:
+3. Load the OpenMPI, BLAS, LAPACK, CMake, and conda modules and activate conda:
    ```
    module load openmpi/openmpi-4.1.4_ucx-1.12.1_gcc-9.4.0
    module load aocl/blis/blis-3.2
    module load aocl/libflame/libflame-3.2
    module load cmake-3.20.3-gcc-9.3.0-57eqw4f
+   module load conda/2022-07-01
+   conda activate
    ```
 
 4. Change to the directory for this session where the precompiled executables,
