@@ -241,7 +241,7 @@ and compare the final result against a stored reference solution (again on a
 $$128^2$$ grid),
 
 ```bash
-fcompare plt00001/ reference_solution/
+./fcompare plt00001/ reference_solution/
 ```
 
 Notice that the computed solution error is rather small (the solution has
@@ -257,7 +257,7 @@ _see how much faster the code ran!_  However, if we check the accuracy of the
 computed solution,
 
 ```bash
-fcompare plt00001/ reference_solution/
+./fcompare plt00001/ reference_solution/
 ```
 
 we see it has an error of $$10^{98}$$.
@@ -277,7 +277,7 @@ tolerances, $$rtol=10^{-4}$$ and $$atol=10^{-9}$$) by specifying `fixed_dt=0`,
 
 ```bash
 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0
-fcompare plt00001/ reference_solution/
+./fcompare plt00001/ reference_solution/
 ```
 
 _note how rapidly the executable finishes, providing a solution that is both
@@ -310,7 +310,7 @@ orders of accuracy may be run with the `arkode_order` option, e.g.,
 
 ```bash
 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=8
-fcompare plt00001/ reference_solution/
+./fcompare plt00001/ reference_solution/
 ```
 
 _note the dramatic decrease in overall time steps (457 vs 258), but the
@@ -365,7 +365,7 @@ size of $$128^2$$ and fixed time step size of 5.0),
 
 ```bash
 ./HandsOn2.CUDA.exe inputs-2
-fcompare plt00001/ reference_solution/
+./fcompare plt00001/ reference_solution/
 ```
 
 _note that this takes significantly longer than `HandsOn1.CUDA.exe` with the
@@ -375,7 +375,7 @@ Re-run this problem using the larger time step size of 100.0,
 
 ```bash
 ./HandsOn2.CUDA.exe inputs-2 fixed_dt=100.0
-fcompare plt00001/ reference_solution/
+./fcompare plt00001/ reference_solution/
 ```
 
 _again this version runs much more quickly, but now the results are usable!_
@@ -404,7 +404,7 @@ Compute the solution error, and determine the adaptive time-stepping statistics
 as before,
 
 ```bash
-fcompare plt00001/ reference_solution/
+./fcompare plt00001/ reference_solution/
 ./process_ARKStep_diags.py HandsOn2_diagnostics.txt
 display h_vs_iter.png
 ```
@@ -433,14 +433,14 @@ $$\vec{a} \cdot \nabla u$$ treated explicitly by specifying `rhs_adv=1`, i.e.
 
 ```bash
 ./HandsOn2.CUDA.exe inputs-2 rhs_adv=1
-fcompare plt00001/ reference_solution/
+./fcompare plt00001/ reference_solution/
 ```
 
 For comparison, re-run an identical test but with fully-implicit treatment,
 
 ```bash
 ./HandsOn2.CUDA.exe inputs-2
-fcompare plt00001/ reference_solution/
+./fcompare plt00001/ reference_solution/
 ```
 
 Do you notice any efficiency or accuracy differences between fully implicit and
