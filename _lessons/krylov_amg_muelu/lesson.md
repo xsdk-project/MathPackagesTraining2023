@@ -25,6 +25,7 @@ header:
   - [Set 1 - Krylov solver, no preconditioner](#set-1---krylov-solver-no-preconditioner)
   - [Set 2 - Krylov solver, simple preconditioners](#set-2---krylov-solver-simple-preconditioners)
   - [Set 3 - Krylov solver, multigrid preconditioner](#set-3---krylov-solver-multigrid-preconditioner)
+  - [Set 4 - Krylov solver, multigrid preconditioner, considerations for CPU vs GPU](#set-4---krylov-solver-multigrid-preconditioner-considerations-for-cpu-vs-gpu)
 
 #### To begin this lesson
 
