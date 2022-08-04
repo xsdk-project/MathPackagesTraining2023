@@ -18,6 +18,50 @@ header:
 |How does integration *order* <br>impact cost?|Observe impact of order on time <br>to solution and number of steps.|Changing integration order is simple <br>allowing optimization for a given problem.|
 |What is the role and benefit of <br>preconditioning?|Compare integration methods with <br>and without preconditioning.|Preconditioning is critical for scalability.|
 
+## Setup Instructions
+
+1. Connect to Theta:
+   ```
+   ssh [username]@theta.alcf.anl.gov
+   ```
+
+2. If you have not already done so, create a copy the hands-on lessons
+   ```
+    cd ~
+    rsync -a /grand/ATPESC2022/EXAMPLES/track-5-numerical .
+    ```
+
+2. Request an interactive session on Theta GPU:
+   ```
+   qsub-gpu -I -q single-gpu -t 60 -n 1 -A ATPESC2022
+   ```
+
+3. Load the OpenMPI, BLAS, LAPACK, and CMake modules:
+   ```
+   module load openmpi/openmpi-4.1.4_ucx-1.12.1_gcc-9.4.0
+   module load aocl/blis/blis-3.2
+   module load aocl/libflame/libflame-3.2
+   module load cmake-3.20.3-gcc-9.3.0-57eqw4f
+   ```
+
+4. Change to the directory for this session where the precompiled executables,
+   input files, and post processing scripts are located:
+   ```
+   cd track-5-numerical/time_integration_sundials/bin
+   ```
+
+Alternately, the source files are located under `time_integration_sundials/SUNDIALS+AMReX`
+and can be compiled using the provided configuration script:
+```
+./config_atpesc_thetagpu.sh
+cd build
+make -j
+```
+
+The entire set of hands-on lesson codes is also available on
+[GitHub](https://github.com/AMReX-Codes/ATPESC-codes), under the
+`SUNDIALS+AMReX` directory.
+
 ## The Problem Being Solved
 
 In this problem, we model the transport of a pollutant that has been released
@@ -73,9 +117,14 @@ You can discover the full set of command-line options for each setup with
 the `help=1` argument, e.g.,
 
 ```text
-./HandsOn1.exe help=1
+$ mpirun -n 1 HandsOn1.CUDA.exe help=1
+Initializing CUDA...
+CUDA initialized with 1 GPU per MPI rank; 1 GPU(s) used in total
+Initializing SUNDIALS with 1 threads...
+SUNDIALS initialized.
 MPI initialized with 1 MPI processes
-AMReX (19.07) initialized
+MPI initialized with thread support level 0
+AMReX (22.08-dirty) initialized
 
 Usage: HandsOn1.exe [fname] [options]
 Options:
@@ -113,8 +162,8 @@ Options:
     diffusion coefficient in the y-direction [default=1e-6].
 
 If a file name 'fname' is provided, it will be parsed for each of the above
-options.  If an option is specified in both the input file and on the command
-line, then the command line option takes precedence.
+options.  If an option is specified in both the input file and on the
+command line, then the command line option takes precedence.
 ```
 
 ----
