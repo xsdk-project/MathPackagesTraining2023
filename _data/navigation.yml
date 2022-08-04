@@ -33,7 +33,7 @@
     url: "/lessons/mfem_convergence/"
   - title: "Krylov Solvers & Algebraic Multigrid with HYPRE"
     url: "/lessons/krylov_amg_hypre/"
-  - title: "Krylov Solvers & Preconditioning with MueLu"
+  - title: "Iterative Solvers & Algebraic Multigrid (with Trilinos, Belos & MueLu)"
     url: "/lessons/krylov_amg_muelu/"
   - title: "Sparse, Direct Solvers with SuperLU"
     url: "/lessons/superlu_mfem/"
