@@ -161,8 +161,8 @@ We change the `Solver Type` parameter to `Pseudo Block CG`.
 
 You can check the last answer by comparing the approximate memory usage of CG and GMRES using
 ```
-./memory.sh ./MueLu_driver_gpu.exe --nx=1000 --ny=1000 --xml=set1-gmres.xml"
-./memory.sh ./MueLu_driver_gpu.exe --nx=1000 --ny=1000 --xml=set1-cg.xml"
+./memory.sh ./MueLu_driver_gpu.exe --nx=1000 --ny=1000 --xml=set1-gmres.xml
+./memory.sh ./MueLu_driver_gpu.exe --nx=1000 --ny=1000 --xml=set1-cg.xml
 ```
 We used a larger problem to be able to see the difference more clearly.
 
@@ -556,7 +556,7 @@ A good choice of solver and preconditioner will depend significantly on the prob
 
 ### Running your own problem
 
-The executable has the option to load the linear system and the right-hand side from MatrixMarket files, e.g.,
+Instead of generating the linear system on the fly, the executable has the option to load matrix, right-hand side and coordinates information from MatrixMarket files, e.g.,
 ```
 ./MueLu_driver_gpu.exe --matrix=poisson-matrix.m --rhs=poisson-rhs.m --coords=poisson-coords.m
 ```
