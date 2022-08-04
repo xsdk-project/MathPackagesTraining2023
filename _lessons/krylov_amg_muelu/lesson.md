@@ -160,15 +160,12 @@ We change the `Solver Type` parameter to `Pseudo Block CG`.
 
 You can check the last answer by comparing the approximate memory usage of CG and GMRES using
 ```
-/usr/bin/time -v ./MueLu_driver_gpu.exe --nx=1000 --ny=1000 --xml=set1-gmres.xml 2>&1 | grep "Maximum resident set size"
-/usr/bin/time -v ./MueLu_driver_gpu.exe --nx=1000 --ny=1000 --xml=set1-cg.xml    2>&1 | grep "Maximum resident set size"
+./memory.sh ./MueLu_driver_gpu.exe --nx=1000 --ny=1000 --xml=set1-gmres.xml"
+./memory.sh ./MueLu_driver_gpu.exe --nx=1000 --ny=1000 --xml=set1-cg.xml"
 ```
 We used a larger problem to be able to see the difference more clearly.
 
 In what follows, we will be using the CG solver.
-
-<!-- IS THERE A BETTER WAY OF CHECKING PEAK MEMORY? -->
-<!-- TODO: Yes, use Kokkos profiling tools -->
 
 ---
 
