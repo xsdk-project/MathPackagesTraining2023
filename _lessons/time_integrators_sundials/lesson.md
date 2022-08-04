@@ -75,10 +75,10 @@ transport. The governing equation is:
 
 $$\frac{\partial u}{\partial t} + \vec{a} \cdot \nabla u -  \nabla \cdot ( D \nabla u ) = 0$$
 
-where $$u = u(t,x,y)$$ is the chemical concentration, $$\vec{a}$$ is the
-advection vector, $$D$$ is a diagonal matrix containing anisotropic diffusion
-coefficients, and $$u(0,x,y)=u_0(x,y)$$ is a given initial condition. The
-spatial domain is $$(x,y) \in [-1,1]^2,$$ and the time domain is $$t \in (0,10^4].$$
+where $u = u(t,x,y)$ is the chemical concentration, $\vec{a}$ is the
+advection vector, $D$ is a diagonal matrix containing anisotropic diffusion
+coefficients, and $u(0,x,y)=u_0(x,y)$ is a given initial condition. The
+spatial domain is $(x,y) \in [-1,1]^2,$ and the time domain is $t \in (0,10^4].$
 
 ## The Application Models
 
@@ -94,9 +94,9 @@ with an initial Gaussian bump:
 $$u_0(x,y) = \frac{10}{\sqrt{2\pi}} e^{-50(x^2+y^2)}.$$
 
 Snapshots of the solution for the advection [flow] vector
-$$\vec{a}=\left[ 0.0005,\, 0.00025\right],$$ and diffusion coefficient matrix
-$$D = \operatorname{diag}\left(\, \left[10^{-6},\, 10^{-6}\right]\,\right)$$ at
-the times $$t = \left\{0, 1000, 2000, 3000\right\}$$ are shown in Figures 1-4
+$\vec{a}=\left[ 0.0005,\, 0.00025\right],$ and diffusion coefficient matrix
+$D = \operatorname{diag}\left(\, \left[10^{-6},\, 10^{-6}\right]\,\right)$ at
+the times $t = \left\{0, 1000, 2000, 3000\right\}$ are shown in Figures 1-4
 below:
 
 |Figure 1|Figure 2|Figure 3|Figure 4|
@@ -209,10 +209,10 @@ simulation code:
 3. Use SUNDIALS to integrate your ODE/DAE:
 
    1. Instantiate and fill an `N_Vector` for the initial condition,
-      $$u_0(x,y)$$. In our example this is done [here][9] in `HandsOn_main.cpp`.
+      $u_0(x,y)$. In our example this is done [here][9] in `HandsOn_main.cpp`.
 
    2. Create the time integrator, providing both the initial condition vector
-      $$u_0(x,y)$$ and the problem-defining function $$f(t,u)$$. In our example,
+      $u_0(x,y)$ and the problem-defining function $f(t,u)$. In our example,
       this is done [here][10] in `HandsOn1.cpp`.
 
    3. Call the SUNDIALS integrator to evolve the problem over a series of out
@@ -222,21 +222,21 @@ simulation code:
 ### Linear Stability
 
 Run the first hands-on code using its default parameters (note that this uses a
-mesh size of $$128^2$$ and fixed time step size of 5.0),
+mesh size of $128^2$ and fixed time step size of 5.0),
 
 ```bash
 ./HandsOn1.CUDA.exe inputs-1
 ```
 
 and compare the final result against a stored reference solution (again on a
-$$128^2$$ grid),
+$128^2$ grid),
 
 ```bash
 fcompare plt00001/ reference_solution/
 ```
 
 Notice that the computed solution error is rather small (the solution has
-magnitude $$\mathcal{O}(1)$$, so we hope for errors well below 0.1).
+magnitude $\mathcal{O}(1)$, so we hope for errors well below 0.1).
 
 Now re-run this hands-on code using a larger time step size of 100.0,
 
@@ -251,7 +251,7 @@ computed solution,
 fcompare plt00001/ reference_solution/
 ```
 
-we see it has an error of $$10^{98}$$.
+we see it has an error of $10^{98}$.
 
 {% include qanda
     question='What do you think happened?'
@@ -264,7 +264,7 @@ size.
 ### Temporal Adaptivity
 
 With this executable, we may switch to adaptive time-stepping (with the default
-tolerances, $$rtol=10^{-4}$$ and $$atol=10^{-9}$$) by specifying `fixed_dt=0`,
+tolerances, $rtol=10^{-4}$ and $atol=10^{-9}$) by specifying `fixed_dt=0`,
 
 ```bash
 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0
@@ -352,7 +352,7 @@ in are in the file [HandsOn2.cpp][4], and are indicated by the comment
 ### Linear stability revisited
 
 Run the second hands-on code using its default parameters (this also uses a mesh
-size of $$128^2$$ and fixed time step size of 5.0),
+size of $128^2$ and fixed time step size of 5.0),
 
 ```bash
 ./HandsOn2.CUDA.exe inputs-2
@@ -384,7 +384,7 @@ linear solver fails to converge?
 ### Temporal adaptivity revisited
 
 As with the previous hands-on exercise, we can switch to adaptive time-stepping
-(with tolerances $$rtol=10^{-4}$$ and $$atol=10^{-9}$$) by specifying
+(with tolerances $rtol=10^{-4}$ and $atol=10^{-9}$) by specifying
 `fixed_dt=0`,
 
 ```bash
@@ -420,7 +420,7 @@ algorithm more useful than the fully explicit approach when loose tolerances
 
 By default, `HandsOn2.CUDA.exe` uses a fully implicit formulation of the problem.
 However, this can instead be run with the advection terms
-$$\vec{a} \cdot \nabla u$$ treated explicitly by specifying `rhs_adv=1`, i.e.
+$\vec{a} \cdot \nabla u$ treated explicitly by specifying `rhs_adv=1`, i.e.
 
 ```bash
 ./HandsOn2.CUDA.exe inputs-2 rhs_adv=1
@@ -522,7 +522,7 @@ two steps:
 
    Here, we omit the setup function and provide a [preconditioner_solve][14]
    function, that employs a scalable geometric multigrid solver for only the
-   diffusion portion of the problem, $$\nabla \cdot ( D \nabla u )$$.  This
+   diffusion portion of the problem, $\nabla \cdot ( D \nabla u )$.  This
    should be a perfect preconditioner when running in IMEX mode, but will only
    be approximate when running a fully implicit formulation of the problem.
 
@@ -568,7 +568,7 @@ integrator statistics (number of time steps, total linear iterations, etc.)?
 ### Scalability tests
 
 Explore the weak scalability of `HandsOn3.exe` both with and without
-preconditioning. Here, use from 1 to 36 MPI tasks, with a base grid of $$128^2$$
+preconditioning. Here, use from 1 to 36 MPI tasks, with a base grid of $128^2$
 per MPI task, and retain the default temporal adaptivity. The choice of IMEX vs
 fully implicit is yours.  It is recommended that you use the batch queue instead
 of running interactively. Produce a weak scaling plot with these results.
