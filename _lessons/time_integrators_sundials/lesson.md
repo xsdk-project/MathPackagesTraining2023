@@ -85,7 +85,7 @@ spatial domain is $$(x,y) \in [-1,1]^2,$$ and the time domain is $$t \in (0,10^4
 The example application uses a finite volume spatial discretization with
 [AMReX][2]. For the _time integration_ (i.e., semi-discretization in time) of
 this PDE, we use the [ARKODE][0] ODE integrator from [SUNDIALS][1], to
-demonstrate the use of [SUNDIALS][1] in both serial and parallel for more robust
+demonstrate the use of [SUNDIALS][1] with CUDA parallelism for more robust
 and flexible control over temporal integration.
 
 Each application solves the problem on a periodic, cell-centered, uniform mesh
@@ -105,9 +105,9 @@ below:
 
 We will investigate this problem in three phases:
 
-1. Explicit time integration ([HandsOn1.cpp][3], `HandsOn1.exe`)
+1. Explicit time integration ([HandsOn1.cpp][3], `HandsOn1.CUDA.exe`)
 
-2. Implicit / implicit-explicit (IMEX) time integration ([HandsOn2.cpp][4], `HandsOn2.exe`)
+2. Implicit / implicit-explicit (IMEX) time integration ([HandsOn2.cpp][4], `HandsOn2.CUDA.exe`)
 
 3. Preconditioning ([HandsOn3.cpp][5], `HandsOn3.exe` -- optional)
 
@@ -186,11 +186,17 @@ There are essentially only three steps required to use SUNDIALS with an existing
 simulation code:
 
 1. Create an `N_Vector` wrapper for your application data structures, so that
-   SUNDIALS can perform standard vector operations directly on your data:
+   SUNDIALS can perform standard vector operations directly on your data.
 
-   AMReX provides a `N_Vector` implementation to wrap its native `MultiFab` data
-   structure, see the files [AMReX_NVector_MultiFab.H][6] and
-   [AMReX_NVector_MultiFab.cpp][7].
+   AMReX provides an `N_Vector` implementation wrapping its native `MultiFab`
+   data structure (see the files [AMReX_NVector_MultiFab.H][6] and
+   [AMReX_NVector_MultiFab.cpp][7] in the AMReX repository).
+
+   This vector implements the vector operations need by SUNDIALS (linear
+   combination $$\vec{z} \gets a\vec{x} + b\vec{y}$$, inner-product
+   $$\left<\vec{x},\vec{y}\right>$$, etc.) and leverages the native `MultiFab`
+   operations and `amrex::ParallelFor` to perform the computations on the CPU or
+   GPU.
 
 2. Create a function that computes the problem-defining ODE right-hand side
    function. In this example, we implement the advection-diffusion right-hand
@@ -198,13 +204,14 @@ simulation code:
 
    $$f(t,u) = -\vec{a} \cdot \nabla u + \nabla \cdot ( D \nabla u )$$
 
-   in
+   in the file [HandsOn_main.cpp][8] as
 
    ```C
    int ComputeRhsAdvDiff(Real t, N_Vector nv_sol, N_Vector nv_rhs, void* data)
    ```
 
-   found in the file [HandsOn_main.cpp][8].
+   This function utilizes the AMReX `amrex::ParallelFor` to execute the
+   computations the CPU or offload the work to the GPU.
 
 3. Use SUNDIALS to integrate your ODE/DAE:
 
