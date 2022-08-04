@@ -293,13 +293,13 @@ time step size to investigate whether this stability limit has changed; however,
 the raw percentage of these failed steps remains rather small.
 
 
-**Note**: *You can generate this plot by runing the provided Python script `process_ARKStep_diags.py`:*
+**Note**: *You can generate the above plot by runing the provided Python script `process_ARKStep_diags.py`:*
 
 ```bash
 ./process_ARKStep_diags.py HandsOn1_diagnostics.txt
 ```
 
-*We just included the plot here since it can be difficult to display graphics from the GPU compute nodes on Theta.*
+*We included it here because it can be difficult to display graphics from the GPU compute nodes on Theta.*
 
 
 Run the code a few more times with various values of `rtol` (e.g.,
