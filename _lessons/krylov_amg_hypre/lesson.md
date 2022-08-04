@@ -17,6 +17,13 @@ header:
 |Why use more aggressive<br>coarsening for AMG?|Understand need for low complexities.|Lower memory use, faster times,<br>but more iterations.|
 |Why a structured solver<br>for a structured problem?|Understand importance of<br>suitable data structures|Higher efficiency,<br>faster solve times.|
 
+### To begin this lesson...
+<!-- * [Open the Answers Form]({{page.answers_google_form}}) -->
+Make sure that you have followed the [setup instructions]({{site.url}}/{{site.baseurl}}/setup_instructions/), then move to the directory containing the hypre executables:
+
+```
+cd {{site.handson_root}}/krylov_amg_hypre
+```
 
 ## The Problem Being Solved
 
@@ -27,11 +34,6 @@ $$-\Delta u = f$$
 on a cuboid of size $$n_x \times n_y \times n_z$$ with Dirichlet boundary conditions $$u = 0$$.
 
 It is discretized using central finite differences, leading to a symmetric positive matrix.
-
-**Note:** To begin this lesson...
-```
-cd {{site.handson_root}}/krylov_amg_hypre
-```
 
 
 ## The Example Source Code
@@ -383,7 +385,7 @@ mpirun -np 8 struct -n 50 50 50 -P 2 2 2 -pfmg
 
 Now run it as a preconditioner for conjugate gradient.
 ```
-mpirun -np 8 ./struct -n 50 50 50 -pfmgpcg -P 2 2 2
+mpirun -np 8 struct -n 50 50 50 -pfmgpcg -P 2 2 2
 ```
 {% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations 14, but the total time is less (0.21)'  %}
 
@@ -433,17 +435,18 @@ mpirun -np 1 struct_gpu -pfmgpcg -gn 100 100 100
 
 We can find the cross-over point, at which CPU and GPU times are approximately the same, at 45 x 45 x 45.
 ```
-mpirun -np 16 struct -pfmgpcg -P 4 2 2 -gn 45 45 45
-```
-```
-mpirun -np 1 struct_gpu -pfmgpcg -gn 45 45 45
-```
-```
 mpirun -np 16 ij -amgpcg -P 4 2 2 -gn 45 45 45
 ```
 ```
 mpirun -np 1 ij_gpu -amgpcg -gn 45 45 45
 ```
+```
+mpirun -np 16 struct -pfmgpcg -P 4 2 2 -gn 45 45 45
+```
+```
+mpirun -np 1 struct_gpu -pfmgpcg -gn 45 45 45
+```
+
 Let us now consider a diffusion problem with a 27-point stencil to see the effect of a system with a somewhat denser matrix on the performance.
 ```
 mpirun -np 16 ij -amgpcg -P 4 2 2 -27pt -gn 100 100 100
@@ -451,7 +454,7 @@ mpirun -np 16 ij -amgpcg -P 4 2 2 -27pt -gn 100 100 100
 ```
 mpirun -np 1 ij_gpu -amgpcg -27pt -gn 100 100 100
 ```
-{% include qanda question='What speedup do we observe now?' answer='We now observe a speedup of about 14, which is much higher than the speedup 4 we got for the Laplace problem with a 7-point stencil.' %}
+{% include qanda question='What speedup do we observe now?' answer='We now observe a speedup of about 11, which is much higher than the speedup 4 we got for the Laplace problem with a 7-point stencil.' %}
 
 Where is the cross-over point for this problem? Hint: Try -gn 25 25 25. Note that it is much lower than for the Laplace problem.
 
