@@ -7,10 +7,6 @@ header:
 permalink: "/setup_instructions/"
 ---
 
-In the introductory talk on Tuesday, August 9th, we will provide additional details
-about this web site and Slack channels for our parallel sessions.
-
-
 All handson activity will be on [ThetaGPU](https://www.alcf.anl.gov/support-center/theta-gpu-nodes). Here are instructions that are common
 for all the lessons.
 
@@ -102,15 +98,9 @@ or
 scp -r cooley:/foo/bar/tree .
 ```
 
-Beyond that, you may also want to have a look at...
+#### Miscellaneous ssh instructions
 
-* [Setting Up & Using SSH Multiplexing / Control master](https://en.wikibooks.org/wiki/OpenSSH/Cookbook/Multiplexing)
-* [Using SFTP](https://www.digitalocean.com/community/tutorials/how-to-use-sftp-to-securely-transfer-files-with-a-remote-server)
-* [Mounting Filesystems Over SSHFS](https://wiki.archlinux.org/index.php/SSHFS)
-
-to simplify the process of manually moving data over many iterations of examples and tests. For ex: to easily login to theta - one can do:
-
-* add the following to ~/.ssh/config
+Usig ssh `control master` feature helps with repeated access to `theta`. For this, one can add (say on your laptop) the following to `~/.ssh/config`
 ```
 Host theta.alcf.anl.gov
     Compression yes
@@ -120,5 +110,11 @@ Host theta.alcf.anl.gov
     ControlPersist 12h
     ControlPath ~/.ssh/%r@theta.alcf.anl.gov:%p
 ```
-With this - the first time you login theta.alcf.anl.gov - you need to provide passwd. But subsequent ssh/scp/sftp will go through this control master - and not ask for passwd
+With this setup - the first time you login theta.alcf.anl.gov - you need to provide passwd. But subsequent ssh/scp/sftp will go through this control master - and not ask for passwd
+
+Beyond that, you may also want to have a look at...
+
+* [Setting Up & Using SSH Multiplexing / Control master](https://en.wikibooks.org/wiki/OpenSSH/Cookbook/Multiplexing)
+* [Using SFTP](https://www.digitalocean.com/community/tutorials/how-to-use-sftp-to-securely-transfer-files-with-a-remote-server)
+* [Mounting Filesystems Over SSHFS](https://wiki.archlinux.org/index.php/SSHFS)
 
