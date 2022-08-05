@@ -52,52 +52,6 @@ Size=4, Rank=2
 Size=4, Rank=3
 ```
 
-## Visualization Tool Setup
-
-By far, where visualization tools are concerned, the easiest thing to do is to install the
-tools on your local laptop/desktop and then using them in *client/server* mode to connect
-to and display data from Cooley.
-
-### Local Installations
-
-Results from various applications we use today may involve visualization with
-[VisIt][visit], [ParaView][paraview] or other visualization tools. By far, the simplest and
-most reliable way to setup any of these tools is to create a local installation on your laptop
-and then transfer data files from Theta or Cooley (they mount the same filesystem) to visualize them locally. In track 4, you will
-have alread learned how to do this. Nonetheless, for your convenience links to instructions for
-installing these tools locally are provided here...
-* For [VisIt][visit], go [here](https://wci.llnl.gov/simulation/computer-codes/visit/executables) to
-  find a suitable bundled executable installation for your system and then download and install it.
-* For [ParaView][paraview], go [here](https://www.paraview.org/download/)  to
-  find a suitable bundled executable installation for your system and then download and install it.
-
-Once you have installed these tools, you can run them in client/server mode to connect to cooley
-and visualize here data there or you may manually transfer data between Cooley and your
-desktop/laptop system. These two modes of use are described briefly in the remaining two sections.
-
-#### Using Local Installations in Client-Server Mode
-A benefit from installing these tools locally is that once you have them installed locally, you
-can also configure them to run _client-server_ where you run an instance locally but use that
-instance to log into a remote resource, such as cooley, and visualize data there without having
-to manually transfer it locally. To setup these tools for client-server operation...
-* Follow [these instructions](https://www.alcf.anl.gov/user-guides/visit-cooley) to setup and run [VisIt][visit] client-server to Cooley.
-  * **Note:** VisIt versions 3.0, 3.1 and 3.2 are also installed even though the above instructions don't mention that.
-* Follow [these instructions](https://www.alcf.anl.gov/user-guides/paraview-cooley) to setup and run [ParaView][paraview] client-server to Cooley.
-
-#### Using Local Installations and Manually Moving Data
-
-Manually logging in to move data files each time you need to
-can become combersome. You can use a single `scp` command to copy many files using either
-file [globbing](https://en.wikipedia.org/wiki/Glob_(programming)) or the `-r` recursive
-command-line option to copy whole directory trees as for example...
-```
-scp "cooley:/tmp/imag00*.png" .
-```
-or
-```
-scp -r cooley:/foo/bar/tree .
-```
-
 #### Miscellaneous ssh instructions
 
 Usig ssh `control master` feature helps with repeated access to `theta`. For this, one can add (say on your laptop) the following to `~/.ssh/config`
