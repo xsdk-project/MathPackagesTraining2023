@@ -519,14 +519,59 @@ larger spatial meshes and parallel architectures than we have used in this demo.
 
 ## Evening Hands-on Session -- Preconditioning
 
-This lesson uses Theta (rather than ThetaGPU) and `HandsOn3.exe` to explore the
-following topics:
+This lesson uses the Theta KNL nodes (rather than ThetaGPU) and `HandsOn3.exe`
+to explore the following topics:
 
 1. Preconditioner specification
 
 2. Performance for IMEX time integrators
 
 3. Performance for fully implicit time integrators
+
+### Theta Setup Instructions
+
+1. Connect to Theta:
+   ```
+   ssh [username]@theta.alcf.anl.gov
+   ```
+
+2. If you have not already done so, create a copy of the hands-on lessons
+   ```
+   cd ~
+   rsync -a /grand/ATPESC2022/EXAMPLES/track-5-numerical .
+   ```
+
+3. Request an interactive session on Theta:
+   ```
+   qsub-knl -I -q ATPESC2022 -t 60 -n 1 -A ATPESC2022
+   ```
+
+4. Load the GNU programming environment, CMake, and conda modules:
+   ```
+   module swap PrgEnv-intel PrgEnv-gnu
+   module load cmake/3.20.4
+   module load conda/2021-09-22
+   ```
+
+5. Change to the directory for this session where the precompiled executables,
+   input files, and post processing scripts are located:
+   ```
+   cd track-5-numerical/time_integration_sundials/thetaKNL
+   ```
+
+Alternately, the source files are located under `time_integration_sundials/SUNDIALS+AMReX`
+and can be compiled using the provided configuration script:
+```
+./config_atpesc_theta.sh
+cd build
+make -j
+```
+
+The entire set of hands-on lesson codes is also available on
+[GitHub](https://github.com/AMReX-Codes/ATPESC-codes), under the
+`SUNDIALS+AMReX` directory.
+
+### Preconditioner Specification
 
 The file `HandsOn3.cpp` is nearly identical to the last example (with relevant
 changes indicated by the comment `***** UPDATED FROM HandsOn2 *****`), however,
@@ -537,8 +582,6 @@ its default parameters differ slightly:
 * it defaults to IMEX mode, with advection treated explicitly
 
 * it defaults to using a preconditioner (discussed below).
-
-### Preconditioner Specification
 
 Perhaps the most challenging (and most critical) component for a scalable
 implicit or IMEX time integrator is the creation of an effective, efficient, and
@@ -567,13 +610,13 @@ two steps:
 Run `HandsOn3.exe` using the default parameters,
 
 ```bash
-./HandsOn3.exe inputs-3
+aprun -n 1 -N 1 ./HandsOn3.exe inputs-3
 ```
 
 and again with preconditioning disabled,
 
 ```bash
-./HandsOn3.exe inputs-3 use_preconditioner=0
+aprun -n 1 -N 1 ./HandsOn3.exe inputs-3 use_preconditioner=0
 ```
 
 Note that the preconditioned version takes longer to run on this coarse problem,
@@ -587,7 +630,7 @@ will deteriorate rapidly.
 Re-run `HandsOn3.exe` using a fully-implicit problem formulation,
 
 ```bash
-./HandsOn3.exe inputs-3 rhs_adv=1
+aprun -n 1 -N 1 ./HandsOn3.exe inputs-3 rhs_adv=1
 ```
 
 Recall that this preconditioner only "preconditions" the diffusion portion of
@@ -598,10 +641,14 @@ integrator statistics (number of time steps, total linear iterations, etc.)?
 ### Scalability tests
 
 Explore the weak scalability of `HandsOn3.exe` both with and without
-preconditioning. Here, use from 1 to 36 MPI tasks, with a base grid of $$128^2$$
+preconditioning. Here, use from 1 to 256 MPI tasks, with a base grid of $$128^2$$
 per MPI task, and retain the default temporal adaptivity. The choice of IMEX vs
-fully implicit is yours.  It is recommended that you use the batch queue instead
-of running interactively. Produce a weak scaling plot with these results.
+fully implicit is yours. It is recommended that you submit a job script use the
+batch queue instead of running interactively. Produce a weak scaling plot with
+these results.
+
+See the Theta job submission [documentation](https://www.alcf.anl.gov/support-center/theta/running-jobs-and-submission-scripts)
+for more details on writing and running job scripts.
 
 ### Further reading
 
