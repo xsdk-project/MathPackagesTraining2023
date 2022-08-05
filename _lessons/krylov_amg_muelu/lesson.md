@@ -126,20 +126,20 @@ Galeri complete.
   *****   Test 1 : Belos::StatusTestImpResNorm<>: (2-Norm Res Vec) / (2-Norm Prec Res0), tol = 1e-08
   *******************************************************
   Iter   0, [ 1] :    1.000000e+00
-  Iter  10, [ 1] :    2.934358e-03
-  Iter  20, [ 1] :    4.605673e-04
-  Iter  30, [ 1] :    1.647752e-04
-  Iter  40, [ 1] :    7.453272e-05
-  Iter  50, [ 1] :    4.822835e-05
-  Iter  60, [ 1] :    2.768790e-05
-  Iter  70, [ 1] :    1.712668e-05
-  Iter  80, [ 1] :    1.194621e-05
-  Iter  90, [ 1] :    9.782121e-06
-  Iter 100, [ 1] :    7.221948e-06
+  Iter  10, [ 1] :    3.043353e-03
+  Iter  20, [ 1] :    4.505554e-04
+  Iter  30, [ 1] :    1.474199e-04
+  Iter  40, [ 1] :    6.753706e-05
+  Iter  50, [ 1] :    4.149302e-05
+  Iter  60, [ 1] :    2.096698e-05
+  Iter  70, [ 1] :    1.172067e-05
+  Iter  80, [ 1] :    7.528465e-06
+  Iter  90, [ 1] :    5.958579e-06
+  Iter 100, [ 1] :    4.273025e-06
   Passed.......OR Combination ->
     Failed.......Number of Iterations = 100 == 100
     Unconverged..(2-Norm Res Vec) / (2-Norm Prec Res0)
-                 residual [ 0 ] = 7.22195e-06 > 1e-08
+                 residual [ 0 ] = 4.27302e-06 > 1e-08
 ```
 
 #### Examining Results
