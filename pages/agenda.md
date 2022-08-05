@@ -9,6 +9,11 @@ permalink: "/agenda/"
 
 ### [Be sure to see these VIP talks]({{site.url}}{{site.baseurl}}/vip_talks/)
 <br>
+### [Session Selection Survey](https://forms.gle/KSNetANiXuaAhFEt8)
+Please fill out the Session Selection Survey to help us arrange
+rooms for the presentations and ensure everyone has a seat.
+<br>
+<br>
 
 {% include agenda %}
 <br>

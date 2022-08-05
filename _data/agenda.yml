@@ -105,28 +105,40 @@
   has_synopsis: true
   id: 16
 
-- title: "Wrap-up / Panel <br> Contributing to the Numerical Package Community"
+- title: "Extreme-Scale Numerical Algorithms and Software (Panel)"
   speakers:
     - "Pieter Ghysels"
-    - "Richard Tran Mills"
+    - "Graham Harper"
+    - "Todd Munson"
     - "Sarah Osborn"
+    - "Dan Reynolds"
+    - "Richard Tran Mills"
   start: "Tue Aug 9 4:30 PM"
-  length: 60
+  length: 45
   vname: "Main-room"
   has_synopsis: true
   id: 17
 
+- title: "Wrap-Up"
+  speakers:
+    - "Ann Almgren"
+  start: "Tue Aug 9 5:15 PM"
+  length: 15
+  vname: "Main-room"
+  has_synopsis: false
+  id: 18
+
 - title: "**Unstructured time**<br>SME selections due, break, informal discussion, continued hands-on"
   start: "Tue Aug 9 5:30 PM"
   length: 60
-  id: 18
+  id: 19
 
 - title: "**Dinner**"
   start: "Tue Aug 10 6:30 PM"
   length: 60
-  id: 19
+  id: 20
 
 - title: "SME Speed Dating<br>OPTIONAL ACTIVITY"
   start: "Tue Aug 9 7:30 PM"
   length: 60
-  id: 20
+  id: 21

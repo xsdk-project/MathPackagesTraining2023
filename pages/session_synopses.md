@@ -15,7 +15,7 @@ permalink: "/session_synopses/"
 
 In the first hour of our day with you we will give a brief introduction
 to our agenda and logistics and an overview of the various numerical packages
-you will learn about. We will also discuss important components of computational science and 
+you will learn about. We will also discuss important components of computational science and
 engineering, exascale computing and the need for scientific software ecosystems.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -34,9 +34,8 @@ particle discretizations.   We will begin with an overview of block-structured
 AMR, and then discuss the
 features of AMReX we might want to use to solve a multiphysics problem on
 machines from laptops to supercomputers.  Hands-on exercises will include passive
-scalar advection with time-dependent adaptivity,  the use of native linear
-solvers to impose incompressibility on a flow around obstacles, and
-"AMReX-Pachinko", which demonstrates the interaction of particles with objects.
+scalar advection with time-dependent adaptivity, and the use of native linear
+solvers to impose incompressibility on a flow with particles around an obstacle.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -189,21 +188,21 @@ all of the essential expertise and skills. Numerical software libraries and pack
 are a key way we share capability and know-how. Learning to leverage numerical
 packages to address new scientific computing challenges is part of becoming a member of
 the scientific computing community. In this wrap-up session of the day, we
-breifly discuss key tradeoffs in using numerical packages in practice.
+briefly discuss key trade-offs in using numerical packages in practice.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-### Wrap-up / Panel - Contributing to the Numerical Package Community
-### Wrap-up / Panel - Contributing to the Numerical Package Community
+### Extreme-Scale Numerical Algorithms and Software (Panel)
+### Extreme-Scale Numerical Algorithms and Software (Panel)
 
 This will be a 45 minute panel question and answer period for ATPESC learners to ask
 questions about working with numerical package and the community of numerical package
 developers. If you have question(s) you know you would like to ask, we encourage attendees
 to submit questions *ahead* of time via the
 [submission form](https://forms.gle/SmVroQBAq145g4F79).
-However, we expect there will also be ample opportunty to indicate your desire to ask
-questions via the main (Ampitheater) [slack channel](https://app.slack.com/client/TMW2FLNCQ/C029YJ95ULQ),
+However, we expect there will also be ample opportunity to indicate your desire to ask
+questions via the main (Amphitheater) [slack channel](https://app.slack.com/client/TMW2FLNCQ/C029YJ95ULQ),
 and then you may be called upon to un-mute and ask your question.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -217,7 +216,7 @@ This is an opportunity for you to meet and talk (1-on-1 or sometimes 2-on-1) wit
 meeting where you will be un-muted and able to have a conversation with an SME. Attendees may select up to
 3 SMEs they would like to meet using
 [this form](https://forms.gle/eCM39BXjdDt69kTH6)
-Requests will be accomodated on a first-come, first-served basis until all available slots are taken.
+Requests will be accommodated on a first-come, first-served basis until all available slots are taken.
 So, be sure to make your selections early in the day and no later than the end of the afternoon break,
 3:40 PM CDT.
 

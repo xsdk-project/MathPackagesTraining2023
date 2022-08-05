@@ -13,6 +13,8 @@
   #  url: "/virtual_rooms/"
   - title: "Getting help"
     url: "/getting-help/"
+  - title: "Session Selection Survey"
+    url: "https://forms.gle/KSNetANiXuaAhFEt8"
   - title: "Panel Question Submissions"
     url: "https://forms.gle/m26xrvNgUhQ2D7ERA"
   - title: "SME Speed Dating Selections"
