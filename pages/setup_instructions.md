@@ -33,13 +33,28 @@ rsync -a {{site.handson_install_root}}/{{site.handson_root}} .
   * **Note 2:** You may be asked periodically throughout the day to re-execute
 this command to update your local copy if we discover changes are necessary.
 1. Schedue a ThetaGPU compute node for compiles and runs
-$ qsub -I -q single-gpu -n 1 -t 60 -A ATPESC2022
-  * **Note 1:** `single-gpu` queue provides  a single GPU and 16 cores - for (max) 60 minutes, wo would need to rerun qsub as needed.
-  * **Note 2:** One *cannot* (compile or) run the binaries on the frontend thetagpusn1 or thetagpusn2. Use the allocated node for such usage.
+```
+qsub -I -q single-gpu -n 1 -t 60 -A ATPESC2022
+```
+  * **Note 1:** `single-gpu` queue provides  a single GPU and 16 cores - for (max) 60 minutes, we would need to rerun qsub as needed.
+  * **Note 2:** One *cannot* (compile or) run the binaries on the frontends theta, thetagpusn1 or thetagpusn2. Use the allocated node for such usage.
   * **Note 3:** ThetaGPU job scheduling policies [document](https://www.alcf.anl.gov/support-center/theta-gpu-nodes/gpu-node-queue-and-policy)
   * **Note 4:** To enable X windows for visualization on the compute node, you can open a new terminal and login to the allocated compute node by doing `ssh -Y thetagpuXY` (`thetagpuXY` is your compute node id)
 1. Load the required MPI, blas, lapack modules
+```
 $ module load openmpi/openmpi-4.1.4_ucx-1.12.1_gcc-9.4.0 aocl/blis/blis-3.2 aocl/libflame/libflame-3.2
+```
+1. Confirm you can compile and run an example
+```
+$ cd track-5-numerical/hand_coded_heat
+$ make mpi_test
+mpicc mpi_test.c -o mpi_test
+mpiexec -n 4 ./mpi_test
+Size=4, Rank=0
+Size=4, Rank=1
+Size=4, Rank=2
+Size=4, Rank=3
+```
 
 ## Visualization Tool Setup
 
@@ -93,7 +108,7 @@ Beyond that, you may also want to have a look at...
 * [Using SFTP](https://www.digitalocean.com/community/tutorials/how-to-use-sftp-to-securely-transfer-files-with-a-remote-server)
 * [Mounting Filesystems Over SSHFS](https://wiki.archlinux.org/index.php/SSHFS)
 
-to simplify the process of manually moving data over many iterations of examples and tests. For ex: to easily login to cooley - one can do:
+to simplify the process of manually moving data over many iterations of examples and tests. For ex: to easily login to theta - one can do:
 
 * add the following to ~/.ssh/config
 ```
