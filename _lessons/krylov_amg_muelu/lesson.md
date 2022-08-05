@@ -37,7 +37,6 @@ As we will be using a GPU enabled executable, we will be running on ThetaGPU.
 Go to the directory for the Krylov application, and make sure the appropriate modules are loaded
 ```
 cd {{site.handson_root}}/krylov_amg_muelu
-module load openmpi aocl/blis aocl/libflame
 ```
 
 ## The Problem Being Solved
