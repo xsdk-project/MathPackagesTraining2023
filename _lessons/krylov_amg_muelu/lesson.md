@@ -61,7 +61,7 @@ A complete set of options will be printed by typing
 ```
 ./MueLu_driver_gpu.exe --help
 ```
-The most important ones are: <!-- TODO: add --timings to the list -->
+The most important ones are:
 ```
 Usage: ./MueLu_driver_gpu.exe [options]
   options:
@@ -78,6 +78,8 @@ Usage: ./MueLu_driver_gpu.exe [options]
                                        (default: --xml="stratimikos_ParameterList.xml")
   --yaml                 string        read parameters from a yaml file
                                        (default: --yaml="")
+  --timings              bool          print timings to screen
+  --notimings                          (default: --notimings)
 ```
 
 Solvers (such as CG and GMRES) and preconditioners (such as Jacobi, Gauss-Seidel and multigrid) are configured via parameter files.
@@ -342,33 +344,42 @@ We know that usually Gauss-Seidel is a better smoother than Jacobi.
 We'll explore this more in-depth and consider how the architecture influences the choice of algorithm.
 There are two ways of using Gauss-Seidel while keeping the preconditioner symmetric:
 we can either use different directions in the sweeps in pre- and post-smoothing, or use a symmetric Gauss-Seidel smoother for both.
-We will focus on multi-threaded symmetric Gauss-Seidel, where the multi-threaded aspect utilizes graph colorings to increase its parallel capabilities.
+We will focus on symmetric Gauss-Seidel.
 
 <img src="arrow.png" width="30"> Run the CPU-based driver
 ```
-mpiexec -np 8 ./MueLu_driver_cpu.exe --xml=set3-mg-jacobi.xml --timings --nx=1000 --ny=1000
-mpiexec -np 8 ./MueLu_driver_cpu.exe --xml=set3-mg-mtsgs.xml  --timings --nx=1000 --ny=1000
+mpiexec -np 8 ./MueLu_driver_cpu.exe --xml=set3-mg-jacobi.xml --timings --nx=1000 --ny=1000 | grep -E "total solve time|Number of Iterations|Timer Name"
+mpiexec -np 8 ./MueLu_driver_cpu.exe --xml=set3-mg-sgs.xml    --timings --nx=1000 --ny=1000 | grep -E "total solve time|Number of Iterations|Timer Name"
 ```
 and compare the number of iterations and the timings.
 
-{% include qanda question='Do you see an improvement in iterations?' answer='Yes. For symmetric Gauss-Seidel, the number of iterations decreases.  For forward Gauss-Seidel
-for pre-smoothing and backwards Gauss-Seidel for post-smoothing, both number of iterations and time-to-solution are reduced.' %}
+{% include qanda question='Do you see an improvement in iterations?' answer='Yes. For symmetric Gauss-Seidel, the number of iterations is lower and
+the time to solution is faster than Jacobi.' %}
 
 The choice of algorithm matters depending on the underlying computational architecture.
 Now, run the same solvers on GPU and compare them.
 
 <img src="arrow.png" width="30"> Run the GPU-based driver
 ```
-./MueLu_driver_gpu.exe --xml=set3-mg-jacobi.xml --timings --nx=1000 --ny=1000
-./MueLu_driver_gpu.exe --xml=set3-mg-mtsgs.xml  --timings --nx=1000 --ny=1000
+./MueLu_driver_gpu.exe --xml=set3-mg-jacobi.xml --timings --nx=1000 --ny=1000 | grep -E "total solve time|Number of Iterations"
+./MueLu_driver_gpu.exe --xml=set3-mg-sgs.xml    --timings --nx=1000 --ny=1000 | grep -E "total solve time|Number of Iterations"
 ```
 
 {% include qanda question='Do you think that Gauss-Seidel is easily adaptible for use on massively parallel architectures such as GPUs?' answer='Gauss-Seidel has
 limited opportunities for parallelism.  Equation $$i$$ cannot be solved until all equations $$j, j<i$$ that $$i$$ depends on have been solved, hence it is slower than other smoothers on GPUs.' %}
 Hint: Have a look at the [Gauss-Seidel algorithm](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method#Algorithm).
 
-{% include qanda question='How do these compare to the smoothers without coloring? How do they compare to a Jacobi smoother?' answer='They perform faster than the
-counterparts without graph coloring. However, they are still not faster than Jacobi on a GPU.' %}
+To mitigate the effects, we can also consider different formulations of the algorithm. For example, multithreaded Gauss-Seidel
+utilizes graph colorings to formulate the Gauss-Seidel solver in a fashion that is more friendly to massively parallel architectures.
+Try the multithreaded approach to see if there is an improvement.
+
+<img src="arrow.png" width="30"> Run
+```
+./MueLu_driver_gpu.exe --xml=set3-mg-mtsgs.xml    --timings --nx=1000 --ny=1000 | grep -E "total solve time|Number of Iterations"
+```
+
+{% include qanda question='How does this compare to the smoothers without coloring? How does this compare to a Jacobi smoother?' answer='It performs faster than the
+counterpart without graph coloring. However, it is still not faster than Jacobi on a GPU.' %}
 
 While advanced architectures allow for increased speeds for many applications, the performance gains are highly dependent on the underlying algorithm.
 Understanding the underlying algorithms and their performance on different architectures is crucial for creating robust solvers.
