@@ -528,6 +528,14 @@ following topics:
 
 3. Performance for fully implicit time integrators
 
+Before beginning any work on this portion, you should change directories to the
+pre-built binaries for Theta's KNL nodes:
+
+```
+cd ~
+cd track-5-numerical/time_integration_sundials/thetaKNL
+```
+
 The file `HandsOn3.cpp` is nearly identical to the last example (with relevant
 changes indicated by the comment `***** UPDATED FROM HandsOn2 *****`), however,
 its default parameters differ slightly:
