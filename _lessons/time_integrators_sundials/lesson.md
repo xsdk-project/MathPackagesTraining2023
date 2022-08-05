@@ -49,7 +49,7 @@ header:
 4. Change to the directory for this session where the precompiled executables,
    input files, and post processing scripts are located:
    ```
-   cd track-5-numerical/time_integration_sundials/bin
+   cd track-5-numerical/time_integration_sundials/thetaGPU
    ```
 
 Alternately, the source files are located under `time_integration_sundials/SUNDIALS+AMReX`
