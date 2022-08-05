@@ -32,6 +32,8 @@ header:
 <!-- * [Open the Answers Form]({{page.answers_google_form}}) -->
 Make sure that you have followed the [setup instructions]({{site.url}}/{{site.baseurl}}/setup_instructions/).
 
+As we will be using a GPU enabled executable, we will be running on ThetaGPU.
+
 Go to the directory for the Krylov application, and make sure the appropriate modules are loaded
 ```
 cd {{site.handson_root}}/krylov_amg_muelu
@@ -183,16 +185,16 @@ Moreover, we add the following configuration for Ifpack2.
 <ParameterList name="Ifpack2">
   <Parameter name="Prec Type" type="string" value="relaxation"/>
   <ParameterList name="Ifpack2 Settings">
-    <Parameter name="relaxation: type" type="string" value="Jacobi"/>
+    <Parameter name="relaxation: type" type="string" value="Symmetric Gauss-Seidel"/>
     <Parameter name="relaxation: sweeps" type="int" value="1"/>
   </ParameterList>
 </ParameterList>
 ```
-This means that a single sweep of Jacobi is used for preconditioning.
+This means that a single sweep of symmetric Gauss-Seidel is used for preconditioning.
 
 <img src="arrow.png" width="30"> Run
 ```
-./MueLu_driver_gpu.exe --xml=set2-jacobi1.xml
+./MueLu_driver_gpu.exe --xml=set2-sgs1.xml
 ```
 
 <!-- {% include qanda question='Why did the solve become even worse?' answer='Gauss-Seidel is an unsymmetric preconditioner, but CG needs a symmetric one!' %} -->
@@ -202,12 +204,12 @@ This means that a single sweep of Jacobi is used for preconditioning.
 
 <!-- <img src="arrow.png" width="30"> Rerun to verify that the solver is now converging. -->
 
-We can strengthen the preconditioner by increasing the number of Jacobi sweeps we are using as a preconditioner.
+We can strengthen the preconditioner by increasing the number of Gauss-Seidel sweeps we are using as a preconditioner.
 We switch `relaxation: sweeps` to 3.
 
 <img src="arrow.png" width="30"> Run
 ```
-./MueLu_driver_gpu.exe --xml=set2-jacobi3.xml
+./MueLu_driver_gpu.exe --xml=set2-sgs3.xml
 ```
 and verify that the number of iterations further decreased.
 
@@ -215,9 +217,9 @@ Now, we will check whether we have created a scalable solver strategy.
 
 <img src="arrow.png" width="30"> Record the number of iterations for different problem sizes by running
 ```
-./MueLu_driver_gpu.exe --xml=set2-jacobi3.xml --nx=50  --ny=50
-./MueLu_driver_gpu.exe --xml=set2-jacobi3.xml --nx=100 --ny=100
-./MueLu_driver_gpu.exe --xml=set2-jacobi3.xml --nx=200 --ny=200
+./MueLu_driver_gpu.exe --xml=set2-sgs3.xml --nx=50  --ny=50
+./MueLu_driver_gpu.exe --xml=set2-sgs3.xml --nx=100 --ny=100
+./MueLu_driver_gpu.exe --xml=set2-sgs3.xml --nx=200 --ny=200
 ```
 (This means that we are running the same 2D Laplace problem as above, but on meshes of size 50x50, etc.)
 
