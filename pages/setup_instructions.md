@@ -25,7 +25,7 @@ Please complete the following _required_ steps prior to the beginning of the ses
 on Tuesday, August 10th.
 
 1. Log into Theta, then ssh from there to one of the GPU service nodes
-  * Use secure shell with compression, and trusted X forwarding enabled
+  * Use secure shell with trusted X11 forwarding enabled
 ```
 ssh -l <username> -Y theta.alcf.anl.gov
 ssh -Y thetagpusn1  # or thetagpusn2
@@ -57,7 +57,7 @@ $ exit
     You may have to wait a moment for the interactive prompt on the reserved node to return.
   * The above commands produce the `mpi_test` binary and execution output.
 1. As soon after 9:30am, Tuesday , August 9th as possible, allocate an interactive node on
-   cooley. Executing the following command from one of the ThetaGPU service nodes allocates a ThetaGPU interactive session with a single GPU (`-q single-gpu -n 1`) and 16 CPU cores for 300 minutes
+   ThetaGPU. Executing the following command from one of the ThetaGPU service nodes allocates a ThetaGPU interactive session with a single GPU (`-q single-gpu -n 1`) and 16 CPU cores for 300 minutes
    (`-t 300`) using the ATPESC2022 allocation (`-A ATPESC2022`) and the queue reservation (`-q training`):
 ```
 qsub -I -q single-gpu -n 1 -t 300 -A ATPESC2022
@@ -79,7 +79,7 @@ to and display data from Cooley.
 Results from various applications we use today may involve visualization with
 [VisIt][visit], [ParaView][paraview] or other visualization tools. By far, the simplest and
 most reliable way to setup any of these tools is to create a local installation on your laptop
-and then transfer data files from cooley to visualize them locally. In track 4, you will
+and then transfer data files from Theta or Cooley (they mount the same filesystem) to visualize them locally. In track 4, you will
 have alread learned how to do this. Nonetheless, for your convenience links to instructions for
 installing these tools locally are provided here...
 * For [VisIt][visit], go [here](https://wci.llnl.gov/simulation/computer-codes/visit/executables) to
