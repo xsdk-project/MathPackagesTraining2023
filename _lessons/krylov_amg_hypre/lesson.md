@@ -41,7 +41,7 @@ It is discretized using central finite differences, leading to a symmetric posit
 For the first part of the hands-on lessons we will use the executable ij. Various solver, problem and parameter options can be invoked by adding them to the command line.
 A complete set of options will be printed by typing
 ```
-./ij -help
+mpirun -np 1 ij -help
 ```
 Here is an excerpt of the output of this command with all the options relevant for the hands-on lessons.
 
@@ -374,7 +374,7 @@ So far, we achieved the best overall time to solve a Poisson problem on a cube o
 How would a structured solver perform on this problem?
 We now use the driver for the structured interface, which will also give various input options by typing
 ```
-./struct -help
+mpirun -np 1 struct -help
 ```
 
 To run the structured solver PFMG for this problem type
