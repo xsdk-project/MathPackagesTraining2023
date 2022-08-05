@@ -20,41 +20,25 @@ header:
 
 ## Setup Instructions
 
-1. Connect to Theta:
-   ```
-   ssh [username]@theta.alcf.anl.gov
-   ```
+1. Make sure that you have followed the [setup instructions]({{site.url}}/{{site.baseurl}}/setup_instructions/)
 
-2. If you have not already done so, create a copy the hands-on lessons
-   ```
-    cd ~
-    rsync -a /grand/ATPESC2022/EXAMPLES/track-5-numerical .
-    ```
-
-2. Request an interactive session on Theta GPU:
-   ```
-   qsub-gpu -I -q single-gpu -t 60 -n 1 -A ATPESC2022
-   ```
-
-3. Load the OpenMPI, BLAS, LAPACK, CMake, and conda modules and activate conda:
-   ```
-   module load openmpi/openmpi-4.1.4_ucx-1.12.1_gcc-9.4.0
-   module load aocl/blis/blis-3.2
-   module load aocl/libflame/libflame-3.2
-   module load cmake-3.20.3-gcc-9.3.0-57eqw4f
-   module load conda/2022-07-01
-   conda activate
-   ```
-
-4. Change to the directory for this session where the precompiled executables,
-   input files, and post processing scripts are located:
+2. Change to the directory containing the precompiled executables, input files,
+   and post processing scripts for this lesson:
    ```
    cd track-5-numerical/time_integration_sundials/thetaGPU
    ```
 
-Alternately, the source files are located under `time_integration_sundials/SUNDIALS+AMReX`
-and can be compiled using the provided configuration script:
+3. For postprocessing output files load and activate conda:
+   ```
+   module load conda/2022-07-01
+   conda activate
+   ```
+
+If you want to modify and rebuild the hands-on codes, the source files are
+located under `track-5-numericaltime_integration_sundials/SUNDIALS+AMReX` and
+can be compiled using the provided configuration script:
 ```
+module load cmake-3.20.3-gcc-9.3.0-57eqw4f
 ./config_atpesc_thetagpu.sh
 cd build
 make -j
@@ -549,19 +533,20 @@ to explore the following topics:
 4. Load the GNU programming environment, CMake, and conda modules:
    ```
    module swap PrgEnv-intel PrgEnv-gnu
-   module load cmake/3.20.4
    module load conda/2021-09-22
    ```
 
-5. Change to the directory for this session where the precompiled executables,
-   input files, and post processing scripts are located:
+5. Change to the directory containing the precompiled executables, input files,
+   and post processing scripts for this lesson:
    ```
    cd track-5-numerical/time_integration_sundials/thetaKNL
    ```
 
-Alternately, the source files are located under `time_integration_sundials/SUNDIALS+AMReX`
-and can be compiled using the provided configuration script:
+If you want to modify and rebuild the hands-on code, the source files are
+located under `track-5-numerical/time_integration_sundials/SUNDIALS+AMReX` and
+can be compiled using the provided configuration script:
 ```
+module load cmake/3.20.4
 ./config_atpesc_theta.sh
 cd build
 make -j
