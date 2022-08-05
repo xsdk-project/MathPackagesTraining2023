@@ -8,9 +8,9 @@ header:
 permalink: "/setup_instructions/"
 ---
 
-In the introductory talk on Tuesday, August 10th, we will provide additional details
-about this web site and Zoom rooms and Slack channels for our parallel sessions.
-Here, now, we provide instructions for setting up your Cooley login enviornment,
+In the introductory talk on Tuesday, August 9th, we will provide additional details
+about this web site and Slack channels for our parallel sessions.
+Here, now, we provide instructions for setting up your ThetaGPU login enviornment,
 reserving one node for the day for hands-on lessons and setting up visualization
 tools.
 
@@ -24,13 +24,14 @@ or improving performance of certain operations.
 Please complete the following _required_ steps prior to the beginning of the session
 on Tuesday, August 10th.
 
-1. Log Into Cooley
+1. Log into Theta, then ssh from there to one of the GPU service nodes
   * Use secure shell with compression, and trusted X forwarding enabled
 ```
-ssh -l <username> -C -Y cooley.alcf.anl.gov
+ssh -l <username> -Y theta.alcf.anl.gov
+ssh -Y thetagpusn1  # or thetagpusn2
 ```
 1. Copy Installed Software
-* Once you are logged into Cooley, please execute the following instruction
+* Once you are logged into Theta, please execute the following instruction
 to create a local, editable copy of numerical package software.
 ```
 cd ~
@@ -39,28 +40,9 @@ rsync -a {{site.handson_install_root}}/{{site.handson_root}} .
   * **Note 1:** do not include a trailing slash, `/` in the path argument.
   * **Note 2:** You may be asked periodically throughout the day to re-execute
 this command to update your local copy if we discover changes are necessary.
-1. Setup to use appropriate MPI and GCC
-  * The above software is built with gcc-8.2 and corresponding MPI. Please update your `~/.soft.cooley to have
-```
-+gcc-8.2.0
-+cuda-10.2
-PATH+=/grand/ATPESC2022/usr/MathPackages/openmpi-4.1.1-gcc82-cuda102/bin
-+ffmpeg
-@default
-```
-  * And run
-```
-resoft
-```
-  * Confirm correct mpiexec is in PATH
-```
-$ which mpiexec
-/grand/ATPESC2022/usr/MathPackages/openmpi-4.1.1-gcc82-cuda102/bin/mpiexec
-```
-
 1. Confirm you can compile and run an example
 ```
-$ qsub -I -n 1 -t 5 -A ATPESC2022 -q training
+$ qsub -I -q single-gpu -n 1 -t 5 -A ATPESC2022
 $ cd track-5-numerical/hand_coded_heat
 $ make mpi_test
 mpicc mpi_test.c -o mpi_test
@@ -71,20 +53,20 @@ Size=4, Rank=2
 Size=4, Rank=3
 $ exit
 ```
-  * The `qsub` command reserves a cooley node for interactive work for 5 minutes.
+  * The `qsub` command reserves a ThetaGPU interactive session for 5 minutes.
     You may have to wait a moment for the interactive prompt on the reserved node to return.
   * The above commands produce the `mpi_test` binary and execution output.
-1. As soon after 9:30am, Tuesday , August 10th as possible, allocate an interactive node on
-   cooley. The following command allocates a single Cooley node (`-n 1`) for 300 minutes
+1. As soon after 9:30am, Tuesday , August 9th as possible, allocate an interactive node on
+   cooley. Executing the following command from one of the ThetaGPU service nodes allocates a ThetaGPU interactive session with a single GPU (`-q single-gpu -n 1`) and 16 CPU cores for 300 minutes
    (`-t 300`) using the ATPESC2022 allocation (`-A ATPESC2022`) and the queue reservation (`-q training`):
 ```
-qsub -I -n 1 -t 300 -A ATPESC2022 -q training
+qsub -I -q single-gpu -n 1 -t 300 -A ATPESC2022
 ```
-The command blocks until the node is ready.  Until the allocation expires (300 minutes in this example), all commands executed in the returned session will run on the allocated compute node; `mpiexec` can be used directly instead of going through `qsub`.
+The command blocks until the node is ready.  Until the allocation expires (300 minutes in this example), all commands executed in the returned session will run on the allocated compute node; `mpiexec` or `mpirun` can be used directly instead of going through `qsub`.
   * **Note 1:** Please **DO NOT** run MPI jobs on the login nodes. Instead, run them on an allocated compute node.
   * **Note 2:** Be aware, however, that any running job will be terminated when your allocation expires.
-  * **Note 3:** Cooley job scheduling policies [document](https://www.alcf.anl.gov/support-center/cooley/job-scheduling-policies-cooley)
-  * **Note 4:** To enable X windows for visualization on the compute node, you can open a new terminal and login to the allocated compute node by doing `ssh -Y cc0xx` (`cc0xx` is your compute node id)
+  * **Note 3:** ThetaGPU job scheduling policies [document](https://www.alcf.anl.gov/support-center/theta-gpu-nodes/gpu-node-queue-and-policy)
+  * **Note 4:** To enable X windows for visualization on the compute node, you can open a new terminal and login to the allocated compute node by doing `ssh -Y thetagpuXY` (`thetagpuXY` is your compute node id)
 
 ## Visualization Tool Setup
 
