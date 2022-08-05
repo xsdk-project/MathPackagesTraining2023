@@ -11,7 +11,7 @@ In the introductory talk on Tuesday, August 9th, we will provide additional deta
 about this web site and Slack channels for our parallel sessions.
 
 
-All handson activity will be on `ThetaGPU`. Here are instructions that are common
+All handson activity will be on [ThetaGPU](https://www.alcf.anl.gov/support-center/theta-gpu-nodes). Here are instructions that are common
 for all the lessons.
 
 ## Using ThetaGPU
