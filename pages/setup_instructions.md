@@ -2,7 +2,7 @@
 layout: page
 show_meta: false
 title: "Setup Instructions"
-subheadline: "Instructions to complete prior to August 10th."
+subheadline: "Instructions to complete prior to August 9th."
 header:
    image_fullwidth: "atpesc-1024x2746.jpg"
 permalink: "/setup_instructions/"
@@ -22,7 +22,7 @@ or improving performance of certain operations.
 ## Required Steps
 
 Please complete the following _required_ steps prior to the beginning of the session
-on Tuesday, August 10th.
+on Tuesday, August 9th.
 
 1. Log into Theta, then ssh from there to one of the GPU service nodes
   * Use secure shell with trusted X11 forwarding enabled
