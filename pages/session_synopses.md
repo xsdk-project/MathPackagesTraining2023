@@ -15,9 +15,8 @@ permalink: "/session_synopses/"
 
 In the first hour of our day with you we will give a brief introduction
 to our agenda and logistics and an overview of the various numerical packages
-you will learn about. In addition, we will do a hands-on exercise that amounts
-to the `Hello, World!` of numerical software, the one-dimensional heat equation,
-and use it to help answer a very simple science question.
+you will learn about. We will also discuss important components of computational science and 
+engineering, exascale computing and the need for scientific software ecosystems.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -126,7 +125,7 @@ description of the high performance linear solvers library HYPRE, its
 interfaces, and its most used multigrid solvers, BoomerAMG and PFMG, including
 a brief discussion of the effect of their data structures on performance.
 The lesson includes hands-on examples with structured and unstructured solvers
-from the HYPRE library applied to several test problems.
+from the HYPRE library applied to several test problems on CPUs and GPUs.
 
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
