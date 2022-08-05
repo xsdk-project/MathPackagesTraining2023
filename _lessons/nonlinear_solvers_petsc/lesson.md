@@ -21,6 +21,7 @@ header:
 
 **Note:** To build the executable used in this lesson do
 ```
+module load openmpi/openmpi-4.1.4_ucx-1.12.1_gcc-9.4.0
 cd {{site.handson_root}}/nonlinear_solvers_petsc
 # The ex19 executable should already exist, but if it needs to be rebuilt, do
 make ex19
@@ -70,7 +71,7 @@ Grashof number and $$\mathrm{Pr}$$ is the Prandtl number.
 Let's begin by running the `ex19` on a single MPI rank with some basic command line options.
 
 ```
-./ex19 -snes_monitor -snes_converged_reason -da_grid_x 16 -da_grid_y 16 -da_refine 2 -lidvelocity 100 -grashof 1e2
+mpirun -n 1 ./ex19 -snes_monitor -snes_converged_reason -da_grid_x 16 -da_grid_y 16 -da_refine 2 -lidvelocity 100 -grashof 1e2
 ```
 
 You should see output similar to
@@ -200,7 +201,7 @@ to an inexact Newton method. To run with exact Newton (and to check the executio
 use `-pc_type lu`, which indicates to the KSP object (which controls the linear solver) that
 the underlying preconditioner should be an full LU decomposition:
 ```
-./ex19 -da_refine 2 -grashof 1e2 -pc_type lu
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1e2 -pc_type lu
 grep Time\ \(sec\): log.txt
 ```
 (Remember, the above command assumes that you have set `PETSC_OPTIONS` as specified in the
@@ -211,7 +212,7 @@ preceding section.)
 <details>
 <summary><h4 style="margin: 0 0 0 0; display: inline">Sample output on my laptop (Dell XPS 13 with Intel Core i7-10710U CPU)</h4></summary>
 ```
-rmills@encke:~/proj/petsc/src/snes/tutorials (master=)$ ./ex19 -da_refine 2 -grashof 1e2 -pc_type lu
+rmills@encke:~/proj/petsc/src/snes/tutorials (master=)$ mpirun -n 1 ./ex19 -da_refine 2 -grashof 1e2 -pc_type lu
 lid velocity = 100., prandtl # = 1., grashof # = 100.
   0 SNES Function norm 7.681163231938e+02 
   Linear solve converged due to CONVERGED_RTOL iterations 1
@@ -240,7 +241,7 @@ Time (sec):           6.728e-01     1.000   6.728e-01
 The work required to solve the inner, linear interation so precisely is likely wasted.
 Let's try using the default iterative solver with some different tolerances. Start with
 ```
-./ex19 -da_refine 2 -grashof 1e2 -ksp_rtol 1e-8
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1e2 -ksp_rtol 1e-8
 ```
 and then try some larger values for relative convergence tolerance, `-ksp_rtol`.
 Try `-ksp_rtol 1e-5` (the PETSc default) next, and try increasing it by an order of
@@ -284,9 +285,9 @@ will fail for some cases.
 Using the linear solver defaults, increase the size of the grid (that is, decrease the
 grid spacing) and observe what happens to iteration counts and execution times:
 ```
-mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 2
-mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 3
-mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 4 
+mpirun -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 2
+mpirun -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 3
+mpirun -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 4 
 ```
 
 {::options parse_block_html="true" /}
@@ -294,7 +295,7 @@ mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 4
 <details>
 <summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `-da_refine 4` case</h4></summary>
 ```
-$ mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 4
+$ mpirun -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 4
 lid velocity = 100., prandtl # = 1., grashof # = 100.
   0 SNES Function norm 1.545962539057e+03 
   Linear solve converged due to CONVERGED_RTOL iterations 125
@@ -325,9 +326,9 @@ check out the `-help` output to see how to use other types; you may also want to
 `-snes_view` to see the multigrid hierarchy):
 
 ```
-mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 2
-mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 3
-mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 4 
+mpirun -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 2
+mpirun -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 3
+mpirun -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 4 
 ```
 
 {::options parse_block_html="true" /}
@@ -335,7 +336,7 @@ mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 4
 <details>
 <summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `-pc_type mg -da_refine 4` case</h4></summary>
 ```
-mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 4
+mpirun -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 4
 lid velocity = 100., prandtl # = 1., grashof # = 100.
   0 SNES Function norm 1.545962539057e+03 
   Linear solve converged due to CONVERGED_RTOL iterations 6
@@ -366,10 +367,10 @@ Let's explore what happens as we increase the strength of the nonlinearity by ra
 Grashof number. Try running
 
 ```
-./ex19 -da_refine 2 -grashof 1e2
-./ex19 -da_refine 2 -grashof 1e3
-./ex19 -da_refine 2 -grashof 1e4
-./ex19 -da_refine 2 -grashof 1.3e4
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1e2
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1e3
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1e4
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3e4
 ```
 
 {::options parse_block_html="true" /}
@@ -377,7 +378,7 @@ Grashof number. Try running
 <details>
 <summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `./ex19 -da_refine 2 -grashof 1.3e4`</h4></summary>
 ```
-./ex19 -da_refine 2 -grashof 1.3e4
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3e4
 lid velocity = 100., prandtl # = 1., grashof # = 13000.
   0 SNES Function norm 7.971152173639e+02 
   Linear solve did not converge due to DIVERGED_ITS iterations 10000
@@ -391,7 +392,7 @@ stronger preconditioner can help us:
 {::options parse_block_html="false" /}
 
 ```
-./ex19 -da_refine 2 -grashof 1.3e4 -pc_type mg
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3e4 -pc_type mg
 ```
 
 {::options parse_block_html="true" /}
@@ -399,7 +400,7 @@ stronger preconditioner can help us:
 <details>
 <summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `./ex19 -da_refine 2 -grashof 1.3e4 -pc_type mg`</h4></summary>
 ```
-./ex19 -da_refine 2 -grashof 1.3e4 -pc_type mg
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3e4 -pc_type mg
 lid velocity = 100., prandtl # = 1., grashof # = 13000.
   ...
   4 SNES Function norm 3.209967262833e+02 
@@ -422,14 +423,14 @@ Success! But what if we increase the Grashof number a little more? Try
 {::options parse_block_html="false" /}
 
 ```
-./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type mg
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type mg
 ```
 
 
 {::options parse_block_html="true" /}
 <div style="border: solid #8B8B8B 2px; padding: 10px;">
 <details>
-<summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type mg`</h4></summary>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type mg`</h4></summary>
 ```
 lid velocity = 100., prandtl # = 1., grashof # = 13373.
 ...
@@ -447,7 +448,7 @@ No good! Let's try brute force and employ `-pc_type lu`:
 {::options parse_block_html="false" /}
 
 ```
-./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type lu
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type lu
 ```
 
 {::options parse_block_html="true" /}
@@ -455,7 +456,7 @@ No good! Let's try brute force and employ `-pc_type lu`:
 <details>
 <summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type lu`</h4></summary>
 ```
-./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type lu
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type lu
 ...
  48 SNES Function norm 3.193724239842e+02 
   Linear solve converged due to CONVERGED_RTOL iterations 1
@@ -477,7 +478,7 @@ Since our Newton solver is unable to make progress on its own, let's try combini
 We will try nonlinear Richardson iteration, preconditioned with Newton's method:
 
 ```
-./ex19 -da_refine 2 -grashof 1.3373e4 -snes_type nrichardson -npc_snes_type newtonls -npc_snes_max_it 4 -npc_pc_type mg
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -snes_type nrichardson -npc_snes_type newtonls -npc_snes_max_it 4 -npc_pc_type mg
 ```
 
 {::options parse_block_html="true" /}
@@ -494,7 +495,7 @@ Number of SNES iterations = 0
 {::options parse_block_html="false" /}
 
 ```
-./ex19 -da_refine 2 -grashof 1.3373e4 -snes_type nrichardson -npc_snes_type newtonls -npc_snes_max_it 4 -npc_pc_type lu
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -snes_type nrichardson -npc_snes_type newtonls -npc_snes_max_it 4 -npc_pc_type lu
 ```
 
 {::options parse_block_html="true" /}
@@ -522,7 +523,7 @@ So nonlinear Richardson preconditioned with Newton has managed to get us further
 Let's try increasing the Grashof number a little more:
 
 ```
-./ex19 -da_refine 2 -grashof 1.4e4 -snes_type nrichardson -npc_snes_type newtonls -npc_snes_max_it 4 -npc_pc_type lu
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -snes_type nrichardson -npc_snes_type newtonls -npc_snes_max_it 4 -npc_pc_type lu
 ```
 
 {::options parse_block_html="true" /}
@@ -546,7 +547,7 @@ Let's try preconditioning Newton with nonlinear Richardson.
 ### Example 6: Newton Preconditioned with Nonlinear Richardson
 
 ```
-./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 1 -snes_max_it 1000
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 1 -snes_max_it 1000
 ```
 
 {::options parse_block_html="true" /}
@@ -570,7 +571,7 @@ of the inner, nonlinear Richardson solver?
 {::options parse_block_html="false" /}
 
 ```
-./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 3
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 3
 ```
 
 {::options parse_block_html="true" /}
@@ -595,10 +596,10 @@ Much improved! Can we do even better?
 {::options parse_block_html="false" /}
 
 ```
-./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 4
-./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 5
-./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 6
-./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 7
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 4
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 5
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 6
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 7
 ```
 
 {::options parse_block_html="true" /}
@@ -633,7 +634,7 @@ Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE iterations 8
 Newton preconditioned with nonlinear Richardson can be pushed quite far! Try
 
 ```
-./ex19 -da_refine 2 -grashof 1e6 -pc_type lu -npc_snes_type nrichardson -npc_snes_max_it 7 -snes_max_it 1000
+mpirun -n 1 ./ex19 -da_refine 2 -grashof 1e6 -pc_type lu -npc_snes_type nrichardson -npc_snes_max_it 7 -snes_max_it 1000
 ```
 
 {::options parse_block_html="true" /}
