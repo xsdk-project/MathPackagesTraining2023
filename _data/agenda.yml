@@ -105,6 +105,15 @@
   has_synopsis: true
   id: 16
 
+- title: "Wrap-Up"
+  speakers:
+    - "Ann Almgren"
+  start: "Tue Aug 9 4:30 PM"
+  length: 15
+  vname: "Main-room"
+  has_synopsis: false
+  id: 17
+
 - title: "Extreme-Scale Numerical Algorithms and Software (Panel)"
   speakers:
     - "Pieter Ghysels"
@@ -113,19 +122,10 @@
     - "Sarah Osborn"
     - "Dan Reynolds"
     - "Richard Tran Mills"
-  start: "Tue Aug 9 4:30 PM"
+  start: "Tue Aug 9 4:45 PM"
   length: 45
   vname: "Main-room"
   has_synopsis: true
-  id: 17
-
-- title: "Wrap-Up"
-  speakers:
-    - "Ann Almgren"
-  start: "Tue Aug 9 5:15 PM"
-  length: 15
-  vname: "Main-room"
-  has_synopsis: false
   id: 18
 
 - title: "**Unstructured time**<br>SME selections due, break, informal discussion, continued hands-on"
