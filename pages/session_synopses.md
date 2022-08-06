@@ -212,13 +212,11 @@ and then you may be called upon to un-mute and ask your question.
 ### SME Speed Dating OPTIONAL ACTIVITY
 
 This is an opportunity for you to meet and talk (1-on-1 or sometimes 2-on-1) with subject matter experts
-(SMEs) about their work and numerical packages they support. Each *speed date* will be a 20 minute Zoom
-meeting where you will be un-muted and able to have a conversation with an SME. Attendees may select up to
+(SMEs) about their work and numerical packages they support. Each *speed date* will be a 20 minute 
+meeting. Attendees may select up to
 3 SMEs they would like to meet using
-[this form](https://forms.gle/eCM39BXjdDt69kTH6)
+[this form](https://docs.google.com/document/d/166nDHcNm3PlCn8O-fbiy9nKJS7HekhYsvKV2FB7n7XI/edit?usp=sharing)
 Requests will be accommodated on a first-come, first-served basis until all available slots are taken.
-So, be sure to make your selections early in the day and no later than the end of the afternoon break,
-3:40 PM CDT.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
