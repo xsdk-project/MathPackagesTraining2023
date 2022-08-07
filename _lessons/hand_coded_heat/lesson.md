@@ -1,5 +1,6 @@
 ---
 layout: page-fullwidth
+not_active: true
 order: 1
 title: "Hand Coded Heat"
 subheadline: "Hello World for Numerical Packages"
@@ -354,7 +355,7 @@ text files containing two columns of data. To see an example, run the command
 ```
 
 The first column is each spatial position, $$x_{i}$$ and the second column is the
-temperature, _u_, at that spatial position. The name of the file indicates the 
+temperature, _u_, at that spatial position. The name of the file indicates the
 _time_ of the solution data stored therein.
 
 ### Testing The heat Application
@@ -435,7 +436,7 @@ still yields a final result where $$u=x_{i}$$ for all rows of the results file
 <br>
 
 
-## Exercise #3: Use Applicaton to Do Some Science 
+## Exercise #3: Use Applicaton to Do Some Science
 
 Back to our original problem...will our water pipes freeze?
 

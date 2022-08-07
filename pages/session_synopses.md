@@ -15,15 +15,14 @@ permalink: "/session_synopses/"
 
 In the first hour of our day with you we will give a brief introduction
 to our agenda and logistics and an overview of the various numerical packages
-you will learn about. In addition, we will do a hands-on exercise that amounts
-to the `Hello, World!` of numerical software, the one-dimensional heat equation,
-and use it to help answer a very simple science question.
+you will learn about. We will also discuss important components of computational science and
+engineering, exascale computing and the need for scientific software ecosystems.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-### Structured Discretization (with AMReX)
-### Structured Discretization (with AMReX)
+### Structured Meshes (with AMReX)
+### Structured Meshes (with AMReX)
 [Slides](../files/ATPESC-2021-Track-5-Talk-1-AnnAlmgren-StructuredMesh.pdf)
 
 Block-structured adaptive mesh refinement (AMR) provides a natural framework
@@ -32,18 +31,17 @@ the most computationally efficient way possible.  AMReX supports the development
 of block-structured AMR algorithms for solving systems of partial differential
 equations (PDE's) and other algorithms that require structured mesh and/or
 particle discretizations.   We will begin with an overview of block-structured
-AMR, including several different time-stepping strategies, and then discuss the
+AMR, and then discuss the
 features of AMReX we might want to use to solve a multiphysics problem on
 machines from laptops to supercomputers.  Hands-on exercises will include passive
-scalar advection with time-dependent adaptivity,  the use of native linear
-solvers to impose incompressibility on a flow around obstacles, and
-"AMReX-Pachinko", which demonstrates the interaction of particles with objects.
+scalar advection with time-dependent adaptivity, and the use of native linear
+solvers to impose incompressibility on a flow with particles around an obstacle.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-### Unstructured Discretization (with MFEM/PUMI)
-### Unstructured Discretization (with MFEM/PUMI)
+### Unstructured Meshes (with MFEM/PUMI)
+### Unstructured Meshes (with MFEM/PUMI)
 [Slides](../files/ATPESC-2021-Track-5-Talk-2-AaronFisher-MarkShephard-UnstructuredDiscretization.pdf)
 
 Unstructured meshes can yield required levels of accuracy using fewer degrees of
@@ -99,8 +97,8 @@ semi-discretization.
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-### Iterative Solvers & Preconditioners (with MueLu)
-### Iterative Solvers & Preconditioners (with MueLu)
+### Iterative Solvers & Algebraic Multigrid (with Trilinos, Belos & MueLu)
+### Iterative Solvers & Algebraic Multigrid (with Trilinos, Belos & MueLu)
 [Slides](../files/ATPESC-2021-Track-5-Talk-4-GlusaHarperOhm-KrylovSolversAndPreconditioningWithMueLu.pdf)
 
 In this session, attendees will learn about linear solvers and preconditioners
@@ -126,7 +124,7 @@ description of the high performance linear solvers library HYPRE, its
 interfaces, and its most used multigrid solvers, BoomerAMG and PFMG, including
 a brief discussion of the effect of their data structures on performance.
 The lesson includes hands-on examples with structured and unstructured solvers
-from the HYPRE library applied to several test problems.
+from the HYPRE library applied to several test problems on CPUs and GPUs.
 
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -190,21 +188,21 @@ all of the essential expertise and skills. Numerical software libraries and pack
 are a key way we share capability and know-how. Learning to leverage numerical
 packages to address new scientific computing challenges is part of becoming a member of
 the scientific computing community. In this wrap-up session of the day, we
-breifly discuss key tradeoffs in using numerical packages in practice.
+briefly discuss key trade-offs in using numerical packages in practice.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-### Panel - Contributing to the Numerical Package Community
-### Panel - Contributing to the Numerical Package Community
+### Extreme-Scale Numerical Algorithms and Software (Panel)
+### Extreme-Scale Numerical Algorithms and Software (Panel)
 
 This will be a 45 minute panel question and answer period for ATPESC learners to ask
 questions about working with numerical package and the community of numerical package
 developers. If you have question(s) you know you would like to ask, we encourage attendees
 to submit questions *ahead* of time via the
 [submission form](https://forms.gle/SmVroQBAq145g4F79).
-However, we expect there will also be ample opportunty to indicate your desire to ask
-questions via the main (Ampitheater) [slack channel](https://app.slack.com/client/TMW2FLNCQ/C029YJ95ULQ),
+However, we expect there will also be ample opportunity to indicate your desire to ask
+questions via the main (Amphitheater) [slack channel](https://app.slack.com/client/TMW2FLNCQ/C029YJ95ULQ),
 and then you may be called upon to un-mute and ask your question.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -214,13 +212,11 @@ and then you may be called upon to un-mute and ask your question.
 ### SME Speed Dating OPTIONAL ACTIVITY
 
 This is an opportunity for you to meet and talk (1-on-1 or sometimes 2-on-1) with subject matter experts
-(SMEs) about their work and numerical packages they support. Each *speed date* will be a 20 minute Zoom
-meeting where you will be un-muted and able to have a conversation with an SME. Attendees may select up to
+(SMEs) about their work and numerical packages they support. Each *speed date* will be a 20 minute 
+meeting. Attendees may select up to
 3 SMEs they would like to meet using
-[this form](https://forms.gle/eCM39BXjdDt69kTH6)
-Requests will be accomodated on a first-come, first-served basis until all available slots are taken.
-So, be sure to make your selections early in the day and no later than the end of the afternoon break,
-3:40 PM CDT.
+[this form](https://docs.google.com/document/d/166nDHcNm3PlCn8O-fbiy9nKJS7HekhYsvKV2FB7n7XI/edit?usp=sharing)
+Requests will be accommodated on a first-come, first-served basis until all available slots are taken.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

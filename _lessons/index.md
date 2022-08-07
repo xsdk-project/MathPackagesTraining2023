@@ -20,7 +20,7 @@ permalink: /lessons/
     {% if item.youtube %}
         <td><a href="{{ item.youtube }}">YouTube</a></td>
     {% else %}
-        <td>Video to be added</td>
+    <!--    <td>Video to be added</td> -->
     {% endif %}
     </tr>
 {% endfor %}
