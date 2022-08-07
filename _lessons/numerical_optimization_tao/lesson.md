@@ -245,10 +245,10 @@ int main(int argc, char *argv[])
   /* Create Tao solver and configure */
   ierr = TaoCreate(PETSC_COMM_WORLD, &tao);CHKERRQ(ierr);
   ierr = TaoSetType(tao, TAOBQNLS);CHKERRQ(ierr);
-  ierr = TaoSetInitialVector(tao, X);CHKERRQ(ierr);
-  ierr = TaoSetObjectiveRoutine(tao, FormFunction, &user);CHKERRQ(ierr);
-  ierr = TaoSetGradientRoutine(tao, FormGradient, &user);CHKERRQ(ierr);
-  ierr = TaoSetHessianRoutine(tao )
+  ierr = TaoSetSolution(tao, X);CHKERRQ(ierr);
+  ierr = TaoSetObjective(tao, FormFunction, &user);CHKERRQ(ierr);
+  ierr = TaoSetGradient(tao, NULL, FormGradient, &user);CHKERRQ(ierr);
+  ierr = TaoSetHessian(tao );
   ierr = TaoSetFromOptions(tao);CHKERRQ(ierr);
 
   /* Trigger the solution */
@@ -269,7 +269,7 @@ optimization algorithm needs to evaluate the objective, its gradient and Hessian
 any data the user has to preserve and propagate through for these computations.
 
 Applications where it is more efficient to evaluate the objective function together with the gradient can use 
-an alternative [``TaoSetObjectiveAndGradientRoutine()``][5] interface to provide TAO a single ``FormFunctionGradient()`` 
+an alternative [``TaoSetObjectiveAndGradient()``][5] interface to provide TAO a single ``FormFunctionGradient()``
 callback that evaluates both at the same time.
 
 TAO implements several bound-constrained algorithm types that also solve unconstrained problems when there are no 
@@ -702,7 +702,7 @@ converge to the now-global minimum at $$f(-0.62, 0.38)=2.62$$ regardless of the 
 [2]: https://petsc.org/release/docs/manualpages/Tao/TaoDefaultComputeGradient.html
 [3]: https://petsc.org/release/docs/manualpages/Tao/TaoDefaultComputeHessian.html
 [4]: https://petsc.org/
-[5]: https://petsc.org/release/docs/manualpages/Tao/TaoSetObjectiveAndGradientRoutine.html
+[5]: https://petsc.org/release/docs/manualpages/Tao/TaoSetObjectiveAndGradient.html
 [6]: https://petsc.org/release/docs/manualpages/Tao/TaoSetVariableBounds.html
 [7]: https://petsc.org/release/docs/manualpages/Tao/TaoSetEqualityConstraintsRoutine.html
 [8]: https://petsc.org/release/docs/manualpages/Tao/TaoSetJacobianEqualityRoutine.html

@@ -75,16 +75,16 @@ int main(int argc,char **argv)
 
   /* Set solution vec and an initial guess */
   ierr = VecSet(x, 10.0);CHKERRQ(ierr);
-  ierr = TaoSetInitialVector(tao, x);CHKERRQ(ierr);
+  ierr = TaoSetSolution(tao, x);CHKERRQ(ierr);
 
   /* Set routines for function, gradient, hessian evaluation */
-  ierr = TaoSetObjectiveRoutine(tao, FormFunction, &user);CHKERRQ(ierr);
+  ierr = TaoSetObjective(tao, FormFunction, &user);CHKERRQ(ierr);
   if (use_fd) {
-    ierr = TaoSetGradientRoutine(tao, TaoDefaultComputeGradient, &user);CHKERRQ(ierr);
-    ierr = TaoSetHessianRoutine(tao, H, H, TaoDefaultComputeHessian, &user);CHKERRQ(ierr);
+    ierr = TaoSetGradient(tao, NULL, TaoDefaultComputeGradient, &user);CHKERRQ(ierr);
+    ierr = TaoSetHessian(tao, H, H, TaoDefaultComputeHessian, &user);CHKERRQ(ierr);
   } else {
-    ierr = TaoSetGradientRoutine(tao, FormGradient, &user);CHKERRQ(ierr);
-    ierr = TaoSetHessianRoutine(tao, H, H, FormHessian, &user);CHKERRQ(ierr);
+    ierr = TaoSetGradient(tao, NULL, FormGradient, &user);CHKERRQ(ierr);
+    ierr = TaoSetHessian(tao, H, H, FormHessian, &user);CHKERRQ(ierr);
   }
 
   /* Create data for constraints and set evaluation functions */

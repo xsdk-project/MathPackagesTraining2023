@@ -1,4 +1,4 @@
-PETSC_DIR=/lus/grand/projects/ATPESC2021/usr/MathPackages/spack/opt/spack/linux-rhel7-haswell/gcc-8.2.0/petsc-3.15.2-mavfks5tndii2j4dyoa27434utwo7lel
+PETSC_DIR=/grand/ATPESC2022/usr/MathPackages/petsc
 
 CFLAGS		 =
 FFLAGS		 =
