@@ -43,7 +43,7 @@ header:
 ssh -A elvis@theta.alcf.anl.gov
 ```
 
-2. In your homefolder, create a local copy of the AMReX examples:
+2. In your home folder, create a local copy of the track 5 numerical examples:
 ```shell
 cd ~
 rsync -a /grand/ATPESC2022/EXAMPLES/track-5-numerical .
@@ -59,14 +59,22 @@ ssh thetagpusn1 # or thetagpusn2
 qusb -I -q single-gpu -t 60 -n 1 -A ATPESC2022
 ```
 
-5. Load OpenMPI and Python.
+5. Load OpenMPI:
 ```shell
-module load openmpi
-module load conda
+ module load openmpi/openmpi-4.1.4_ucx-1.12.1_gcc-9.4.0
 ```
 
-6. Verify the environment is set correctly.
-Now if you type, `module list`, you should see:
+6. Change to the AMReX examples directory:
+```shell
+cd track-5-numerical/EXAMPLES/amrex
+```
+
+7. Setup several environment variables and path by
+sourcing the `amrex_setup_env.sh` script:
+```shell
+source amrex_setup_env.sh
+```
+
 
 
 
