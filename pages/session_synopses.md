@@ -164,17 +164,17 @@ In the second part of the lecture we introduce the concept of
 data-sparse matrix approximation, where a matrix is hierarchically
 partitioned in sub-blocks, which are compressed using low-rank
 approximations. Such a hierarchical matrix approximation allows for
-linear algebra operation that are much more efficient than the
+linear algebra operations that are much more efficient than the
 traditional O(n^3) dense linear algebra operations, such as LU
 decomposition or matrix-matrix multiplication, while also reducing
 memory usage. We then show how STRUMPACK uses such hierarchical matrix
 approximation to construct efficient preconditioners based on
 approximate sparse LU factorization.
 
-* Session 1 (10:30am-11:30am) includes a hands-on demo session with
+* Session 1 (11:15am-11:45am) includes a hands-on demo session with
 SuperLU.
-* Session 2 (11:45am-12:45pm) has a hands-on demo session with STRUMPACK.
-* Session 4 (3:40pm-4:30pm) includes a Q&A session (no hands-on).
+* Session 2 (11:45am-12:15pm) has a hands-on demo session with STRUMPACK.
+* Session 3 (12:15pm-12:30pm) includes a Q&A session (no hands-on).
 
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
