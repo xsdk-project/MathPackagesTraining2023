@@ -23,7 +23,7 @@ header:
 ```
 cd {{site.handson_root}}/numerical_optimization_tao
 make multidim_rosenbrock
-./multidim_rosenbrock -tao_monitor
+mpiexec -n 1 ./multidim_rosenbrock -tao_monitor
 ```
 
 ## Introduction to Optimization
@@ -495,12 +495,12 @@ TAO also provides [``TaoDefaultComputeGradient()``][2] and [``TaoDefaultComputeH
 finite-differencing to generate the required sensitivities.
 
 Compile and run the [source code](multidim_rosenbrock.c) as below to solve the default two-dimensional case. If running 
-on a different machine than ALCF Cooley, the `PETSC_DIR` variable in the [makefile](makefile) must be changed to 
+on your local machine, the `PETSC_DIR` variable in the [makefile](makefile) must be changed to
 reflect the local PETSc/TAO installation.
 
 ```
 $ make multidim_rosenbrock
-$ ./multidim_rosenbrock -tao_monitor
+$ mpiexec -n 1 ./multidim_rosenbrock -tao_monitor
 ```
 {::options parse_block_html="true" /}
 <div style="border: solid #8B8B8B 2px; padding: 10px;">
@@ -543,21 +543,21 @@ $ ./multidim_rosenbrock -tao_monitor
  32 TAO,  Function value: 0.150045,  Residual: 3.79711 
  33 TAO,  Function value: 0.127328,  Residual: 8.00461 
  34 TAO,  Function value: 0.106561,  Residual: 8.3052 
- 35 TAO,  Function value: 0.075763,  Residual: 9.01468 
+ 35 TAO,  Function value: 0.0757631,  Residual: 9.01468 
  36 TAO,  Function value: 0.0181941,  Residual: 0.47139 
  37 TAO,  Function value: 0.0135709,  Residual: 1.84761 
  38 TAO,  Function value: 0.0115372,  Residual: 2.40889 
  39 TAO,  Function value: 0.00713039,  Residual: 2.63071 
  40 TAO,  Function value: 0.00277352,  Residual: 1.47662 
  41 TAO,  Function value: 0.000626325,  Residual: 0.318311 
- 42 TAO,  Function value: 0.000151588,  Residual: 0.531674 
- 43 TAO,  Function value: 1.83371e-06,  Residual: 0.0102533 
- 44 TAO,  Function value: 1.02401e-08,  Residual: 0.00271617 
- 45 TAO,  Function value: 8.88669e-12,  Residual: 0.000127435 
- 46 TAO,  Function value: 5.40216e-17,  Residual: 1.70011e-07 
- 47 TAO,  Function value: 2.17778e-22,  Residual: 1.98976e-10 
+ 42 TAO,  Function value: 0.000151588,  Residual: 0.531675 
+ 43 TAO,  Function value: 1.83371e-06,  Residual: 0.0102532 
+ 44 TAO,  Function value: 1.024e-08,  Residual: 0.00271617 
+ 45 TAO,  Function value: 8.88666e-12,  Residual: 0.000127435 
+ 46 TAO,  Function value: 5.40212e-17,  Residual: 1.7001e-07 
+ 47 TAO,  Function value: 2.17767e-22,  Residual: 1.98927e-10 
 
-Solution time: 0.005766
+Solution time: 0.001664
 
 Solution vector:
 Vec Object: 1 MPI processes
