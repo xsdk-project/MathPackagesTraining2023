@@ -49,6 +49,7 @@ mpiexec -n 2 pddrive -r 1 -c 2 ${matdir}/torso3.mtx 2>&1 | tee run1.txt
 ```
 
 #### Expected Behavior/Output
+```
 **************************************************
 .. options:
 **    Fact                      :    0
