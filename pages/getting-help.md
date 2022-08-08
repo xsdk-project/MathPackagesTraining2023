@@ -14,20 +14,9 @@ permalink: "/getting-help/"
   {% endif %}
 {% endfor %}
 
-Use the *#help-desk* slack channel for general help and it support.
+SLACK ALCF-Workshops workspace provides channles for help
 
-<center style="font-size:18px">Launch #help-desk Slack in<br><a href="https://app.slack.com/client/TMW2FLNCQ/C029TG2QCM8" onclick="window.open(this.href,'newwindow','width=600,height=900'); return false;">new browser window</a> or <a href="slack://channel?team=MW2FLNCQ&id=029TG2QCM8">desktop app</a></center>
-<br>
-
-Use the *#track-5-numerical* slack channel for help with Track 5 sessions.
-
-<center style="font-size:18px">Launch #track-5-numerical Slack in<br><a href="{{vroom.slackweb}}" onclick="window.open(this.href,'newwindow','width=600,height=900'); return false;">new browser window</a> or <a href="{{vroom.slackapp}}">desktop app</a></center>
-<br>
-
-As a last resort, you can try emailing...
-
-* [Satish Balay](<mailto:balay@mcs.anl.gov>),
-* [Cameron Smith](mailto:smithc11@rpi.edu),
-* [Erik Palmer](<mailto:eplamer@lbl.gov>)
+* [#help-desk-general](https://alcf-workshops.slack.com/archives/C03QPJSUL90)
+* [#track-5-numerical](https://alcf-workshops.slack.com/archives/C03Q8QEJF6K)
 
 {% include link-shortcuts %}
