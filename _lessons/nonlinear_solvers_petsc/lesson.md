@@ -19,11 +19,9 @@ header:
 |3. How and when do nonlinear solvers fail?|Explore limits of nonlinear solvers by systematically increasinging problem nonlinearity|Nonlinear solvers can fail in a variety of ways, and some workarounds exist|
 |4. Can we improve the robustness of Newton's method by combining it with other solvers?|Explore nonlinear preconditioning for highly nonlinear problems|Nonlinear analogs of ideas from iterative linear solvers can significantly improve nonlinear solvers|
 
-**Note:** To build the executable used in this lesson do
+**Note:** The executable for this lesson should be provided, but if it needs to be rebuilt do
 ```
-module load openmpi/openmpi-4.1.4_ucx-1.12.1_gcc-9.4.0
 cd {{site.handson_root}}/nonlinear_solvers_petsc
-# The ex19 executable should already exist, but if it needs to be rebuilt, do
 make ex19
 ```
 
