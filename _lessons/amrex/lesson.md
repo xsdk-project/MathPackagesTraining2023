@@ -117,7 +117,8 @@ source /grand/projects/ATPESC2021/EXAMPLES/track-5-numerical/amrex/source_this_f
 ### Science Goal
 <br>
 
-To motivate our discussion of adaptive mesh refinement consider:
+To motivate our discussion of adaptive mesh refinement we will consider the flow
+of a dye in water around a cylinder. See the video below:
 
 |![drop](drop_small.gif){: width="500"}|
 |:--:|
@@ -125,12 +126,11 @@ To motivate our discussion of adaptive mesh refinement consider:
 
 
 We want to develop a fluid simulation that captures the behavior seen in this experiment.
-First, we began with a simplified problem, 2D flow around a cylinder.
-
-We plan on doing a large and detailed simulation. Therefore we will be limited by
-computational resources and time to solution.
-We want to focus our computation on capaturing the phenomena at the water dye "boundary" and
-not on the water.
+To capture the interactions carefully, we plan on doing a large and detailed simulation
+and will therefore be limited by computational resources and time to solution. Moreover,
+we know that our focus is on the water-dye boundary, and not on the water as a whole, so
+an approach with adaptive mesh refinement would provide benefits. As a first step in developing
+this simulation, we consider a simplified problem, the flow of the dye without a cylinder.
 
 <br>
 <br>
@@ -150,11 +150,11 @@ not on the water.
 <br>
 ### Mathematical Formulation
 
-Consider a drop of dye (we'll define $$\phi$$ to be the concentration of dye)
+Let $$\phi$$ represent the concentration of dye in the water in
 in a thin incompressible fluid that is spinning
-clock-wise then counter-clockwise with a prescribed motion.  We consider the dye to be a
-passive tracer that is advected by the fluid velocity.  The fluid is thin enough that we can model
-this as two-dimensional motion; here we have the option of solving in a 2D or 3D computational domain.
+clock-wise and then counter-clockwise with a prescribed motion (This is useful for verifying our algorithms).
+We consider the dye to be a passive tracer that is advected by the fluid velocity and the fluid thin
+enough that we can model this as two-dimensional motion.  
 
 In other words, we want to solve for $$\phi(x,y,t)$$ by evolving
 
@@ -196,11 +196,18 @@ the z-fluxes.
 <br>
 ### Adaptive Mesh Refinement
 
-Adaptive mesh refinement focuses computation on the areas of interest.
+Adaptive mesh refinement focuses computation on the areas of interest. In this example,
+our interest is in the water-dye boundary and not water in other places in the domain.
+Adaptive mesh refinement will allow us to set grids in this area with smaller dimensions
+and/or small time steps. The result is areas with finer grids have results with higher
+accuracy.
 
-
-Example code.
-
+Developing a code that is capable of adaptive mesh refinement, broadly speaking,
+requires:
+- Knowing how to advance the solution one patch at a time.
+- Knowing the matching conditions at coarse/fine interfaces.
+Below we show a snippet of code in this simulation written with the AMReX framework
+for generating a finer grid level from a coarser one.
 
 ```cpp
 // Make a new level using provided BoxArray and DistributionMapping and
@@ -233,29 +240,24 @@ AmrCoreAdv::MakeNewLevelFromCoarse (int lev, Real time, const BoxArray& ba,
 }    
 ```
 
-
-
-Knowing how to synchronize the solution at coarse/fine boundaries is essential in an AMR algorithm.
-
-
 <br>
 ### Running the Code
+
+To run the code navigate to the directory with your copy of the AMReX examples.
 
 ```shell
 cd {{site.handson_root}}/amrex/AMReX_Amr101/Exec
 ```
-Note that you can choose to work entirely in 2D or in 3D ... whichever you prefer.
-The instructions below will be written for 3D but you can substitute the 2D executable.
 
-In this directory you'll see
+In this directory you'll see:
 
 ```shell
 main3d.gnu.MPI.ex -- the 3D executable -- this has been built with MPI
 
-inputs -- an inputs file for both 2D and 3D
+inputs -- a file specifying simulatin parameters
 ```
 
-To run in serial,
+To run in serial:
 
 ```shell
 ./main3d.gnu.MPI.ex inputs
@@ -275,10 +277,10 @@ The following parameters can be set at run-time -- these are currently set in th
 file but you can also set them on the command line.  
 
 ```
-stop_time          =  2.0                # the final time (if we have not exceeded number of steps)
-max_step           = 1000000             # the maximum number of steps (if we have not exceeded stop_time)
+stop_time          = 2.0                # the final time (if we have not exceeded number of steps)
+max_step           = 100000              # the maximum number of steps (if we have not exceeded stop_time)
 
-amr.n_cell         =  64  64   8         # number of cells at the coarsest AMR level in each coordinate direction
+amr.n_cell         = 64 64 8             # number of cells at the coarsest AMR level in each coordinate direction
 
 amr.max_grid_size  = 16                  # the maximum number of cells in any direction in a single grid
 
@@ -290,31 +292,27 @@ adv.phierr = 1.01  1.1  1.5              # regridding criteria  at each level
 
 ```
 
-The base grid here is a square of 64 x 64 x 8 cells, made up of 16 subgrids each of size 16x16x8 cells.  
-The problem is periodic in all directions.
-
-We have hard-wired the code here to refine based on the magnitude of $$\phi$$. Here we set the
+This inputs file specifies a base grid of 64 x 64 x 8 cells, made up of 16 subgrids each with 16x16x8 cells.  
+Here is also where we tell the code to refine based on the magnitude of $$\phi$$. We set the
 threshold level by level.  If $$\phi > 1.01$$ then we want to refine at least once; if $$\phi > 1.1$$ we
 want to resolve $$\phi$$ with two levels of refinement, and if $$\phi > 1.5$$ we want even more refinement.
-
+Boundaries are set to be periodic in all directions (Not shown above).
 
 
 <br>
 #### Simulation Output
 
-Note that you can see the total runtime by looking at the line at the end of your run that says
-
+Note that you can see the total runtime by looking at the line at the end of your run that says,
 ```
 Total Time:
 ```
 
 and you can check conservation of $$\phi$$ by checking the line that prints, e.g.
-
 ```
 Coarse STEP 8 ends. TIME = 0.007031485953 DT = 0.0008789650903 Sum(Phi) = 540755.0014
 ```
 
-Here Sum(Phi) is the sum of $$\phi$$ over all the cells at the coarsest level.
+"Sum(Phi)" is the sum of $$\phi$$ over all the cells at the coarsest level.
 
 
 <br>
@@ -337,14 +335,14 @@ to download the mp4 and gif. Then type:
 scp elvis@theta.alcf.anl.gov:~/track-5-numerical/AMReX_Amr101/amr101_3D* .
 ```
 
-Here is a sample slice through a 3D run with 64x64x8 cells at the coarsest level and three finer levels (4 total levels).
+The image below shows a slice through a 3D run with 64x64x8 cells at the coarsest level and three finer levels (4 total levels).
 
 ![Sample solution](amr101_3D.gif){: width="500"}
 
 To plot the files manually with a local copy of ParaView see the details below:
 
 <details>
-<strong>Using ParaView 5.9 Manually</strong>
+<strong>Using ParaView 5.9 Manually with Downloaded Plotfiles</strong>
 
 <p>
 To do the same thing with ParaView 5.9 manually (if, e.g. you have the plotfiles
@@ -461,14 +459,17 @@ Try the following:
 <br>
 ### Parallelism with GPUs
 
-Suppose at this point, you find you have access to GPUs. Typically, it may
+Suppose at this point in your project, you find that you have written a successful
+CPU code and then you discover you will have access to a GPU enabled machine. Typically, it may
 be difficult to adapt your code to take advantage of these resources. And
 while there are compatibility layers out there, the AMReX framework is
 already poised to take advantage of GPUs with very little change to the code.
+To illustrate this point, the
+same AMReX source code from our CPU-code can be recompiled to use a GPU backend where appropriate.
 
-In our example, the
-same AMReX source code can be recompiled to use a GPU backend for some computations.
 
+The example section of the AMReX_Amr101 source code below shows C++ code
+that can be optimized for MPI, OpenMP, and GPU computations at compile time.
 
 ```cpp
 #ifdef _OPENMP
@@ -493,23 +494,20 @@ same AMReX source code can be recompiled to use a GPU backend for some computati
 
 ```
 
-This AMReX construction automatically adapts to several forms of parallelism. When MPI
+This AMReX construction adapts to several forms of parallelism. When MPI
 is used, it will distribute the work among MPI ranks. When OpenMP is enabled, work
 is distributed among threads. When a GPU backend is enabled, this computation
 will be done on the GPU. AMReX functionality is flexible enough that this can
 be adapted for NVidia, AMD, or Intel GPUs _without code changes_.
 
 
-If using GNU Make to compile, the command would be:
+For convenience, there is a binary pre-compiled with CUDA support in the `AMReX_Amr101/Exec`
+folder, `./main3d.gnu.CUDA.MPI.ex`. If one wanted to compile the source code with CUDA,
+the command would be:
 
 ```shell
 make DIM=3 USE_MPI=TRUE USE_CUDA=TRUE CUDA_ARCH=80
 ```
-
-The result would be an executable named `./main3d.gnu.CUDA.MPI.ex`.
-
-Indeed, this is how the executable already located in the
-directory was created.
 
 {% comment %}
 People typically compare Node-to-node, so we're not going to worry about MPI+GPU.
@@ -687,8 +685,8 @@ Now instead of advecting the dye as a scalar quantity defined on the mesh (the
 continuum representation), we define the dye as a collection of particles that
 are advected by the fluid velocity.
 
-Again the fluid is thin enough that we can model this as two-dimensional
-motion; again we have the option of solving in a 2D or 3D computational domain.
+Again we consider the fluid thin enough that we can model this as two-dimensional
+motion.
 
 To make things even more interesting, there is now an object in the flow, in this case a cylinder.
 It would be very difficult to analytically specify the flow field around the object, so instead
@@ -710,7 +708,8 @@ In our case $$\beta = 1 / \rho = 1$$ since we are assuming constant density $$\r
 Note that for this example we are solving everything at a single level for convenience,
 but linear solvers, EB and particles all have full multi-level functionality.
 
-In each timestep we compute the projected velocity field, advect the particles with this velocity, then interpolate the particles onto the mesh to determine $$\phi(x,y,z)$$.
+In each timestep we compute the projected velocity field, advect the particles with this velocity,
+then interpolate the particles onto the mesh to determine $$\phi(x,y,z)$$.
 
 ### Particle-In-Cell Algorithm for Advecting $$\phi$$
 
@@ -756,6 +755,8 @@ advection.
 
 <br>
 ### Running the code
+
+To run the code navigate to the directory with your copy of the AMReX examples.
 
 ```shell
 cd {{site.handson_root}}/amrex/AMReX_Amr102/Exec
@@ -822,11 +823,14 @@ You can vary the number of particles per cell and interpolation to see how they 
 <br>
 ### Activity:
 
+Try the following:
+
+- First run `AMReX_Amr102` with the defaults. Then look through the inputs file and try
+  changing some of the parameters. How do the runs compare?
 
 
 <br>
 ### Key Observations:
-
 
 1. How does the solution in the absence of the cylinder compare to our previous solution (where phi was advected
    as a mesh variable)?
@@ -834,11 +838,7 @@ You can vary the number of particles per cell and interpolation to see how they 
 2. Note that at the very end we print the time spent creating the geometrical information.
    How does this compare to the total run time?
 
-3. Go back and run the AMR101 example with the same size box and amr.max_level = 1.  How does
-   the total run time of the AMR101 code compare with the AMR102 code for 200 steps?
-   What probably accounts for the difference?
-
-4. Note that for the purposes of visualization, we deposited the particle weights onto the grid.
+3. Note that for the purposes of visualization, we deposited the particle weights onto the grid.
    Was phi conserved using this approach?
 
 
@@ -846,66 +846,87 @@ You can vary the number of particles per cell and interpolation to see how they 
 
 ![Sample solution](amr102_3D.gif)
 
-#### Make a Movie with the ParaView 5.8 Script
-
-To use the ParaView 5.8 python script, simply do the following to generate `amr102_3D.gif`:
-
-```
-$ make movie3D
-```
-
-If you run the 2D executable, make the 2D movie using:
+As in the previous example, we created a python script
+to render the AMReX plotfiles into a movie
+and gif. To generate a movie from the plotfiles type:
 
 ```
-$ make movie2D
+pvbatch movie_amr102.py
+```
+
+This will generate two files, `amr102_3D.mp4` and `amr102_3D.gif`.
+To view the files you can copy them to your local machine and view
+them with scp. Open a terminal on your local machine and move the folder where you want
+to download the mp4 and gif. Then type:
+```shell
+scp elvis@theta.alcf.anl.gov:~/track-5-numerical/AMReX_Amr101/amr101_3D* .
 ```
 
 Notes:
 
 - To delete old plotfiles before a new run, do `rm -rf plt*`
 
-- You will need `+ffmpeg` in your `~/.soft.cooley` file. If you do not already have it, do `soft add +ffmpeg` and then `resoft` to load it.
+- You can do `realpath amr102_3D.gif` to get the movie's path on ThetaGPU and then copy it to your local
+  machine by doing `scp [username]@theta.alcf.anl.gov:[path-to-gif] .`
 
-- You can do `realpath amr102_3D.gif` to get the movie's path on Cooley and then copy it to your local machine by doing `scp [username]@cooley.alcf.anl.gov:[path-to-gif] .`
 
+If you're interested in generating the movies manually, see the details below.
 <details>
-#### Using ParaView 5.8 Manually
 
-To do the same thing with ParaView 5.8 manually (if, e.g. you have the plotfiles on your local machine and want to experiment or if you connected ParaView 5.8 in client-server mode to Cooley):
+<strong>Using ParaView 5.8 Manually</strong>
 
+<p>
+To do the same thing with ParaView 5.8 manually (if, e.g. you have the plotfiles
+on your local machine and want to experiment):
+</p>
+
+<p>
 There are three types of data from the simulation that we want to load:
+</p>
 
-1. the mesh data, which includes the interpolated phi field, velocity field and the processor ID
-2. the EB representation of the cylinder
-3. the particle locations and weights
+<ol>
+<li>the mesh data, which includes the interpolated phi field, velocity field and the processor ID</li>
+<li>the EB representation of the cylinder</li>
+<li>the particle locations and weights</li>
+</ol>
 
-To load the mesh data, follow steps 1-10 for plotting $$\phi$$ in the AMR 101 tutorial, then continue as below to add the EB representation of the cylinder and the particle data.
 
+<p>
+To load the mesh data, follow steps 1-10 for plotting phi in the AMR 101 tutorial,
+then continue as below to add the EB representation of the cylinder and the particle data.
+</p>
+
+<p>
 Instructions to visualize the EB representation of the cylinder:
+</p>
 
-```
-1. File --> Open ... select "eb.pvtp" (highlight it then click OK)
-2. Click green Apply button
-```
+<ol>
+<li>1. File --> Open ... select "eb.pvtp" (highlight it then click OK)</li>
+<li>2. Click green Apply button</li>
+</ol>
 
+<p>
 You should see 1 cylinder with its axis in the z-direction.
+</p>
 
+<p>
 Now to load the particles:
-
-```
-1. File --> Open ... and select the collection of directories named "plt.." --> [OK]
-2. From the "Open Data With..." dialog that pops up, this time select "AMReX/BoxLib Particles Reader" --> [OK]
-8. Click green Apply button to read in the particle data
-3. Click the "glyph" button (6 to the right of the calculator)
-4. Under "Glyph Source" select "Sphere" instead of "Arrow"
-6. Under "Scale" set "Scale Factor" to 0.01
-7. Under "Masking" change "Glyph Mode" from "Uniform Spatial Distribution" to Every Nth Point
-8. Under "Masking", set the stride to 100. The default inputs use 100 particles per cell, which is quite a lot of particles in 3D, so we only plot 1 out of every 100 particles.
-9. Change the drop-down menu option (above the calculator row) from "Solid Color" to "real_comp3" to color the particles by their weights.
-10.  Click green Apply button
-```
-
+</p>
+<ol>
+<li>File --> Open ... and select the collection of directories named "plt.." --> [OK]</li>
+<li>From the "Open Data With..." dialog that pops up, this time select "AMReX/BoxLib Particles Reader" --> [OK]</li>
+<li>Click green Apply button to read in the particle data</li>
+<li>Click the "glyph" button (6 to the right of the calculator)</li>
+<li>Under "Glyph Source" select "Sphere" instead of "Arrow"</li>
+<li>Under "Scale" set "Scale Factor" to 0.01</li>
+<li>Under "Masking" change "Glyph Mode" from "Uniform Spatial Distribution" to Every Nth Point</li>
+<li>Under "Masking", set the stride to 100. The default inputs use 100 particles per cell, which is quite a lot of particles in 3D, so we only plot 1 out of every 100 particles.</li>
+<li>Change the drop-down menu option (above the calculator row) from "Solid Color" to "real_comp3" to color the particles by their weights.</li>
+<li>Click green Apply button</li>
+</ol>
+<p>
 You are now ready to play the movie!  See the "VCR-like" controls at the top. Click the play button.
+</p>
 </details>
 
 ## Example: AMReX-Pachinko
@@ -934,6 +955,7 @@ Your goal here is to see if you can cover the floor of the pachinko machine.
 
 ### Running the Code
 
+The code is located in your copy of the AMReX examples at:
 ```
 cd {{site.handson_root}}/amrex/AMReX_EB_Pachinko
 ```
@@ -1013,75 +1035,105 @@ That took 1.145916707 seconds.
 
 ### Visualizing the Results
 
-Again we'll use Paraview 5.8 to visualize the results.
-
-As before, to use the Paraview python script, simply do:
+As in the previous example, we created a python script
+to render the AMReX plotfiles into a movie
+and gif. To generate a movie from the plotfiles type:
 
 ```
-$ make movie
+pvbatch movie_pachinko.py
 ```
 
-(You will need `+ffmpeg` in your `.soft.cooley` file)
+This will generate two files, `pachinko.avi` and `pachinko.gif`.
+To view the files you can copy them to your local machine and view
+them with scp. Open a terminal on your local machine and move the folder where you want
+to download the mp4 and gif. Then type:
+```shell
+scp elvis@theta.alcf.anl.gov:~/track-5-numerical/AMReX_Amr101/pachinko* .
+```
 
-Remember there are three types of data from the simulation that we want to load:
+If you're interested in generating the movies manually, see the details below.
+<details>
 
-1. the EB representation of the cylinders
-2. the mesh data, which includes just the processor ID for each grid
-3. the particle motion
 
+<p>
+There are three types of data from the simulation that we want to load:
+</p>
+
+<ol>
+<li>the EB representation of the cylinders</li>
+<li>the mesh data, which includes just the processor ID for each grid</li>
+<li>the particle motion</li>
+</ol>
+
+<p>
 Because the EB data and mesh data don't change, we load these separately from the particles.
+</p>
 
+<p>
 Instructions to visualize the EB representation of the cylinders:
+</p>
 
-```
-1. Start Paraview 5.8
-2. File --> Open ... select "eb.pvtp" (highlight it then click OK)
-3. Click green Apply button
-```
+<ol>
+<li>Start ParaView 5.8</li>
+<li>File --> Open ... select "eb.pvtp" (highlight it then click OK)</li>
+<li>Click green Apply button</li>
+</ol>
 
+<p>
 You should see cylinders with their axes in the z-direction.
+</p>
 
+<p>
 Now to add the mesh field:
+</p>
 
-```
-1. File --> Open ... and this time select only the directory named "plt00000" --> [OK]
-2. From the "Open Data With..." dialog that pops up, select "AMReX/BoxLib Grid Reader" --> [OK]
-3. Check the "proc" and "vfrac" boxes in the "Cell Array Status" menu that appears
-4. Click green Apply button
-5. Click on the "slice" icon -- three to the right of the calculator
-   This will create "Slice 1" in the Pipeline Browser which will be highlighted.
-6. Click on "Z Normal"
-7. Unclick the "Show Plane" button
-8. Click green Apply button
-9. Change the drop-down menu option (above the calculator row) from "vtkBlockColors" to "proc"
-```
+<ol>
+<li>File --> Open ... and this time select only the directory named "plt00000" --> [OK]</li>
+<li>From the "Open Data With..." dialog that pops up, select "AMReX/BoxLib Grid Reader" --> [OK]</li>
+<li>Check the "proc" and "vfrac" boxes in the "Cell Array Status" menu that appears</li>
+<li>Click green Apply button</li>
+<li>Click on the "slice" icon -- three to the right of the calculator. This will create "Slice 1"</li>
+in the Pipeline Browser which will be highlighted.
+<li>Click on "Z Normal"</li>
+<li>Unclick the "Show Plane" button</li>
+<li>Click green Apply button</li>
+<li>Change the drop-down menu option (above the calculator row) from "vtkBlockColors" to "proc"</li>
+</ol>
 
+<p>
 Now to load the particles:
+</p>
 
-```
-1. File --> Open ... and select the collection of directories named "plt.." --> [OK]
-2. From the "Open Data With..." dialog that pops up, this time select "AMReX/BoxLib Particles Reader" --> [OK]
-8. Click green Apply button to read in the particle data
-3. Click the "glyph" button (6 to the right of the calculator)
-4. Under "Glyph Source" select "Sphere" instead of "Arrow"
-6. Under "Scale" set "Scale Factor" to 0.05
-7. Under "Masking" change "Glyph Mode" from "Uniform Spatial Distribution" to "All Points"
-8. Click green Apply button
-```
+<ol>
+<li>File --> Open ... and select the collection of directories named "plt.." --> [OK]</li>
+<li>From the "Open Data With..." dialog that pops up, this time select "AMReX/BoxLib Particles Reader" --> [OK]</li>
+<li>Click green Apply button to read in the particle data</li>
+<li>Click the "glyph" button (6 to the right of the calculator)</li>
+<li>Under "Glyph Source" select "Sphere" instead of "Arrow"</li>
+<li>Under "Scale" set "Scale Factor" to 0.05</li>
+<li>Under "Masking" change "Glyph Mode" from "Uniform Spatial Distribution" to "All Points"</li>
+<li>Click green Apply button</li>
+</ol>
 
+<p>
 You are now ready to play the movie!  See the "VCR-like" controls at the top. Click the play button.
+</p>
 
+<p>
 For fun: if you want to color the particles, make sure "Glyph1" is highlighted, then
 change the drop-down menu option (above the calculator row) from "vtkBlockColors" to "cpu" --
 if you have run with 4 processes then you will see the particles displayed with different colors.
+</p>
+
+</details>
 
 ### Further Reading
 
-Download AMReX from github [here](https://www.github.com/AMReX-codes/amrex).
+Download AMReX from GitHub [here](https://www.github.com/AMReX-codes/amrex).
 
-Look at the AMReX documentation/tutorials [here](https://amrex-codes.github.io/amrex/)
+AMReX documentation/tutorials can be found [here](https://amrex-codes.github.io/amrex/)
 
-Read the Journal of Open Source Software (JOSS) paper [here](http://joss.theoj.org/papers/10.21105/joss.01370)
+Read a Journal of Open Source Software (JOSS) paper on AMReX [here](http://joss.theoj.org/papers/10.21105/joss.01370)
 
 <!-- Insert space, horizontal line, and link to HandsOnLesson table -->
 

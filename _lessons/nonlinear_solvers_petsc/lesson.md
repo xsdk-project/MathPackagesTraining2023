@@ -19,11 +19,9 @@ header:
 |3. How and when do nonlinear solvers fail?|Explore limits of nonlinear solvers by systematically increasinging problem nonlinearity|Nonlinear solvers can fail in a variety of ways, and some workarounds exist|
 |4. Can we improve the robustness of Newton's method by combining it with other solvers?|Explore nonlinear preconditioning for highly nonlinear problems|Nonlinear analogs of ideas from iterative linear solvers can significantly improve nonlinear solvers|
 
-**Note:** To build the executable used in this lesson do
+**Note:** The executable for this lesson should be provided, but if it needs to be rebuilt do
 ```
-module load openmpi/openmpi-4.1.4_ucx-1.12.1_gcc-9.4.0
 cd {{site.handson_root}}/nonlinear_solvers_petsc
-# The ex19 executable should already exist, but if it needs to be rebuilt, do
 make ex19
 ```
 
@@ -71,7 +69,7 @@ Grashof number and $$\mathrm{Pr}$$ is the Prandtl number.
 Let's begin by running the `ex19` on a single MPI rank with some basic command line options.
 
 ```
-mpirun -n 1 ./ex19 -snes_monitor -snes_converged_reason -da_grid_x 16 -da_grid_y 16 -da_refine 2 -lidvelocity 100 -grashof 1e2
+mpiexec -n 1 ./ex19 -snes_monitor -snes_converged_reason -da_grid_x 16 -da_grid_y 16 -da_refine 2 -lidvelocity 100 -grashof 1e2
 ```
 
 You should see output similar to
@@ -201,7 +199,7 @@ to an inexact Newton method. To run with exact Newton (and to check the executio
 use `-pc_type lu`, which indicates to the KSP object (which controls the linear solver) that
 the underlying preconditioner should be an full LU decomposition:
 ```
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1e2 -pc_type lu
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1e2 -pc_type lu
 grep Time\ \(sec\): log.txt
 ```
 (Remember, the above command assumes that you have set `PETSC_OPTIONS` as specified in the
@@ -212,7 +210,7 @@ preceding section.)
 <details>
 <summary><h4 style="margin: 0 0 0 0; display: inline">Sample output on my laptop (Dell XPS 13 with Intel Core i7-10710U CPU)</h4></summary>
 ```
-rmills@encke:~/proj/petsc/src/snes/tutorials (master=)$ mpirun -n 1 ./ex19 -da_refine 2 -grashof 1e2 -pc_type lu
+rmills@encke:~/proj/petsc/src/snes/tutorials (master=)$ mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1e2 -pc_type lu
 lid velocity = 100., prandtl # = 1., grashof # = 100.
   0 SNES Function norm 7.681163231938e+02 
   Linear solve converged due to CONVERGED_RTOL iterations 1
@@ -241,7 +239,7 @@ Time (sec):           6.728e-01     1.000   6.728e-01
 The work required to solve the inner, linear interation so precisely is likely wasted.
 Let's try using the default iterative solver with some different tolerances. Start with
 ```
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1e2 -ksp_rtol 1e-8
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1e2 -ksp_rtol 1e-8
 ```
 and then try some larger values for relative convergence tolerance, `-ksp_rtol`.
 Try `-ksp_rtol 1e-5` (the PETSc default) next, and try increasing it by an order of
@@ -285,9 +283,9 @@ will fail for some cases.
 Using the linear solver defaults, increase the size of the grid (that is, decrease the
 grid spacing) and observe what happens to iteration counts and execution times:
 ```
-mpirun -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 2
-mpirun -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 3
-mpirun -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 4 
+mpiexec -n 8 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 2
+mpiexec -n 8 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 3
+mpiexec -n 8 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 4 
 ```
 
 {::options parse_block_html="true" /}
@@ -295,7 +293,7 @@ mpirun -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 4
 <details>
 <summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `-da_refine 4` case</h4></summary>
 ```
-$ mpirun -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 4
+$ mpiexec -n 8 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 4
 lid velocity = 100., prandtl # = 1., grashof # = 100.
   0 SNES Function norm 1.545962539057e+03 
   Linear solve converged due to CONVERGED_RTOL iterations 125
@@ -326,9 +324,9 @@ check out the `-help` output to see how to use other types; you may also want to
 `-snes_view` to see the multigrid hierarchy):
 
 ```
-mpirun -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 2
-mpirun -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 3
-mpirun -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 4 
+mpiexec -n 8 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 2
+mpiexec -n 8 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 3
+mpiexec -n 8 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 4 
 ```
 
 {::options parse_block_html="true" /}
@@ -336,7 +334,7 @@ mpirun -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 4
 <details>
 <summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `-pc_type mg -da_refine 4` case</h4></summary>
 ```
-mpirun -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 4
+mpiexec -n 8 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 4
 lid velocity = 100., prandtl # = 1., grashof # = 100.
   0 SNES Function norm 1.545962539057e+03 
   Linear solve converged due to CONVERGED_RTOL iterations 6
@@ -367,10 +365,10 @@ Let's explore what happens as we increase the strength of the nonlinearity by ra
 Grashof number. Try running
 
 ```
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1e2
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1e3
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1e4
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3e4
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1e2
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1e3
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1e4
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3e4
 ```
 
 {::options parse_block_html="true" /}
@@ -378,7 +376,7 @@ mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3e4
 <details>
 <summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `./ex19 -da_refine 2 -grashof 1.3e4`</h4></summary>
 ```
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3e4
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3e4
 lid velocity = 100., prandtl # = 1., grashof # = 13000.
   0 SNES Function norm 7.971152173639e+02 
   Linear solve did not converge due to DIVERGED_ITS iterations 10000
@@ -392,7 +390,7 @@ stronger preconditioner can help us:
 {::options parse_block_html="false" /}
 
 ```
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3e4 -pc_type mg
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3e4 -pc_type mg
 ```
 
 {::options parse_block_html="true" /}
@@ -400,7 +398,7 @@ mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3e4 -pc_type mg
 <details>
 <summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `./ex19 -da_refine 2 -grashof 1.3e4 -pc_type mg`</h4></summary>
 ```
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3e4 -pc_type mg
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3e4 -pc_type mg
 lid velocity = 100., prandtl # = 1., grashof # = 13000.
   ...
   4 SNES Function norm 3.209967262833e+02 
@@ -423,14 +421,14 @@ Success! But what if we increase the Grashof number a little more? Try
 {::options parse_block_html="false" /}
 
 ```
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type mg
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type mg
 ```
 
 
 {::options parse_block_html="true" /}
 <div style="border: solid #8B8B8B 2px; padding: 10px;">
 <details>
-<summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type mg`</h4></summary>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type mg`</h4></summary>
 ```
 lid velocity = 100., prandtl # = 1., grashof # = 13373.
 ...
@@ -448,7 +446,7 @@ No good! Let's try brute force and employ `-pc_type lu`:
 {::options parse_block_html="false" /}
 
 ```
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type lu
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type lu
 ```
 
 {::options parse_block_html="true" /}
@@ -456,7 +454,7 @@ mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type lu
 <details>
 <summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type lu`</h4></summary>
 ```
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type lu
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type lu
 ...
  48 SNES Function norm 3.193724239842e+02 
   Linear solve converged due to CONVERGED_RTOL iterations 1
@@ -478,7 +476,7 @@ Since our Newton solver is unable to make progress on its own, let's try combini
 We will try nonlinear Richardson iteration, preconditioned with Newton's method:
 
 ```
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -snes_type nrichardson -npc_snes_type newtonls -npc_snes_max_it 4 -npc_pc_type mg
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -snes_type nrichardson -npc_snes_type newtonls -npc_snes_max_it 4 -npc_pc_type mg
 ```
 
 {::options parse_block_html="true" /}
@@ -495,7 +493,7 @@ Number of SNES iterations = 0
 {::options parse_block_html="false" /}
 
 ```
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -snes_type nrichardson -npc_snes_type newtonls -npc_snes_max_it 4 -npc_pc_type lu
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -snes_type nrichardson -npc_snes_type newtonls -npc_snes_max_it 4 -npc_pc_type lu
 ```
 
 {::options parse_block_html="true" /}
@@ -523,7 +521,7 @@ So nonlinear Richardson preconditioned with Newton has managed to get us further
 Let's try increasing the Grashof number a little more:
 
 ```
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -snes_type nrichardson -npc_snes_type newtonls -npc_snes_max_it 4 -npc_pc_type lu
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -snes_type nrichardson -npc_snes_type newtonls -npc_snes_max_it 4 -npc_pc_type lu
 ```
 
 {::options parse_block_html="true" /}
@@ -547,7 +545,7 @@ Let's try preconditioning Newton with nonlinear Richardson.
 ### Example 6: Newton Preconditioned with Nonlinear Richardson
 
 ```
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 1 -snes_max_it 1000
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 1 -snes_max_it 1000
 ```
 
 {::options parse_block_html="true" /}
@@ -571,7 +569,7 @@ of the inner, nonlinear Richardson solver?
 {::options parse_block_html="false" /}
 
 ```
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 3
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 3
 ```
 
 {::options parse_block_html="true" /}
@@ -596,10 +594,10 @@ Much improved! Can we do even better?
 {::options parse_block_html="false" /}
 
 ```
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 4
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 5
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 6
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 7
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 4
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 5
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 6
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.4e4 -pc_type mg -npc_snes_type nrichardson -npc_snes_max_it 7
 ```
 
 {::options parse_block_html="true" /}
@@ -634,7 +632,7 @@ Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE iterations 8
 Newton preconditioned with nonlinear Richardson can be pushed quite far! Try
 
 ```
-mpirun -n 1 ./ex19 -da_refine 2 -grashof 1e6 -pc_type lu -npc_snes_type nrichardson -npc_snes_max_it 7 -snes_max_it 1000
+mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1e6 -pc_type lu -npc_snes_type nrichardson -npc_snes_max_it 7 -snes_max_it 1000
 ```
 
 {::options parse_block_html="true" /}
@@ -678,6 +676,99 @@ Further items to explore include
 * PETSc timesteppers use `SNES` to solve nonlinear problems at each time step
   * Pseudo-transient continuation (`TSPSEUDO`) can solve highly nonlinear steady-state problems
 
+## Extra Credit: Running Nonlinear Solvers Using PETSc's GPU Back-Ends
+
+The concepts we have covered so far are mostly orthogonal to the topic of how to run PETSc solvers on GPUs.
+Since computing on GPUs has become so important, however, we suggest a few exercises here for students who want a brief
+look at GPU support in PETSc and how its nonlinear solvers can be executed on GPUs.
+
+Before we begin, let's clear the `PETSC_OPTIONS` environment variable were were using:
+```
+unset PETSC_OPTIONS
+```
+
+We will run a large version (`-dm_refine 9`) of the driven cavity problem, using multigrid with GPU and SIMD-friendly Chebyshev-Jacobi smoothing (`-mg_levels_pc_type jacobi`), and collect a breakdown by multigrid level (`-pc_mg_log`), logging performance in a text file.
+
+We get the best CPU-only performance on ThetaGPU using 8 MPI ranks:
+```
+mpiexec -n 8 ./ex19 -da_refine 9 -pc_type mg -mg_levels_pc_type jacobi -pc_mg_log -log_view :log_mg_cpu_n8.txt
+```
+
+Running on GPU, we get best performance using only one rank (we could probably use more if running NVIDIA MPS, but this is not enabled on ThetaGPU):
+```
+mpiexec -n 1 ./ex19 -da_refine 9 -pc_type mg -mg_levels_pc_type jacobi -pc_mg_log -dm_vec_type cuda -dm_mat_type aijcusparse -log_view_gpu_time -log_view :log_mg_gpu_n1.txt
+```
+
+(The `-log_view_gpu_time` option is actually not needed in the 3.17 release of PETSc,
+but in future releases it will be required to get full timings for all events on the
+GPU. This change is being added because of the overhead associated with collecting these timings.)
+
+Opening up the .txt versions of the `-log_view` files will show us a lot of data about the performance.
+There is a useful overall summary at the top, and then timings for many "events", which occur during
+different "stages" of the computation.
+When PETSc has been built with GPU support, several additional columns, showing copies between CPU and
+GPU memory and the percentage of flops computed on the GPU, are present.
+The events that are logged are not exclusive:
+The `SNESSolve` time is that required to solve our entire problem.
+But the time for other events, such as `KSPSolve` (invoked in solving the Jacobian system inside the Newton solve),
+are included in the `SNESSolve` time.
+
+It can be difficult to tell from the text output how the logging events are nested.
+So let's repeat the same runs, but this time generate stack trace files that can be used to generate flame graphs.
+
+On 8 MPI ranks for CPU-only:
+
+```
+mpiexec -n 8 ./ex19 -da_refine 9 -pc_type mg -mg_levels_pc_type jacobi -pc_mg_log -log_view :log_mg_cpu_n8.stack:ascii_flamegraph
+```
+
+And on 1 MPI rank for the GPU case:
+
+```
+mpiexec -n 1 ./ex19 -da_refine 9 -pc_type mg -mg_levels_pc_type jacobi -pc_mg_log -dm_vec_type cuda -dm_mat_type aijcusparse -log_view_gpu_time -log_view :log_mg_gpu_n1.stack:ascii_flamegraph
+```
+
+Download the .stack files to your local machine, and then use [SpeedScope.app](https://speedscope.app) to
+generate interactive flame graphs of the performance data, which will let you examine
+the hierarchy of PETSc events and their relative costs.
+
+One thing to note is the relative distribution of time in `MGSmooth` events (part of `PCApply`). 
+These are the application of the smoother on a multigrid level; `MGSmooth Level 0` corresponds
+to the smoother application on the coarsest level of the multigrid hierarchy.
+See how the smoother application on coarse levels all take roughly the same time on the GPU?
+This points to the high kernel launch latency. What other noteworthy differences can you find?
+
+### Additional Things To Try
+
+#### Look at sources of speedup (or slowdown!) for the GPU vs. CPU
+
+The total time in `SNESSolve` tells us the time required to solve our entire problem.
+Compare these for the CPU and GPU cases to get the overall speedup, but what parts
+sped up in the GPU case? Which parts actually slowed down?
+
+(The slowdowns are mostly due to the fact that the nonlinear function and Jacobian routines in
+SNES ex19 do not run on the GPU—verify this by looking at the `GPU %F` column in the
+text version of the log—and we had to use fewer ranks in this case. See
+SNES tutorial ex55 in the main development branch of PETSc for an example where
+these run on the GPU.)
+
+#### Running with a different GPU back-end
+
+If you'd like to try another GPU-back end, you can try PETSc's Kokkos/Kokkos Kernels one.
+Run with `-dm_mat_type aijkokkos -dm_vec_type kokkos`:
+
+```
+mpirun -n 1 ./ex19 -da_refine 9 -pc_type mg -mg_levels_pc_type jacobi -pc_mg_log -dm_vec_type kokkos -dm_mat_type aijkokkos -log_view_gpu_time -log_view :log_mg_kokkos_n1.txt
+```
+
+#### Experimenting with different multigrid cycle types
+Our SNES ex19 runs defaulted to using multigrid V-cycles.
+Try running with W-cycles instead by using the option `-pc_mg_cycle_type w`.
+
+Unlike V-cycles, W-cycles visit coarse levels many more times than fine ones.
+What does this do to the time spent in multigrid smoothers for the GPU case vs. the CPU-only one?
+Should one or the other of these be favored when using GPUs?
+
 ## An Important Reminder About Cleaning Up Your PETSc Options
 
 IMPORTANT: If you will be doing hands-on lessons from other ATPESC sessions, remember to clear your `PETSC_OPTIONS` environment variable:
@@ -691,8 +782,11 @@ Otherwise, you may get unexpected behavior from executables that link against PE
 - [PETSc manual](https://petsc.org/release/documentation/manual/)
 - [PETSc/TAO website](https://petsc.org/release/)
 - [*Composing Scalable Nonlinear Algebraic Solvers*](https://arxiv.org/abs/1607.04254)
+- [*Toward Performance-Portable PETSc for GPU-based Exascale Systems*](https://arxiv.org/abs/2011.00715)
 
 ## Previous Nonlinear Solvers Lectures
+
+- [ATPESC 2021](https://xsdk-project.github.io/MathPackagesTraining2021/lessons/nonlinear_solvers_petsc/)
 - [ATPESC 2020](https://xsdk-project.github.io/MathPackagesTraining2020/lessons/nonlinear_solvers_petsc/)
 - [ATPESC 2019](https://xsdk-project.github.io/MathPackagesTraining/lessons/time_integrators/sundials)
 - [ATPESC 2018](https://xsdk-project.github.io/ATPESC2018HandsOnLessons/lessons/time_integrators/)
