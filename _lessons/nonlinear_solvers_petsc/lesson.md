@@ -285,9 +285,9 @@ will fail for some cases.
 Using the linear solver defaults, increase the size of the grid (that is, decrease the
 grid spacing) and observe what happens to iteration counts and execution times:
 ```
-mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 2
-mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 3
-mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 4 
+mpiexec -n 8 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 2
+mpiexec -n 8 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 3
+mpiexec -n 8 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 4 
 ```
 
 {::options parse_block_html="true" /}
@@ -295,7 +295,7 @@ mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 4
 <details>
 <summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `-da_refine 4` case</h4></summary>
 ```
-$ mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 4
+$ mpiexec -n 8 ./ex19 -ksp_type bcgs -grashof 1e2 -da_refine 4
 lid velocity = 100., prandtl # = 1., grashof # = 100.
   0 SNES Function norm 1.545962539057e+03 
   Linear solve converged due to CONVERGED_RTOL iterations 125
@@ -326,9 +326,9 @@ check out the `-help` output to see how to use other types; you may also want to
 `-snes_view` to see the multigrid hierarchy):
 
 ```
-mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 2
-mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 3
-mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 4 
+mpiexec -n 8 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 2
+mpiexec -n 8 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 3
+mpiexec -n 8 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 4 
 ```
 
 {::options parse_block_html="true" /}
@@ -336,7 +336,7 @@ mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 4
 <details>
 <summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `-pc_type mg -da_refine 4` case</h4></summary>
 ```
-mpiexec -n 12 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 4
+mpiexec -n 8 ./ex19 -ksp_type bcgs -grashof 1e2 -pc_type mg -da_refine 4
 lid velocity = 100., prandtl # = 1., grashof # = 100.
   0 SNES Function norm 1.545962539057e+03 
   Linear solve converged due to CONVERGED_RTOL iterations 6
