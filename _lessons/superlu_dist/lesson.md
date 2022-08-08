@@ -1,10 +1,10 @@
 ---
 layout: page-fullwidth
-order: 0
-title: "Lesson Template"
-subheadline: "Outline of lesson"
-teaser: "Set your teaser here..."
-permalink: "lessons/lesson_template/"
+order: 7
+title: "Sparse, Direct Solvers with SuperLU"
+subheadline: "Linear Solvers"
+teaser: "Role and Use of Direct Solvers in Ill-Conditioned Problems"
+permalink: "lessons/superlu_dist/"
 use_math: true
 lesson: true
 header:
