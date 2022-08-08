@@ -75,7 +75,7 @@ run using PETSc's GPU back-ends.
 
 ### Time Integration (with SUNDIALS)
 ### Time Integration (with SUNDIALS)
-[Slides](../files/ATPESC-2021-Track-5-Talk-7-DanielReynolds-TimeIntegrationSUNDIALS.pdf)
+[Slides](../files/ATPESC-2022-Track-5-DanielReynolds-TimeIntegrationSUNDIALS.pdf)
 
 In this lecture we will discuss the role and impact of high order, adaptive, and
 flexible time integration libraries in solution accuracy and computational
@@ -214,7 +214,7 @@ and then you may be called upon to un-mute and ask your question.
 ### SME Speed Dating OPTIONAL ACTIVITY
 
 This is an opportunity for you to meet and talk (1-on-1 or sometimes 2-on-1) with subject matter experts
-(SMEs) about their work and numerical packages they support. Each *speed date* will be a 20 minute 
+(SMEs) about their work and numerical packages they support. Each *speed date* will be a 20 minute
 meeting. Attendees may select up to
 3 SMEs they would like to meet using
 [this form](https://docs.google.com/document/d/166nDHcNm3PlCn8O-fbiy9nKJS7HekhYsvKV2FB7n7XI/edit?usp=sharing)
