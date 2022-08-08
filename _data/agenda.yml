@@ -16,7 +16,7 @@
   speakers:
     - "Ann Almgren"
     - "Erik Palmer"
-  vname: "Main-room or breakout (TBD)"
+  vname: "Main-room"
   has_synopsis: true
   id: 3
 
@@ -25,7 +25,7 @@
     - "Aaron Fisher"
     - "Mark Shephard"
     - "Cameron Smith"
-  vname: "Main-room or breakout (TBD)"
+  vname: "Breakout-room"
   has_synopsis: true
   id: 4
 
@@ -43,7 +43,7 @@
   speakers:
     - "Christian Glusa"
     - "Graham Harper"
-  vname: "Main-room or breakout (TBD)"
+  vname: "Main-room"
   has_synopsis: true
   id: 7
 
@@ -51,7 +51,7 @@
   speakers:
     - "Sherry Li"
     - "Pieter Ghysels"
-  vname: "Main-room or breakout (TBD)"
+  vname: "Breakout-room"
   has_synopsis: true
   id: 8
 
@@ -68,7 +68,7 @@
 - title: "Nonlinear Solvers<br>(with PETSc)"
   speakers:
     - "Richard Tran Mills"
-  vname: "Main-room or breakout (TBD)"
+  vname: "Main-room"
   has_synopsis: true
   id: 11
 
@@ -76,7 +76,7 @@
   speakers:
     - "Dan Reynolds"
     - "David Gardner"
-  vname: "Main-room or breakout (TBD)"
+  vname: "Breakout-room"
   id: 12
   has_synopsis: true
 
@@ -93,7 +93,7 @@
 - title: "Optimization<br>(with TAO)"
   speakers:
     - "Todd Munson"
-  vname: "Main-room or breakout (TBD)"
+  vname: "Main-room"
   has_synopsis: true
   id: 15
 
@@ -101,7 +101,7 @@
   speakers:
     - "Sarah Osborn"
     - "Ulrike Yang"
-  vname: "Main-room or breakout (TBD)"
+  vname: "Breakout-room"
   has_synopsis: true
   id: 16
 
