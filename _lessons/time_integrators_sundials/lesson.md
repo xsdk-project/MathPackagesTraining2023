@@ -35,7 +35,7 @@ header:
    ```
 
 If you want to modify and rebuild the hands-on codes, the source files are
-located under `track-5-numericaltime_integration_sundials/SUNDIALS+AMReX` and
+located under `track-5-numerical/time_integration_sundials/SUNDIALS+AMReX` and
 can be compiled using the provided configuration script:
 ```
 module load cmake-3.20.3-gcc-9.3.0-57eqw4f
@@ -103,7 +103,7 @@ You can discover the full set of command-line options for each setup with
 the `help=1` argument, e.g.,
 
 ```text
-$ mpirun -n 1 HandsOn1.CUDA.exe help=1
+$ mpirun -n 1 ./HandsOn1.CUDA.exe help=1
 Initializing CUDA...
 CUDA initialized with 1 GPU per MPI rank; 1 GPU(s) used in total
 Initializing SUNDIALS with 1 threads...
@@ -347,7 +347,7 @@ in are in the file [HandsOn2.cpp][4], and are indicated by the comment
    In this example, we create and attach an un-preconditioned GMRES iterative
    linear solver [here][13] in `HandsOn2.cpp`.
 
-### Linear stability revisited
+### Linear Stability Revisited
 
 Run the second hands-on code using its default parameters (this also uses a mesh
 size of $$128^2$$ and fixed time step size of 5.0),
@@ -379,7 +379,7 @@ solution error each time -- can you find an unstable step size?  Are there step
 sizes where the code may be stable, but are so large that the nonlinear and/or
 linear solver fails to converge?
 
-### Temporal adaptivity revisited
+### Temporal Adaptivity Revisited
 
 As with the previous hands-on exercise, we can switch to adaptive time-stepping
 (with tolerances $$rtol=10^{-4}$$ and $$atol=10^{-9}$$) by specifying
@@ -415,7 +415,7 @@ number of time steps change as different tolerances are requested? Is this
 algorithm more useful than the fully explicit approach when loose tolerances
 (e.g., `rtol=1e-1`) are requested?
 
-### IMEX partitioning
+### IMEX Partitioning
 
 By default, `HandsOn2.CUDA.exe` uses a fully implicit formulation of the problem.
 However, this can instead be run with the advection terms
@@ -590,7 +590,7 @@ two steps:
    preconditioning [here][15]. We then attach the `precondition_solve` routine
    to the integrator [here][16].
 
-### Performance with IMEX integration
+### Performance with IMEX Integration
 
 Run `HandsOn3.exe` using the default parameters,
 
@@ -610,7 +610,7 @@ iterations. However, as the mesh is refined the preconditioned solver
 performance will remain relatively "steady", while the un-preconditioned solver
 will deteriorate rapidly.
 
-### Performance with fully implicit integration
+### Performance with Fully Implicit Integration
 
 Re-run `HandsOn3.exe` using a fully-implicit problem formulation,
 
@@ -623,7 +623,7 @@ the problem, so when run in a fully-implicit manner the implicit advection terms
 are left un-preconditioned. Is this discrepancy noticeable when comparing the
 integrator statistics (number of time steps, total linear iterations, etc.)?
 
-### Scalability tests
+### Scalability Tests
 
 Explore the weak scalability of `HandsOn3.exe` both with and without
 preconditioning. Here, use from 1 to 256 MPI tasks, with a base grid of $$128^2$$
@@ -635,7 +635,7 @@ these results.
 See the Theta job submission [documentation](https://www.alcf.anl.gov/support-center/theta/running-jobs-and-submission-scripts)
 for more details on writing and running job scripts.
 
-### Further reading
+### Further Reading
 
 [SUNDIALS Documentation](https://sundials.readthedocs.io)
 
