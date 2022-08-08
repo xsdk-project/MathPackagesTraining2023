@@ -126,7 +126,9 @@ mpiexec -n 2 pddrive3d -r 1 -c 1 -d 2  ${matdir}/torso3.mtx 2>&1 | tee run2.txt
 
 #### Expected Behavior/Output
 ```
+     ....
      FACTOR time           5.213
+     ....
 ```
 
 ### Run 3 (test 3D algorithm driver, without GPU)
@@ -137,7 +139,9 @@ mpiexec -n 2 pddrive3d -r 1 -c 1 -d 2  ${matdir}/torso3.mtx 2>&1 | tee run3.txt
 
 #### Expected Behavior/Output
 ```
+     ....
      FACTOR time          14.373
+     ....
 ```
 
 ### Run 4 (try different sparsity ordering options)
