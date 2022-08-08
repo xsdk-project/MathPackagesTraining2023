@@ -57,7 +57,7 @@ mesh tools developed to support mesh adaptation, load balancing and PIC calculat
 
 ### Nonlinear Solvers (with PETSc)
 ### Nonlinear Solvers (with PETSc)
-[Slides](../files/ATPESC-2021-Track-5-Talk-6-RichardTranMills-NonlinearSolversUsingPETSc.pdf)
+[Slides](../files/ATPESC-2022-Track-5-RichardTranMills-NonlinearSolversUsingPETSc.pdf)
 
 We will begin with a quick overview of iterative solvers for nonlinear systems,
 and then take a deeper look into Newton-Krylov methods and how to use them via
@@ -66,7 +66,9 @@ some hands-on exploration with a classic computational fluid dynamics benchmark,
 the lid-driven cavity problem. We will end by looking at how nonlinear composition
 and preconditioning can be used to construct a wide array of nonlinear solvers from
 the algorithmic building blocks in SNES, and demonstrate how these techniques can
-handle particularly difficult nonlinearities.
+handle particularly difficult nonlinearities. Time permitting, we will also present
+some bonus or "extra credit" material briefly looking at how SNES solvers can be
+run using PETSc's GPU back-ends.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
