@@ -678,6 +678,99 @@ Further items to explore include
 * PETSc timesteppers use `SNES` to solve nonlinear problems at each time step
   * Pseudo-transient continuation (`TSPSEUDO`) can solve highly nonlinear steady-state problems
 
+## Extra Credit: Running Nonlinear Solvers Using PETSc's GPU Back-Ends
+
+The concepts we have covered so far are mostly orthogonal to the topic of how to run PETSc solvers on GPUs.
+Since computing on GPUs has become so important, however, we suggest a few exercises here for students who want a brief
+look at GPU support in PETSc and how its nonlinear solvers can be executed on GPUs.
+
+Before we begin, let's clear the `PETSC_OPTIONS` environment variable were were using:
+```
+unset PETSC_OPTIONS
+```
+
+We will run a large version (`-dm_refine 9`) of the driven cavity problem, using multigrid with GPU and SIMD-friendly Chebyshev-Jacobi smoothing (`-mg_levels_pc_type jacobi`), and collect a breakdown by multigrid level (`-pc_mg_log`), logging performance in a text file.
+
+We get the best CPU-only performance on ThetaGPU using 8 MPI ranks:
+```
+mpiexec -n 8 ./ex19 -da_refine 9 -pc_type mg -mg_levels_pc_type jacobi -pc_mg_log -log_view :log_mg_cpu_n8.txt
+```
+
+Running on GPU, we get best performance using only one rank (we could probably use more if running NVIDIA MPS, but this is not enabled on ThetaGPU):
+```
+mpiexec -n 1 ./ex19 -da_refine 9 -pc_type mg -mg_levels_pc_type jacobi -pc_mg_log -dm_vec_type cuda -dm_mat_type aijcusparse -log_view_gpu_time -log_view :log_mg_gpu_n1.txt
+```
+
+(The `-log_view_gpu_time` option is actually not needed in the 3.17 release of PETSc,
+but in future releases it will be required to get full timings for all events on the
+GPU. This change is being added because of the overhead associated with collecting these timings.)
+
+Opening up the .txt versions of the `-log_view` files will show us a lot of data about the performance.
+There is a useful overall summary at the top, and then timings for many "events", which occur during
+different "stages" of the computation.
+When PETSc has been built with GPU support, several additional columns, showing copies between CPU and
+GPU memory and the percentage of flops computed on the GPU, are present.
+The events that are logged are not exclusive:
+The `SNESSolve` time is that required to solve our entire problem.
+But the time for other events, such as `KSPSolve` (invoked in solving the Jacobian system inside the Newton solve),
+are included in the `SNESSolve` time.
+
+It can be difficult to tell from the text output how the logging events are nested.
+So let's repeat the same runs, but this time generate stack trace files that can be used to generate flame graphs.
+
+On 8 MPI ranks for CPU-only:
+
+```
+mpiexec -n 8 ./ex19 -da_refine 9 -pc_type mg -mg_levels_pc_type jacobi -pc_mg_log -log_view :log_mg_cpu_n8.stack:ascii_flamegraph
+```
+
+And on 1 MPI rank for the GPU case:
+
+```
+mpiexec -n 1 ./ex19 -da_refine 9 -pc_type mg -mg_levels_pc_type jacobi -pc_mg_log -dm_vec_type cuda -dm_mat_type aijcusparse -log_view_gpu_time -log_view :log_mg_gpu_n1.stack:ascii_flamegraph
+```
+
+Download the .stack files to your local machine, and then use [SpeedScope.app](https://speedscope.app) to
+generate interactive flame graphs of the performance data, which will let you examine
+the hierarchy of PETSc events and their relative costs.
+
+One thing to note is the relative distribution of time in `MGSmooth` events (part of `PCApply`). 
+These are the application of the smoother on a multigrid level; `MGSmooth Level 0` corresponds
+to the smoother application on the coarsest level of the multigrid hierarchy.
+See how the smoother application on coarse levels all take roughly the same time on the GPU?
+This points to the high kernel launch latency. What other noteworthy differences can you find?
+
+### Additional Things To Try
+
+#### Look at sources of speedup (or slowdown!) for the GPU vs. CPU
+
+The total time in `SNESSolve` tells us the time required to solve our entire problem.
+Compare these for the CPU and GPU cases to get the overall speedup, but what parts
+sped up in the GPU case? Which parts actually slowed down?
+
+(The slowdowns are mostly due to the fact that the nonlinear function and Jacobian routines in
+SNES ex19 do not run on the GPU—verify this by looking at the `GPU %F` column in the
+text version of the log—and we had to use fewer ranks in this case. See
+SNES tutorial ex55 in the main development branch of PETSc for an example where
+these run on the GPU.)
+
+#### Running with a different GPU back-end
+
+If you'd like to try another GPU-back end, you can try PETSc's Kokkos/Kokkos Kernels one.
+Run with `-dm_mat_type aijkokkos -dm_vec_type kokkos`:
+
+```
+mpirun -n 1 ./ex19 -da_refine 9 -pc_type mg -mg_levels_pc_type jacobi -pc_mg_log -dm_vec_type kokkos -dm_mat_type aijkokkos -log_view_gpu_time -log_view :log_mg_kokkos_n1.txt
+```
+
+#### Experimenting with different multigrid cycle types
+Our SNES ex19 runs defaulted to using multigrid V-cycles.
+Try running with W-cycles instead by using the option `-pc_mg_cycle_type w`.
+
+Unlike V-cycles, W-cycles visit coarse levels many more times than fine ones.
+What does this do to the time spent in multigrid smoothers for the GPU case vs. the CPU-only one?
+Should one or the other of these be favored when using GPUs?
+
 ## An Important Reminder About Cleaning Up Your PETSc Options
 
 IMPORTANT: If you will be doing hands-on lessons from other ATPESC sessions, remember to clear your `PETSC_OPTIONS` environment variable:
@@ -691,6 +784,7 @@ Otherwise, you may get unexpected behavior from executables that link against PE
 - [PETSc manual](https://petsc.org/release/documentation/manual/)
 - [PETSc/TAO website](https://petsc.org/release/)
 - [*Composing Scalable Nonlinear Algebraic Solvers*](https://arxiv.org/abs/1607.04254)
+- [*Toward Performance-Portable PETSc for GPU-based Exascale Systems*](https://arxiv.org/abs/2011.00715)
 
 ## Previous Nonlinear Solvers Lectures
 - [ATPESC 2020](https://xsdk-project.github.io/MathPackagesTraining2020/lessons/nonlinear_solvers_petsc/)
