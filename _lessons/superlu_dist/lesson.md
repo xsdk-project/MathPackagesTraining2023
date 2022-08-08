@@ -38,12 +38,18 @@ Set the following directory that contains larger matrix files:
 export matdir=/grand/ATPESC2022/usr/MathPackages/datafiles
 ```
 
-### Run 1 (test 2D algorithm driver)
+Set to use one OpenMP thread:
+```
+export OMP_NUM_THREADS=1
+```
+
+### Run 1 (test 2D algorithm driver, with GPU)
 ```
 mpiexec -n 2 pddrive -r 1 -c 2 ${matdir}/torso3.mtx 2>&1 | tee out
 ```
 
 #### Expected Behavior/Output
+
 
 ### Run 2 (test 3D algorithm driver))
 ```
@@ -51,6 +57,7 @@ mpiexec -n 2 pddrive3d -r 1 -c 1 -d 2  ${matdir}/torso3.mtx 2>&1 | tee out
 ```
 
 #### Expected Behavior/Output
+
 
 ### Run 3
 
