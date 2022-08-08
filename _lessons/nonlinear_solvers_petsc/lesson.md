@@ -787,6 +787,8 @@ Otherwise, you may get unexpected behavior from executables that link against PE
 - [*Toward Performance-Portable PETSc for GPU-based Exascale Systems*](https://arxiv.org/abs/2011.00715)
 
 ## Previous Nonlinear Solvers Lectures
+
+- [ATPESC 2021](https://xsdk-project.github.io/MathPackagesTraining2021/lessons/nonlinear_solvers_petsc/)
 - [ATPESC 2020](https://xsdk-project.github.io/MathPackagesTraining2020/lessons/nonlinear_solvers_petsc/)
 - [ATPESC 2019](https://xsdk-project.github.io/MathPackagesTraining/lessons/time_integrators/sundials)
 - [ATPESC 2018](https://xsdk-project.github.io/ATPESC2018HandsOnLessons/lessons/time_integrators/)
