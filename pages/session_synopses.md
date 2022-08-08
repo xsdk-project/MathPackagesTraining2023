@@ -93,7 +93,8 @@ hands-on exercises that examine stability, accuracy, temporal adaptivity,
 and the role of problem-specific preconditioning.  All of the hands-on
 exercises focus on time-dependent PDEs, and use the SUNDIALS' ARKODE
 library for time integration, along with the AMReX library for spatial
-semi-discretization.
+semi-discretization.  These exercises utilize both MPI and GPUs, allowing
+participants to explore both on-node and multi-node performance.
 
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
