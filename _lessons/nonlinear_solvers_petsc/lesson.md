@@ -374,7 +374,7 @@ mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3e4
 {::options parse_block_html="true" /}
 <div style="border: solid #8B8B8B 2px; padding: 10px;">
 <details>
-<summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `./ex19 -da_refine 2 -grashof 1.3e4`</h4></summary>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3e4`</h4></summary>
 ```
 mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3e4
 lid velocity = 100., prandtl # = 1., grashof # = 13000.
@@ -396,7 +396,7 @@ mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3e4 -pc_type mg
 {::options parse_block_html="true" /}
 <div style="border: solid #8B8B8B 2px; padding: 10px;">
 <details>
-<summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `./ex19 -da_refine 2 -grashof 1.3e4 -pc_type mg`</h4></summary>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3e4 -pc_type mg`</h4></summary>
 ```
 mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3e4 -pc_type mg
 lid velocity = 100., prandtl # = 1., grashof # = 13000.
@@ -452,7 +452,7 @@ mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type lu
 {::options parse_block_html="true" /}
 <div style="border: solid #8B8B8B 2px; padding: 10px;">
 <details>
-<summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type lu`</h4></summary>
+<summary><h4 style="margin: 0 0 0 0; display: inline">Sample output for `mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type lu`</h4></summary>
 ```
 mpiexec -n 1 ./ex19 -da_refine 2 -grashof 1.3373e4 -pc_type lu
 ...
