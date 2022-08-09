@@ -56,7 +56,7 @@ ssh thetagpusn1 # or thetagpusn2
 
 4. From the GPU service node, request a single-gpu reservation:
 ```shell
-qusb -I -q single-gpu -t 60 -n 1 -A ATPESC2022
+qsub -I -q single-gpu -t 60 -n 1 -A ATPESC2022
 ```
 
 5. Load OpenMPI:
