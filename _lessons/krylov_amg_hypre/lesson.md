@@ -599,6 +599,6 @@ For structured problems, solvers that take advantage of the structure of the pro
 ### Further Reading
 
 To learn more about algebraic multigrid, see Paper 46:
-[An Introduction to Algebraic Multigrid]([https://github.com/hypre-space/hypre/wiki/Publications]).
+[An Introduction to Algebraic Multigrid](https://github.com/hypre-space/hypre/wiki/Publications).
 
 More information on hypre , including documentation and further publications, can be found [here](http://www.llnl.gov/CASC/hypre)
