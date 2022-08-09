@@ -18,5 +18,6 @@ SLACK ALCF-Workshops workspace provides channles for help
 
 * [#help-desk-general](https://alcf-workshops.slack.com/archives/C03QPJSUL90)
 * [#track-5-numerical](https://alcf-workshops.slack.com/archives/C03Q8QEJF6K)
+* [#track-5-numerical-breakout](https://alcf-workshops.slack.com/archives/C03SXV5LNEQ)
 
 {% include link-shortcuts %}
