@@ -25,7 +25,7 @@ header:
 |**Questions**|**Objectives**|**Key Points**|
 |How does Adaptive Mesh Refinement (AMR) work and when would I want it?|Understand AMR applicability, benefits and trade-offs.| AMR is a flexible approach for achieving science goals.|
 |How does AMReX do AMR?|Understand AMReX provides functionality as a software framework.|Simulations are coded with AMReX data structures and functions; your science is still your code.|
-|Would AMReX be useful for my application?|Understand conceptual requirements and benefits of running with AMReX.|AMReX's AMR routines are capable of accelerating AMR, Embedded Boundaries, Particles and more on a variety of heterogeneous architectures.|
+|Would AMReX be useful for my application?|Understand conceptual requirements and benefits of running with AMReX.|AMReX provides support for AMR, Embedded Boundaries, Particles and more on a variety of heterogeneous architectures.|
 
 
 <!--
