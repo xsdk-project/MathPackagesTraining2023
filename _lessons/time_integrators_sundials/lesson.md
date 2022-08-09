@@ -36,9 +36,14 @@ header:
 
 If you want to modify and rebuild the hands-on codes, the source files are
 located under `track-5-numerical/time_integration_sundials/SUNDIALS+AMReX` and
-can be compiled using the provided configuration script:
+can be compiled by starting an interactive session on ThetaGPU and using the
+provided configuration script to build on the compute node:
 ```
+module load openmpi/openmpi-4.1.4_ucx-1.12.1_gcc-9.4.0
+module load aocl/blis/blis-3.2
+module load aocl/libflame/libflame-3.2
 module load cmake-3.20.3-gcc-9.3.0-57eqw4f
+
 ./config_atpesc_thetagpu.sh
 cd build
 make -j
