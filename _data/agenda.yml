@@ -74,7 +74,6 @@
 
 - title: "Time Integration<br>(with SUNDIALS)"
   speakers:
-    - "Dan Reynolds"
     - "David Gardner"
   vname: "Breakout-room"
   id: 12
@@ -120,7 +119,6 @@
     - "Christian Glusa"
     - "Todd Munson"
     - "Sarah Osborn"
-    - "Dan Reynolds"
     - "Richard Tran Mills"
   start: "Tue Aug 9 4:45 PM"
   length: 45
