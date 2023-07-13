@@ -4,7 +4,7 @@ A gh-pages site to host SWC style training materials for various HPC math packag
 
 # Website
 
-The public site for this repo is https://xsdk-project.github.io/MathPackagesTraining2022/.
+The public site for this repo is https://xsdk-project.github.io/MathPackagesTraining2023/.
 After pushing to the Repo, changes should be visible within minutes.
 
 ## To Render Locally
