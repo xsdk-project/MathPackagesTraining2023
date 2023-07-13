@@ -16,14 +16,14 @@ install Ruby dependencies:
 bundle install
 ```
 
-Clone or move to the MathPackagesTraining2022 directory and start the Jekyll server:
+Clone or move to the MathPackagesTraining2023 directory and start the Jekyll server:
 
 ```
-git clone https://github.com/xsdk-project/MathPackagesTraining2022.git
+git clone https://github.com/xsdk-project/MathPackagesTraining2023.git
 bundle exec jekyll serve
 ```
 
-Then point your web broswer at http://localhost:4000/MathPackagesTraining2022/
+Then point your web broswer at http://localhost:4000/MathPackagesTraining2023/
 
 
 # ThetaGPU
@@ -90,12 +90,12 @@ With cmake - the likely option is: `-DCMAKE_CUDA_ARCHITECTURES=80`
 
 ## Install software
 
-Install software at `/grand/ATPESC2022/usr/MathPackages` - for ex: `/grand/ATPESC2022/usr/MathPackages/petsc`
+Install software at `/grand/ATPESC2023/usr/MathPackages` - for ex: `/grand/ATPESC2023/usr/MathPackages/petsc`
 
-And then copy over needed tutorial binaries, datafiles etc. over to `/grand/ATPESC2022/EXAMPLES/track-5-numerical` into appropriate folders - for ex: (from last year)
+And then copy over needed tutorial binaries, datafiles etc. over to `/grand/ATPESC2023/EXAMPLES/track-5-numerical` into appropriate folders - for ex: (from last year)
 
 ```
-balay@thetalogin5:~> ls /grand/ATPESC2021/EXAMPLES/track-5-numerical
+balay@thetalogin5:~> ls /grand/ATPESC2023/EXAMPLES/track-5-numerical
 amrex  hand_coded_heat  krylov_amg_hypre  krylov_amg_muelu  mfem-pumi-lesson  nonlinear_solvers_petsc  numerical_optimization_tao  rank_structured_strumpack  superlu  time_integrators_sundials
 ```
 
