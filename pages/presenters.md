@@ -63,11 +63,11 @@ permalink: "/presenters/"
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-### Erik Palmer
-### Erik Palmer
+### Andrew Myers
+### Andrew Myers
 
 |:---:|:---:|
-|![](https://avatars.githubusercontent.com/u/24531086?v=4){:width="200px"}|Key Expertise: [AMReX][amrex]<br><br>Affiliation: [LBL][lbl]/[CCSE][lbl-ccse]<br><br>Contact: [email][ep-m]<br><br>GitHub: [Profile][ep-g]|
+|![](https://ccse.lbl.gov/people/amyers/myers.jpg){:width="200px"}|Key Expertise: [AMReX][amrex]<br><br>Affiliation: [LBL][lbl]/[CCSE][lbl-ccse]<br><br>Contact: [email][am-m]<br><br>GitHub: [Profile][am-g]|
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -294,7 +294,7 @@ permalink: "/presenters/"
 [dr-m]: <mailto:reynolds@smu.edu>
 [dg-m]: <mailto:gardner48@llnl.gov>
 [aa-m]: <mailto:ASAlmgren@lbl.gov>
-[ep-m]: <mailto:epalmer@lbl.gov>
+[am-m]: <mailto:atmyers@lbl.gov>
 [tm-m]: <mailto:tmunson@mcs.anl.gov>
 [cg-m]: <mailto:caglusa@sandia.gov>
 [jh-m]: <mailto:jhu@sandia.gov>
@@ -321,7 +321,7 @@ permalink: "/presenters/"
 [dr-g]: https://github.com/drreynolds
 [dg-g]: https://github.com/gardner48
 [aa-g]: https://github.com/asalmgren
-[ep-g]: https://github.com/etpalmer63
+[am-g]: https://github.com/atmyers
 [tm-g]: https://gitlab.com/tmunson
 [cg-g]: https://github.com/cgcgcg
 [jh-g]: https://github.com/jhux2
