@@ -1,5 +1,5 @@
 - title: "Introduction to<br>Numerical Software"
-  start: "Tue Aug 9 8:30 AM"
+  start: "Tue Aug 8 8:30 AM"
   length: 55
   speakers:
     - "Ulrike Yang"
@@ -8,7 +8,7 @@
   id: 1
 
 - title: "**Parallel Session One**"
-  start: "Tue Aug 9 9:30 AM"
+  start: "Tue Aug 8 9:30 AM"
   length: 75
   id: 2
 
@@ -30,20 +30,20 @@
   id: 4
 
 - title: "**Break**<br>*Subject Matter Expert (SME) selections*<br>*Panel Questions*"
-  start: "Tue Aug 9 10:45 AM"
+  start: "Tue Aug 8 10:45 AM"
   length: 30
   id: 5
 
 - title: "**Parallel Session Two**"
-  start: "Tue Aug 9 11:15 AM"
+  start: "Tue Aug 8 11:15 AM"
   length: 75
   id: 6
 
-- title: "Iterative Solvers & Algebraic Multigrid<br>(with Trilinos, Belos & MueLu)"
+- title: "Iterative Solvers & Algebraic Multigrid<br>(with HYPRE)"
   speakers:
-    - "Christian Glusa"
-    - "Graham Harper"
-  vname: "Main-room"
+    - "Sarah Osborn"
+    - "Ulrike Yang"
+  vname: "Breakout-room"
   has_synopsis: true
   id: 7
 
@@ -56,12 +56,12 @@
   id: 8
 
 - title: "**Lunch**<br>*Subject Matter Expert (SME) selections*<br>*Panel Questions*"
-  start: "Tue Aug 9 12:30 PM"
+  start: "Tue Aug 8 12:30 PM"
   length: 60
   id: 9
 
 - title: "**Parallel Session Three**"
-  start: "Tue Aug 10 1:30 PM"
+  start: "Tue Aug 8 1:30 PM"
   length: 75
   id: 10
 
@@ -80,34 +80,34 @@
   has_synopsis: true
 
 - title: "**Break**<br>*SME Selections*<br>*Panel Questions Due*"
-  start: "Tue Aug 9 2:45 PM"
+  start: "Tue Aug 8 2:45 PM"
   length: 30
   id: 13
 
 - title: "**Parallel Session Four**"
-  start: "Tue Aug 9 3:15 PM"
+  start: "Tue Aug 8 3:15 PM"
   length: 75
   id: 14
 
 - title: "Optimization<br>(with TAO)"
   speakers:
-    - "Todd Munson"
+    - "Toby Isaac"
   vname: "Main-room"
   has_synopsis: true
   id: 15
 
-- title: "Iterative Solvers & Algebraic Multigrid<br>(with HYPRE)"
+- title: "Iterative Solvers & Algebraic Multigrid<br>(with Trilinos, Belos & MueLu)"
   speakers:
-    - "Sarah Osborn"
-    - "Ulrike Yang"
-  vname: "Breakout-room"
+    - "Christian Glusa"
+    - "Graham Harper"
+  vname: "Main-room"
   has_synopsis: true
   id: 16
 
 - title: "Wrap-Up"
   speakers:
     - "Ann Almgren"
-  start: "Tue Aug 9 4:30 PM"
+  start: "Tue Aug 8 4:30 PM"
   length: 15
   vname: "Main-room"
   has_synopsis: false
@@ -120,23 +120,23 @@
     - "Todd Munson"
     - "Sarah Osborn"
     - "Richard Tran Mills"
-  start: "Tue Aug 9 4:45 PM"
+  start: "Tue Aug 8 4:45 PM"
   length: 45
   vname: "Main-room"
   has_synopsis: true
   id: 18
 
 - title: "**Unstructured time**<br>SME selections due, break, informal discussion, continued hands-on"
-  start: "Tue Aug 9 5:30 PM"
+  start: "Tue Aug 8 5:30 PM"
   length: 60
   id: 19
 
 - title: "**Dinner**"
-  start: "Tue Aug 10 6:30 PM"
+  start: "Tue Aug 8 6:30 PM"
   length: 60
   id: 20
 
 - title: "SME Speed Dating<br>OPTIONAL ACTIVITY"
-  start: "Tue Aug 9 7:30 PM"
+  start: "Tue Aug 8 7:30 PM"
   length: 60
   id: 21
