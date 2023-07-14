@@ -35,7 +35,7 @@ The current directory contains relatively small sparse matrices: g4.rua, g20.rua
 
 Set the following directory that contains larger matrix files:
 ```
-export matdir=/grand/ATPESC2022/usr/MathPackages/datafiles
+export matdir=/grand/ATPESC2023/usr/MathPackages/datafiles
 ```
 
 Set to use one OpenMP thread:

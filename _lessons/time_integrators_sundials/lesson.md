@@ -527,12 +527,12 @@ to explore the following topics:
 2. If you have not already done so, create a copy of the hands-on lessons
    ```
    cd ~
-   rsync -a /grand/ATPESC2022/EXAMPLES/track-5-numerical .
+   rsync -a /grand/ATPESC2023/EXAMPLES/track-5-numerical .
    ```
 
 3. Request an interactive session on Theta:
    ```
-   qsub-knl -I -q ATPESC2022 -t 60 -n 1 -A ATPESC2022
+   qsub-knl -I -q ATPESC2023 -t 60 -n 1 -A ATPESC2023
    ```
 
 4. Load the GNU programming environment, CMake, and conda modules:
