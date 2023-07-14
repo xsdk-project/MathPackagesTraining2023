@@ -1,6 +1,6 @@
 ---
 layout: package
-subheadline: ATPESC 2022 Package Overviews
+subheadline: ATPESC 2023 Package Overviews
 title: "PLASMA"
 teaser: "Parallel Linear Algebra Software for Multicore Architectures"
 permalink: "packages/plasma/"

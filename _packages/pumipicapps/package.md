@@ -1,6 +1,6 @@
 ---
 layout: package
-subheadline: ATPESC 2022 Package Overviews
+subheadline: ATPESC 2023 Package Overviews
 title: "PUMIPic Apps"
 teaser: "PUMI Particle-in-Cell Applications"
 permalink: "packages/pumipicapps/"

@@ -1,6 +1,6 @@
 ---
 layout: package
-subheadline: ATPESC 2022 Package Overviews
+subheadline: ATPESC 2023 Package Overviews
 title: "libEnsemble"
 teaser: "A Python library to coordinate dynamic ensembles of calculations"
 permalink: "packages/libensemble/"
