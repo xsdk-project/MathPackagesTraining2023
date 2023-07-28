@@ -39,7 +39,7 @@
   length: 75
   id: 6
 
-- title: "Iterative Solvers & Algebraic Multigrid<br>(with HYPRE)"
+- title: "Krylov Solvers & Algebraic Multigrid<br>(with HYPRE)"
   speakers:
     - "Sarah Osborn"
     - "Ulrike Yang"
