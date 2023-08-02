@@ -56,7 +56,7 @@ to build.
 
 To request an interactive session:
 ```
-qsub -I -q single-gpu -t 60 -n 1 -A ATPESC_Instructors
+qsub -I -q single-gpu -t 60 -n 1 -A ATPESC_Instructors --attrs filesystems=home,eagle
 ```
 
 The admin recommends using a newer OpenMPI module:
@@ -75,7 +75,7 @@ For blas, lapack the recommendation is to use blis, libflame (from aocl) - i.e:
 
 ```
 module load aocl/blis/blis-3.2 aocl/libflame/libflame-3.2
-gcc -llibflame -lblis
+gcc -lflame -lblis
 ```
 
 ## CUDA options
@@ -90,13 +90,23 @@ With cmake - the likely option is: `-DCMAKE_CUDA_ARCHITECTURES=80`
 
 ## Install software
 
-Install software at `/grand/ATPESC2023/usr/MathPackages` - for ex: `/grand/ATPESC2023/usr/MathPackages/petsc`
+Install software at `/lus/eagle/projects/ATPESC2023/usr/MathPackages` - for ex: `/lus/eagle/projects/ATPESC2023/usr/MathPackages/petsc-3.19.4`
 
-And then copy over needed tutorial binaries, datafiles etc. over to `/grand/ATPESC2023/EXAMPLES/track-5-numerical` into appropriate folders - for ex: (from last year)
+And then copy over needed tutorial binaries, datafiles etc. over to `/lus/eagle/projects/ATPESC2023/EXAMPLES/track-5-numerical` into appropriate folders - for ex: (from last year)
 
 ```
-balay@thetalogin5:~> ls /grand/ATPESC2023/EXAMPLES/track-5-numerical
-amrex  hand_coded_heat  krylov_amg_hypre  krylov_amg_muelu  mfem-pumi-lesson  nonlinear_solvers_petsc  numerical_optimization_tao  rank_structured_strumpack  superlu  time_integrators_sundials
+balay@thetagpu06:~$ ls -l /lus/eagle/projects/ATPESC2023/EXAMPLES/track-5-numerical
+total 40
+drwxrwsr-x 2 balay ATPESC_Instructors 4096 Aug  2 12:13 amrex
+drwxrwsr-x 2 balay ATPESC_Instructors 4096 Aug  2 12:13 hand_coded_heat
+drwxrwsr-x 2 balay ATPESC_Instructors 4096 Aug  2 12:13 krylov_amg_hypre
+drwxrwsr-x 2 balay ATPESC_Instructors 4096 Aug  2 12:13 krylov_amg_muelu
+drwxrwsr-x 2 balay ATPESC_Instructors 4096 Aug  2 12:13 mfem-pumi-lesson
+drwxrwsr-x 2 balay ATPESC_Instructors 4096 Aug  2 12:33 nonlinear_solvers_petsc
+drwxrwsr-x 2 balay ATPESC_Instructors 4096 Aug  2 12:21 numerical_optimization_tao
+drwxrwsr-x 2 balay ATPESC_Instructors 4096 Aug  2 12:13 rank_structured_strumpack
+drwxrwsr-x 2 balay ATPESC_Instructors 4096 Aug  2 12:13 superlu
+drwxrwsr-x 2 balay ATPESC_Instructors 4096 Aug  2 12:13 time_integrators_sundials
 ```
 
 ## Getting Started Guide
