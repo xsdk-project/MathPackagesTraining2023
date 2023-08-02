@@ -785,6 +785,7 @@ Otherwise, you may get unexpected behavior from executables that link against PE
 
 ## Previous Nonlinear Solvers Lectures
 
+- [ATPESC 2022](https://xsdk-project.github.io/MathPackagesTraining2022/lessons/nonlinear_solvers_petsc/)
 - [ATPESC 2021](https://xsdk-project.github.io/MathPackagesTraining2021/lessons/nonlinear_solvers_petsc/)
 - [ATPESC 2020](https://xsdk-project.github.io/MathPackagesTraining2020/lessons/nonlinear_solvers_petsc/)
 - [ATPESC 2019](https://xsdk-project.github.io/MathPackagesTraining/lessons/time_integrators/sundials)
