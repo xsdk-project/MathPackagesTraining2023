@@ -46,7 +46,7 @@ ssh -A elvis@theta.alcf.anl.gov
 2. In your home folder, create a local copy of the track 5 numerical examples:
 ```shell
 cd ~
-rsync -a /grand/ATPESC2023/EXAMPLES/track-5-numerical .
+rsync -a /eagle/ATPESC2023/EXAMPLES/track-5-numerical .
 ```
 
 3. To access ThetaGPU resources, transfer to a GPU service node:
@@ -104,7 +104,7 @@ qsub -I -n 1 -t 300 -A ATPESC2021 -q training
 - Also in the interactive session, configure the vis tools using the following command:
 
 ```shell
-source /grand/projects/ATPESC2021/EXAMPLES/track-5-numerical/amrex/source_this_file.sh
+source /eagle/projects/ATPESC2021/EXAMPLES/track-5-numerical/amrex/source_this_file.sh
 ```
 
 - When finished with these AMReX tutorials, revise your `~/.soft.cooley` following step 3 [here](https://xsdk-project.github.io/MathPackagesTraining2021/setup_instructions/) and then do `resoft` to revert these package changes for other tutorials.

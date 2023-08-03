@@ -699,9 +699,8 @@ Running on GPU, we get best performance using only one rank (we could probably u
 mpiexec -n 1 ./ex19 -da_refine 9 -pc_type mg -mg_levels_pc_type jacobi -pc_mg_log -dm_vec_type cuda -dm_mat_type aijcusparse -log_view_gpu_time -log_view :log_mg_gpu_n1.txt
 ```
 
-(The `-log_view_gpu_time` option is actually not needed in the 3.17 release of PETSc,
-but in future releases it will be required to get full timings for all events on the
-GPU. This change is being added because of the overhead associated with collecting these timings.)
+(The `-log_view_gpu_time` option is required to get full timings for all events on the
+GPU. This is not enabled by default because of the overhead associated with collecting these timings.)
 
 Opening up the .txt versions of the `-log_view` files will show us a lot of data about the performance.
 There is a useful overall summary at the top, and then timings for many "events", which occur during
@@ -786,6 +785,7 @@ Otherwise, you may get unexpected behavior from executables that link against PE
 
 ## Previous Nonlinear Solvers Lectures
 
+- [ATPESC 2022](https://xsdk-project.github.io/MathPackagesTraining2022/lessons/nonlinear_solvers_petsc/)
 - [ATPESC 2021](https://xsdk-project.github.io/MathPackagesTraining2021/lessons/nonlinear_solvers_petsc/)
 - [ATPESC 2020](https://xsdk-project.github.io/MathPackagesTraining2020/lessons/nonlinear_solvers_petsc/)
 - [ATPESC 2019](https://xsdk-project.github.io/MathPackagesTraining/lessons/time_integrators/sundials)

@@ -527,7 +527,7 @@ to explore the following topics:
 2. If you have not already done so, create a copy of the hands-on lessons
    ```
    cd ~
-   rsync -a /grand/ATPESC2023/EXAMPLES/track-5-numerical .
+   rsync -a /eagle/ATPESC2023/EXAMPLES/track-5-numerical .
    ```
 
 3. Request an interactive session on Theta:

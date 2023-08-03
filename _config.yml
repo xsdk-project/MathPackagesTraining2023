@@ -31,7 +31,7 @@ baseurl: '/MathPackagesTraining2023'
 #
 # Paths on ANL file systems where software is installed
 #
-handson_install_root: '/grand/ATPESC2023/EXAMPLES'
+handson_install_root: '/eagle/ATPESC2023/EXAMPLES'
 handson_root: 'track-5-numerical'
 
 #

@@ -30,7 +30,7 @@ rsync -a {{site.handson_install_root}}/{{site.handson_root}} .
 this command to update your local copy if we discover changes are necessary.
 1. Schedue a ThetaGPU compute node for compiles and runs
 ```
-qsub -I -q single-gpu -n 1 -t 60 -A ATPESC2023
+qsub -I -q single-gpu -n 1 -t 60 -A ATPESC2023 --attrs filesystems=home,eagle
 ```
   * **Note 1:** `single-gpu` queue provides  a single GPU and 16 cores - for (max) 60 minutes, we would need to rerun qsub as needed.
   * **Note 2:** One *cannot* (compile or) run the binaries on the frontends theta, thetagpusn1 or thetagpusn2. Use the allocated node for such usage.
@@ -38,7 +38,7 @@ qsub -I -q single-gpu -n 1 -t 60 -A ATPESC2023
   * **Note 4:** To enable X windows for visualization on the compute node, you can open a new terminal and login to the allocated compute node by doing `ssh -Y thetagpuXY` (`thetagpuXY` is your compute node id)
 1. Load the required MPI, blas, lapack modules
 ```
-$ module load openmpi/openmpi-4.1.4_ucx-1.12.1_gcc-9.4.0 aocl/blis/blis-3.2 aocl/libflame/libflame-3.2
+module load openmpi/openmpi-4.1.4_ucx-1.12.1_gcc-9.4.0 aocl/blis/blis-3.2 aocl/libflame/libflame-3.2
 ```
 1. Confirm you can compile and run an example
 ```

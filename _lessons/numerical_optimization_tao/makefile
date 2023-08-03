@@ -1,4 +1,4 @@
-PETSC_DIR=/grand/ATPESC2022/usr/MathPackages/petsc
+PETSC_DIR=/eagle/ATPESC2022/usr/MathPackages/petsc
 
 CFLAGS		 =
 FFLAGS		 =
