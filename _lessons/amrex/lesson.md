@@ -254,7 +254,7 @@ In this directory you'll see:
 ```shell
 main3d.gnu.MPI.ex -- the 3D executable -- this has been built with MPI
 
-inputs -- a file specifying simulatin parameters
+inputs -- a file specifying simulation parameters
 ```
 
 To run in serial:
