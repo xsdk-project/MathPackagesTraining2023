@@ -6,10 +6,10 @@ header:
    image_fullwidth: "q_center_c.jpg"
 permalink: "/vip_talks/"
 ---
-During a normal, in-person, year at ATPESC, you would have the opportunity to hear and
-meet these VIP researchers and thought leaders in extreme-scale scientific computing and
-numerical software.  During this year’s virtual event, we provide pre-recorded
-presentations and slides that are packed with insights on leading-edge research in
+At ATPESC, you have the opportunity to hear and
+meet various VIP researchers and thought leaders in extreme-scale scientific computing and
+numerical software.  We provide here additional pre-recorded
+presentations and slides of these speakers that are packed with insights on leading-edge research in
 scientific computing; we encourage you to explore at your convenience.
 
 |Researcher|Topic|Resources|
