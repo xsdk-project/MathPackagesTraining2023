@@ -184,7 +184,7 @@ permalink: "/presenters/"
 ### Mark S. Shephard
 
 |:---:|:---:|
-|![](https://faculty.rpi.edu/sites/default/files/styles/large/public/Shepard_crop.jpg?itok=pfhiEDyz){:width="200px"}|Key Expertise: [PUMI][pumi], [FASTMath][fastmath]<br><br>Affiliation: [RPI][rpi]/[SCOREC][rpi-scorec]<br><br>Contact: [email][mss-m]|
+|![](https://faculty.rpi.edu/sites/default/files/styles/large/public/Shepard_crop.jpg?itok=pfhiEDyz){:width="200px"}|Key Expertise: [PUMI][pumi], [PUMIpic][pumipic], [Omega_h][omegah], [FASTMath][fastmath]<br><br>Affiliation: [RPI][rpi]/[SCOREC][rpi-scorec]<br><br>Contact: [email][mss-m]|
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -229,7 +229,7 @@ permalink: "/presenters/"
 ### Cameron Smith
 
 |:---:|:---:|
-|![](https://press3.mcs.anl.gov/atpesc/files/2015/03/SmithC1.png){:width="200px"}|Key Expertise: [PUMI][pumi], [FASTMath][fastmath]<br><br>Affiliation: [RPI][rpi]/[SCOREC][rpi-scorec]<br><br>Contact: [email][cs-m]<br><br>GitHub: [Profile][cs-g]|
+|![](https://extremecomputingtraining.anl.gov/wp-content/uploads/sites/96/2015/03/Upload_head_shot_photo_3803_cwsmithHeadShot_square.png){:width="200px"}|Key Expertise: [PUMI][pumi], [PUMIpic][pumipic], [Omega_h][omegah], [FASTMath][fastmath]<br><br>Affiliation: [RPI][rpi]/[SCOREC][rpi-scorec]<br><br>Contact: [email][cs-m]<br><br>GitHub: [Profile][cs-g]|
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -257,6 +257,8 @@ permalink: "/presenters/"
 [libensemble]: https://libensemble.readthedocs.io
 [mfem]: https://mfem.org
 [pumi]: https://www.scorec.rpi.edu/pumi/
+[pumipic]: https://github.com/scorec/pumi-pic
+[omegah]: https://github.com/scorec/omega_h
 
 [anl]: https://www.anl.gov
 [anl-mcs]: https://www.anl.gov/mcs
