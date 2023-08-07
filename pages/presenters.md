@@ -45,15 +45,6 @@ permalink: "/presenters/"
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-### Dan Reynolds
-### Dan Reynolds
-
-|:---:|:---:|
-|![](https://avatars3.githubusercontent.com/u/11876153?s=400&v=4){:width="200px"}|Key Expertise: [SUNDIALS][sundials], [FASTMath][fastmath]<br><br>Affiliation: [SMU][smu]/[Math][smu-math]<br><br>Contact: [email][dr-m]<br><br>GitHub: [Profile][dr-g]|
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
 ### Ann Almgren
 ### Ann Almgren
 
@@ -291,7 +282,6 @@ permalink: "/presenters/"
 [lcm-m]: <mailto:curfman@mcs.anl.gov>
 [mcm-m]: <mailto:miller86@llnl.gov>
 [sb-m]: <mailto:balay@mcs.anl.gov>
-[dr-m]: <mailto:reynolds@smu.edu>
 [dg-m]: <mailto:gardner48@llnl.gov>
 [aa-m]: <mailto:ASAlmgren@lbl.gov>
 [am-m]: <mailto:atmyers@lbl.gov>
@@ -318,7 +308,6 @@ permalink: "/presenters/"
 [lcm-g]: https://github.com/curfman
 [mcm-g]: https://github.com/markcmiller86
 [sb-g]: https://github.com/balay
-[dr-g]: https://github.com/drreynolds
 [dg-g]: https://github.com/gardner48
 [aa-g]: https://github.com/asalmgren
 [am-g]: https://github.com/atmyers
