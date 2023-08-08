@@ -319,7 +319,7 @@ Coarse STEP 8 ends. TIME = 0.007031485953 DT = 0.0008789650903 Sum(Phi) = 540755
 ### Visualizing the Results
 
 For convenience we created a python script powered by
-[ParaView 5.9](https://gitlab.kitware.com/paraview/paraview/-/tags/v5.9.1)
+[ParaView 5.11](https://gitlab.kitware.com/paraview/paraview/-/tags/v5.11.1)
 to render the AMReX plotfiles. [FFmpeg](https://ffmpeg.org/) is then used to stitch the images into a movie
 and gif. To generate a movie from the plotfiles type:
 
@@ -870,10 +870,10 @@ Notes:
 If you're interested in generating the movies manually, see the details below.
 <details>
 
-<strong>Using ParaView 5.8 Manually</strong>
+<strong>Using ParaView 5.11 Manually</strong>
 
 <p>
-To do the same thing with ParaView 5.8 manually (if, e.g. you have the plotfiles
+To do the same thing with ParaView 5.11 manually (if, e.g. you have the plotfiles
 on your local machine and want to experiment):
 </p>
 
@@ -1071,7 +1071,7 @@ Instructions to visualize the EB representation of the cylinders:
 </p>
 
 <ol>
-<li>Start ParaView 5.8</li>
+<li>Start ParaView 5.11</li>
 <li>File --> Open ... select "eb.pvtp" (highlight it then click OK)</li>
 <li>Click green Apply button</li>
 </ol>
