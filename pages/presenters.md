@@ -72,6 +72,15 @@ permalink: "/presenters/"
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
+### Toby Isaac
+### Toby Isaac
+
+|:---:|:---:|
+|![](https://gitlab.com/uploads/-/system/user/avatar/1230244/avatar.png){:width="200px"}|Key Expertise: [PETSc/TAO][petsc]<br><br>Affiliation: [ANL][anl]/[MCS][anl-mcs]<br><br>Contact: [email][ti-m]<br><br>GitLab: [GitLab][ti-g]|
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 ### Christian Glusa
 ### Christian Glusa
 
@@ -288,6 +297,7 @@ permalink: "/presenters/"
 [aa-m]: <mailto:ASAlmgren@lbl.gov>
 [am-m]: <mailto:atmyers@lbl.gov>
 [tm-m]: <mailto:tmunson@mcs.anl.gov>
+[ti-m]: <mailto:tisaac@anl.gov>
 [cg-m]: <mailto:caglusa@sandia.gov>
 [jh-m]: <mailto:jhu@sandia.gov>
 [bs-m]: <mailto:bsmith@mcs.anl.gov>
@@ -314,6 +324,7 @@ permalink: "/presenters/"
 [aa-g]: https://github.com/asalmgren
 [am-g]: https://github.com/atmyers
 [tm-g]: https://gitlab.com/tmunson
+[ti-g]: https://gitlab.com/tisaac
 [cg-g]: https://github.com/cgcgcg
 [jh-g]: https://github.com/jhux2
 [bs-b]: https://www.mcs.anl.gov/~bsmith
