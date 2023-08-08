@@ -848,15 +848,15 @@ to render the AMReX plotfiles into a movie
 and gif. To generate a movie from the plotfiles type:
 
 ```
-pvbatch movie_amr102.py
+pvbatch paraview_amr102.py
 ```
 
-This will generate two files, `amr102_3D.mp4` and `amr102_3D.gif`.
+This will generate two files, `amr102_3D.avi` and `amr102_3D.gif`.
 To view the files you can copy them to your local machine and view
 them with scp. Open a terminal on your local machine and move the folder where you want
 to download the mp4 and gif. Then type:
 ```shell
-scp elvis@theta.alcf.anl.gov:~/track-5-numerical/AMReX_Amr101/amr101_3D* .
+scp elvis@theta.alcf.anl.gov:~/track-5-numerical/amrex/AMReX_Amr102/Exec/amr102_3D\* .
 ```
 
 Notes:
