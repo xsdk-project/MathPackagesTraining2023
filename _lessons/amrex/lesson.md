@@ -274,7 +274,7 @@ mpiexec -n 4 ./main3d.gnu.MPI.ex inputs
 #### Inputs File
 
 The following parameters can be set at run-time -- these are currently set in the inputs
-file but you can also set them on the command line.  
+file but you can also set them on the command line.
 
 ```
 stop_time          = 2.0                # the final time (if we have not exceeded number of steps)
@@ -292,7 +292,7 @@ adv.phierr = 1.01  1.1  1.5              # regridding criteria  at each level
 
 ```
 
-This inputs file specifies a base grid of 64 x 64 x 8 cells, made up of 16 subgrids each with 16x16x8 cells.  
+This inputs file specifies a base grid of 64 x 64 x 8 cells, made up of 16 subgrids each with 16x16x8 cells.
 Here is also where we tell the code to refine based on the magnitude of $$\phi$$. We set the
 threshold level by level.  If $$\phi > 1.01$$ then we want to refine at least once; if $$\phi > 1.1$$ we
 want to resolve $$\phi$$ with two levels of refinement, and if $$\phi > 1.5$$ we want even more refinement.
@@ -389,6 +389,11 @@ Try the following:
   results. Also try using the `inputs` input file and `inputs_for_scaling` input
   file.
 
+- Experiment with different inputs options - what happens when you change "adv.do_subcycle?"
+  What about "adv.do_reflux" or "adv.phierr"?
+
+
+{% comment %}
 
 <br>
 ### Key Observations:
@@ -456,6 +461,9 @@ Try the following:
   not enough work for each rank. In this case, its likely the former.
   </details>
    
+
+{% endcomment %}
+
 <br>
 <br>
 <br>
@@ -526,20 +534,7 @@ The same code that runs on the HPC you can debug on your laptop.
 
 ### Activity
 
-- Try running the GPU enabled version and compare runtimes.
-
-### Key Observations
-
-- Running on GPUs did not require changes to the code.
-
-- Running on GPUs was fast.
-
-<details>
-  Running Amr101 with 1 MPI process and 1 GPU took 0.283s.
-</details>
-
-
-
+- Try running the GPU enabled version and compare runtimes. How did the runtime compare to the CPU version?
 
 {% comment %}
 <!-- subcycling
