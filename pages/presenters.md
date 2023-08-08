@@ -45,15 +45,6 @@ permalink: "/presenters/"
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-### Dan Reynolds
-### Dan Reynolds
-
-|:---:|:---:|
-|![](https://avatars3.githubusercontent.com/u/11876153?s=400&v=4){:width="200px"}|Key Expertise: [SUNDIALS][sundials], [FASTMath][fastmath]<br><br>Affiliation: [SMU][smu]/[Math][smu-math]<br><br>Contact: [email][dr-m]<br><br>GitHub: [Profile][dr-g]|
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
 ### Ann Almgren
 ### Ann Almgren
 
@@ -193,7 +184,7 @@ permalink: "/presenters/"
 ### Mark S. Shephard
 
 |:---:|:---:|
-|![](https://faculty.rpi.edu/sites/default/files/styles/large/public/Shepard_crop.jpg?itok=pfhiEDyz){:width="200px"}|Key Expertise: [PUMI][pumi], [FASTMath][fastmath]<br><br>Affiliation: [RPI][rpi]/[SCOREC][rpi-scorec]<br><br>Contact: [email][mss-m]|
+|![](https://faculty.rpi.edu/sites/default/files/styles/large/public/Shepard_crop.jpg?itok=pfhiEDyz){:width="200px"}|Key Expertise: [PUMI][pumi], [PUMIpic][pumipic], [Omega_h][omegah], [FASTMath][fastmath]<br><br>Affiliation: [RPI][rpi]/[SCOREC][rpi-scorec]<br><br>Contact: [email][mss-m]|
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -238,7 +229,7 @@ permalink: "/presenters/"
 ### Cameron Smith
 
 |:---:|:---:|
-|![](https://press3.mcs.anl.gov/atpesc/files/2015/03/SmithC1.png){:width="200px"}|Key Expertise: [PUMI][pumi], [FASTMath][fastmath]<br><br>Affiliation: [RPI][rpi]/[SCOREC][rpi-scorec]<br><br>Contact: [email][cs-m]<br><br>GitHub: [Profile][cs-g]|
+|![](https://extremecomputingtraining.anl.gov/wp-content/uploads/sites/96/2015/03/Upload_head_shot_photo_3803_cwsmithHeadShot_square.png){:width="200px"}|Key Expertise: [PUMI][pumi], [PUMIpic][pumipic], [Omega_h][omegah], [FASTMath][fastmath]<br><br>Affiliation: [RPI][rpi]/[SCOREC][rpi-scorec]<br><br>Contact: [email][cs-m]<br><br>GitHub: [Profile][cs-g]|
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -266,6 +257,8 @@ permalink: "/presenters/"
 [libensemble]: https://libensemble.readthedocs.io
 [mfem]: https://mfem.org
 [pumi]: https://www.scorec.rpi.edu/pumi/
+[pumipic]: https://github.com/scorec/pumi-pic
+[omegah]: https://github.com/scorec/omega_h
 
 [anl]: https://www.anl.gov
 [anl-mcs]: https://www.anl.gov/mcs
@@ -291,7 +284,6 @@ permalink: "/presenters/"
 [lcm-m]: <mailto:curfman@mcs.anl.gov>
 [mcm-m]: <mailto:miller86@llnl.gov>
 [sb-m]: <mailto:balay@mcs.anl.gov>
-[dr-m]: <mailto:reynolds@smu.edu>
 [dg-m]: <mailto:gardner48@llnl.gov>
 [aa-m]: <mailto:ASAlmgren@lbl.gov>
 [am-m]: <mailto:atmyers@lbl.gov>
@@ -318,7 +310,6 @@ permalink: "/presenters/"
 [lcm-g]: https://github.com/curfman
 [mcm-g]: https://github.com/markcmiller86
 [sb-g]: https://github.com/balay
-[dr-g]: https://github.com/drreynolds
 [dg-g]: https://github.com/gardner48
 [aa-g]: https://github.com/asalmgren
 [am-g]: https://github.com/atmyers

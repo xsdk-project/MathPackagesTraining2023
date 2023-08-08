@@ -40,17 +40,6 @@ qsub -I -q single-gpu -n 1 -t 60 -A ATPESC2023 --attrs filesystems=home,eagle
 ```
 module load openmpi/openmpi-4.1.4_ucx-1.12.1_gcc-9.4.0 aocl/blis/blis-3.2 aocl/libflame/libflame-3.2
 ```
-1. Confirm you can compile and run an example
-```
-$ cd track-5-numerical/hand_coded_heat
-$ make mpi_test
-mpicc mpi_test.c -o mpi_test
-mpiexec -n 4 ./mpi_test
-Size=4, Rank=0
-Size=4, Rank=1
-Size=4, Rank=2
-Size=4, Rank=3
-```
 
 #### Miscellaneous ssh instructions
 

@@ -43,7 +43,7 @@
   speakers:
     - "Sarah Osborn"
     - "Ulrike Yang"
-  vname: "Breakout-room"
+  vname: "Main-room"
   has_synopsis: true
   id: 7
 
@@ -100,7 +100,7 @@
   speakers:
     - "Christian Glusa"
     - "Graham Harper"
-  vname: "Main-room"
+  vname: "Breakout-room"
   has_synopsis: true
   id: 16
 

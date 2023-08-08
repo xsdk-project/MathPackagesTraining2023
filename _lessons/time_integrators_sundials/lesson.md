@@ -236,25 +236,25 @@ mpirun -n 1 ./fcompare plt00001/ reference_solution/
 Notice that the computed solution error is rather small (the solution has
 magnitude $$\mathcal{O}(1)$$, so we hope for errors well below 0.1).
 
-Now re-run this hands-on code using a larger time step size of 100.0,
+Now re-run this hands-on code using a larger time step size of 25.0,
 
 ```bash
-mpirun -n 1 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=100.0
+mpirun -n 1 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=25.0
 ```
 
-_see how much faster the code ran!_  However, if we check the accuracy of the
+_the code now runs 5x faster._ However, if we check the accuracy of the
 computed solution,
 
 ```bash
 mpirun -n 1 ./fcompare plt00001/ reference_solution/
 ```
 
-we see it has an incredibly large error (mine was $$\mathcal{O}(10^{284})$$).
+we see it has an incredibly large error (mine was $$\mathcal{O}(10^{98})$$).
 
 {% include qanda
     question='What do you think happened?'
     answer='At this mesh size, the explicit algorithm is unstable for
-    a time step size of 100, but is stable for a time step size of 5.' %}
+    a time step size of 25, but is stable for a time step size of 5.' %}
 
 Run the code a few more times, trying to identify the largest stable time step
 size.
