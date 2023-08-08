@@ -935,7 +935,7 @@ You are now ready to play the movie!  See the "VCR-like" controls at the top. Cl
 
 ### The Problem
 
-Have you ever played pachinko?  
+Have you ever played pachinko?
 
 A pachinko machine is like a vertical pinball machine.
 
@@ -1037,7 +1037,7 @@ to render the AMReX plotfiles into a movie
 and gif. To generate a movie from the plotfiles type:
 
 ```
-pvbatch movie_pachinko.py
+pvbatch paraview_pachinko.py
 ```
 
 This will generate two files, `pachinko.avi` and `pachinko.gif`.
@@ -1045,7 +1045,7 @@ To view the files you can copy them to your local machine and view
 them with scp. Open a terminal on your local machine and move the folder where you want
 to download the mp4 and gif. Then type:
 ```shell
-scp elvis@theta.alcf.anl.gov:~/track-5-numerical/AMReX_Amr101/pachinko* .
+scp elvis@theta.alcf.anl.gov:~/track-5-numerical/amrex/AMReX_EB_Pachinko/pachinko\* .
 ```
 
 If you're interested in generating the movies manually, see the details below.
