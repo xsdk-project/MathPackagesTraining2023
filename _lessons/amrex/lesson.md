@@ -56,17 +56,17 @@ ssh thetagpusn1 # or thetagpusn2
 
 4. From the GPU service node, request a single-gpu reservation:
 ```shell
-qsub -I -q single-gpu -t 60 -n 1 -A ATPESC2023
+qsub --attrs=filesystems=home,eagle -I -q single-gpu -t 60 -n 1 -A ATPESC2023
 ```
 
 5. Load OpenMPI:
 ```shell
- module load openmpi/openmpi-4.1.4_ucx-1.12.1_gcc-9.4.0
+module load openmpi/openmpi-4.1.4_ucx-1.14.0_gcc-9.4.0_cuda-11.8
 ```
 
 6. Change to the AMReX examples directory:
 ```shell
-cd track-5-numerical/EXAMPLES/amrex
+cd track-5-numerical/amrex
 ```
 
 7. Setup several environment variables and path by
@@ -324,7 +324,7 @@ to render the AMReX plotfiles. [FFmpeg](https://ffmpeg.org/) is then used to sti
 and gif. To generate a movie from the plotfiles type:
 
 ```
-pvbatch movie_amr101.py
+pvbatch paraview_amr101.py
 ```
 
 This will generate two files, `amr101_3D.avi` and `amr101_3D.gif`.
@@ -332,8 +332,10 @@ To view the files you can copy them to your local machine and view
 them with scp. Open a terminal on your local machine and move the folder where you want
 to download the mp4 and gif. Then type:
 ```shell
-scp elvis@theta.alcf.anl.gov:~/track-5-numerical/AMReX_Amr101/amr101_3D* .
+scp elvis@theta.alcf.anl.gov:~/track-5-numerical/amrex/AMReX_Amr101/Exec/amr101_3D\* .
 ```
+
+Escaping the wildcard with `\` is necessary on some shells.
 
 The image below shows a slice through a 3D run with 64x64x8 cells at the coarsest level and three finer levels (4 total levels).
 
@@ -342,15 +344,15 @@ The image below shows a slice through a 3D run with 64x64x8 cells at the coarses
 To plot the files manually with a local copy of ParaView see the details below:
 
 <details>
-<strong>Using ParaView 5.9 Manually with Downloaded Plotfiles</strong>
+<strong>Using ParaView 5.11.1 Manually with Downloaded Plotfiles</strong>
 
 <p>
-To do the same thing with ParaView 5.9 manually (if, e.g. you have the plotfiles
+To do the same thing with ParaView 5.11.1 manually (if, e.g. you have the plotfiles
 on your local machine and want to experiment):
 </p>
 
 <ol>
-<li>Start Paraview 5.9</li>
+<li>Start Paraview 5.11.1</li>
 <li>File --> Open ... and select the collection of directories named "plt.." --> [OK]</li>
 <li>From the "Open Data With..." dialog that pops up, select "AMReX/BoxLib Grid Reader" --> [OK]</li>
 <li>Check the "phi" box in the "Cell Array Status" menu that appears</li>
@@ -368,7 +370,7 @@ You are now ready to play the movie!  See the "VCR-like" controls at the top. Cl
 </details>
 
 {% comment %}
-    
+
 Check-in point -- make sure everyone who wants to is able to run the code, then
 transition them into doing the activities.
 
@@ -396,7 +398,7 @@ Try the following:
 
    <details>
    <img src="ResolutionCompare.png" alt="Plot of AMReX timings vs. MPI Ranks" style="width:300px">
-    
+
    <p>
    Comparison of three different runs. The first two show the result without adaptive mesh
    refinement. Here, the lowest resolution run with 64x64x8 is the fastest but captures the
