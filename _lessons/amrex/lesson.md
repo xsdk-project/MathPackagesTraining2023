@@ -389,8 +389,8 @@ Try the following:
   results. Also try using the `inputs` input file and `inputs_for_scaling` input
   file.
 
-- Experiment with different inputs options - what happens when you change "adv.do_subcycle?"
-  What about "adv.do_reflux" or "adv.phierr"?
+- Experiment with different inputs options - what happens when you change `adv.do_subcycle?`
+  What about `adv.do_reflux` or `adv.phierr`?
 
 
 {% comment %}
@@ -412,7 +412,7 @@ Try the following:
    has 4 levels, with a resolutions that vary from 64x64x8 to 512x512x64.
 
    The animations follow the same order as the bar plot above. From left to right,
-   64x64x8, and 512x512x8 without refinement, and a run with adaptive mesh refinement.  
+   64x64x8, and 512x512x8 without refinement, and a run with adaptive mesh refinement.
 
    </p>
    
