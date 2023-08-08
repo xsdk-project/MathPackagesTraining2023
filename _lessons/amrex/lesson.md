@@ -70,9 +70,9 @@ cd track-5-numerical/amrex
 ```
 
 7. Setup several environment variables and path by
-sourcing the `amrex_setup_env.sh` script:
+sourcing the `env_setup_amrex.sh` script:
 ```shell
-source amrex_setup_env.sh
+source env_setup_amrex.sh
 ```
 
 
