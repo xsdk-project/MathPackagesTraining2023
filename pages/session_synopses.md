@@ -116,8 +116,8 @@ model linear problem.
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-### Iterative Solvers & Algebraic Multigrid (with HYPRE)
-### Iterative Solvers & Algebraic Multigrid (with HYPRE)
+### Krylov Solvers & Algebraic Multigrid (with HYPRE)
+### Krylov Solvers & Algebraic Multigrid (with HYPRE)
 [Slides](../files/ATPESC-2023-Track-5-OsbornYang-Iterative-Solvers-hypre.pdf)
 
 This session will present the basic concepts of iterative linear solvers with focus on
